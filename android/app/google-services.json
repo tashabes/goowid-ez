@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225823592066",
+    "project_id": "goowid-e20e9",
+    "storage_bucket": "goowid-e20e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225823592066:android:08fc2efca9f5c7cdf72e9b",
+        "android_client_info": {
+          "package_name": "com.gowwid.goowid_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225823592066-qc78iicjikf268rl2sclv7nhqs8udpkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD0h3QnGvglG_rB22dQRCEPnKNRpMiH_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225823592066-qc78iicjikf268rl2sclv7nhqs8udpkt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
