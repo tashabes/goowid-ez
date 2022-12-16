@@ -77,5 +77,3 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'AAB'
         publishLocation: 'Container'
-
-- 
