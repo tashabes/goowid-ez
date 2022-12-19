@@ -108,7 +108,7 @@ stages:
 
       inputs: 
 
-        certSecureFile: 'goowid.12' 
+        certSecureFile: 'goowid.p12' 
 
         certPwd: 'GreenSignals$24' 
 
