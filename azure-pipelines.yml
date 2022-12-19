@@ -108,9 +108,9 @@ stages:
 
       inputs: 
 
-        certSecureFile: 'app.12' 
+        certSecureFile: 'goowid.12' 
 
-        certPwd: 'GreenSignals$24' 
+        #certPwd: 'GreenSignals$24' 
 
         keychain: 'temp' 
 
@@ -126,7 +126,7 @@ stages:
 
         provisioningProfileLocation: 'secureFiles' 
 
-        provProfileSecureFile: 'app.mobileprovision' 
+        provProfileSecureFile: 'Goowid.mobileprovision' 
 
          
 
