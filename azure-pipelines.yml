@@ -110,7 +110,7 @@ stages:
 
         certSecureFile: 'goowid.12' 
 
-        #certPwd: 'GreenSignals$24' 
+        certPwd: 'GreenSignals$24' 
 
         keychain: 'temp' 
 
