@@ -78,7 +78,7 @@ stages:
         ArtifactName: 'AAB'
         publishLocation: 'Container'
 
-        - stage: iOSStage 
+- stage: iOSStage 
 
   pool:  
 
