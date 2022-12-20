@@ -81,12 +81,12 @@ stages:
     - task: Bash@3
       displayName: "Upload to firebase app distribution"
       inputs:
-      targetType: "inline"
-      script: |
-        npm i -g firebase-tools
-        ls -la $(androidReleaseDir)
-        firebase appdistribution:distribute "$(apkFile)" \
-          --app "$(androidFirebaseDistAppId)" \
-          --release-notes "From Azure Devops" \
-          --groups "beta-testers" \
-          --token "$(firebasetoken)"
+        targetType: "inline"
+        script: |
+          npm i -g firebase-tools
+          ls -la $(androidReleaseDir)
+          firebase appdistribution:distribute "$(apkFile)" \
+            --app "$(androidFirebaseDistAppId)" \
+            --release-notes "From Azure Devops" \
+            --groups "beta-testers" \
+            --token "$(firebasetoken)"
