@@ -62,7 +62,7 @@ stages:
       inputs:
         apkFiles: "**/*.apk"
         apksign: true
-        apksignerKeystoreFile: upload-keystore.jks
+        apksignerKeystoreFile: android-keystore.jks
         apksignerKeystorePassword: "$(androidKeystorePassword)"
         apksignerKeystoreAlias: helloworld-counterapp
         apksignerKeyPassword: "$(androidKeyPassword)"
