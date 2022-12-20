@@ -2,74 +2,62 @@ trigger:
   - master
 
 jobs:
-  - job: ios
+  - job: android
     pool:
       vmImage: "macos-latest"
     variables:
       - group: secrets
       - group: general
-      - name: configuration
-        value: "Release"
-      - name: sdk
-        value: "iphoneos"
-      - name: iosReleaseDir
-        value: $(Build.SourcesDirectory)/output/$(sdk)/$(configuration)
-      - name: ipaFile
-        value: $(iosReleaseDir)/hello_world_counter_app.ipa
-
+      - name: androidReleaseDir
+        value: $(build.artifactStagingDirectory)/build/app/outputs/flutter-apk
+      - name: apkFile
+        value: $(androidReleaseDir)/app-release.apk
     steps:
       - task: FlutterInstall@0
-        displayName: "Install Flutter"
-        inputs:
-          mode: "auto"
-          channel: "stable"
-          version: "custom"
-          customVersion: "2.2.3"
+    displayName: "Install Flutter"
+    inputs:
+      mode: "auto"
+      channel: "stable"
+      version: "custom"
+      customVersion: "2.2.3"
 
-      - task: FlutterBuild@0
-        displayName: "Flutter Build Apps - iOS"
-        inputs:
-          target: "ios"
-          buildName: "$(Build.BuildNumber)"
-          entryPoint: "lib/main.dart"
-          iosCodesign: false
+  - task: FlutterBuild@0
+    displayName: "Build unsigned APK"
+    inputs:
+      target: apk
+      projectDirectory: "."
+      buildNumber: ""
 
-      - task: InstallAppleCertificate@2
-        displayName: "Install Apple p12 cert"
-        inputs:
-          certSecureFile: "goowid.p12"
-          certPwd: "GreenSignals$24"
-          keychain: "temp"
+  - task: AndroidSigning@3
+    displayName: "Signing and aligning APK file(s) **/*.apk"
+    inputs:
+      apkFiles: "**/*.apk"
+      apksign: true
+      apksignerKeystoreFile: android-key.jks
+      apksignerKeystorePassword: "$(androidKeystorePassword)"
+      apksignerKeystoreAlias: helloworld-counterapp
+      apksignerKeyPassword: "$(androidKeyPassword)"
 
-      - task: InstallAppleProvisioningProfile@1
-        displayName: "Install Apple Mobile Provisioning Profile"
-        inputs:
-          provisioningProfileLocation: "secureFiles"
-          provProfileSecureFile: "Goowid.mobileprovision"
+  - task: CopyFiles@2
+    displayName: "Copy apk to artifact directory"
+    inputs:
+      contents: "**/*.apk"
+      targetFolder: "$(build.artifactStagingDirectory)"
 
-      - task: Xcode@5
-        displayName: "Code Sign ipa for Distribution"
-        inputs:
-          actions: "build"
-          scheme: "Runner"
-          sdk: "$(sdk)"
-          configuration: "$(configuration)"
-          xcWorkspacePath: "ios/Runner.xcworkspace"
-          xcodeVersion: "default"
-          packageApp: true
-          signingOption: "manual"
-          signingIdentity: "$(APPLE_CERTIFICATE_SIGNING_IDENTITY)"
-          provisioningProfileUuid: "$(APPLE_PROV_PROFILE_UUID)"
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish signed apk as artifact"
+    inputs:
+      artifactName: "drop"
 
-      - task: Bash@3
-        displayName: "Upload to firebase app distribution"
-        inputs:
-          targetType: "inline"
-          script: |
-            npm i -g firebase-tools
-            ls -la $(iosReleaseDir)        
-            firebase appdistribution:distribute "$(ipaFile)" \
-            --app "$(iosFirebaseDistAppId)" \
-            --release-notes "From Azure Devops" \
-            --token "$(firebasetoken)" \
-            --groups "beta-testers"
+  - task: Bash@3
+    displayName: "Upload to firebase app distribution"
+    inputs:
+      targetType: "inline"
+      script: |
+        npm i -g firebase-tools
+        ls -la $(androidReleaseDir)
+        firebase appdistribution:distribute "$(apkFile)" \
+          --app "$(androidFirebaseDistAppId)" \
+          --release-notes "From Azure Devops" \
+          --groups "beta-testers" \
+          --token "$(firebasetoken)"
