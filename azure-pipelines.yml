@@ -337,3 +337,16 @@ stages:
         ArtifactName: 'Windows' 
 
         publishLocation: 'Container' 
+
+        - task: Bash@3
+  displayName: "Upload to firebase app distribution"
+  inputs:
+    targetType: "inline"
+    script: |
+      npm i -g firebase-tools
+      ls -la $(iosReleaseDir)        
+      firebase appdistribution:distribute "$(ipaFile)" \
+      --app "$(iosFirebaseDistAppId)" \
+      --release-notes "From Azure Devops" \
+      --token "$(firebasetoken)" \
+      --groups "beta-testers"
