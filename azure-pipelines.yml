@@ -89,7 +89,7 @@ stages:
       inputs:
       script: |
       firebase appdistribution:distribute *.ipa \
-      --app "$(androidFirebaseDistAppId)" \
+      --app: "$(androidFirebaseDistAppId)" \
       --token "$(firebasetoken)" \
       --release-notes "$BUILD_SOURCEVERSIONMESSAGE"
       workingDirectory: '$(agent.buildDirectory)/output/$(sdk)/${{ parameters.configuration }}'
