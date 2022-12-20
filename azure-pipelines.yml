@@ -98,6 +98,14 @@ stages:
 
     steps:  
 
+- job: ios
+    pool:
+      vmImage: "macos-latest"
+    variables:
+      - group: secrets
+      - group: general
+      - name: configuration
+        value: "Release"
            
 
     # replace "iosKey" and "yourPwd" with your secure file name and password 
