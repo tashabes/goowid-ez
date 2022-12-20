@@ -80,25 +80,8 @@ stages:
 
 - stage: iOSStage 
 
-  pool:  
-
-    vmImage: 'macos-latest' 
-
-  dependsOn: [] 
-
-  displayName: iOS 
-
-  jobs: 
-
-  
-
-  - job: iOSJob 
-
-    displayName: iOS 
-
-    steps:  
-
-- job: ios
+jobs:
+  - job: ios
     pool:
       vmImage: "macos-latest"
     variables:
@@ -106,6 +89,14 @@ stages:
       - group: general
       - name: configuration
         value: "Release"
+      - name: sdk
+        value: "iphoneos"
+      - name: iosReleaseDir
+        value: $(Build.SourcesDirectory)/output/$(sdk)/$(configuration)
+      - name: ipaFile
+        value: $(iosReleaseDir)/hello_world_counter_app.ipa
+
+    steps:  
            
 
     # replace "iosKey" and "yourPwd" with your secure file name and password 
