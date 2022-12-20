@@ -66,9 +66,9 @@ jobs:
           --groups "beta-testers" \
           --token "$(firebasetoken)"
 
-  - stage: iOSStage
+- stage: iOSStage
 
-  jobs:
+jobs:
   - job: ios
     pool:
       vmImage: "macos-latest"
