@@ -57,6 +57,16 @@ stages:
         target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
 
+    - task: AndroidSigning@3
+      displayName: "Signing and aligning APK file(s) **/*.apk"
+      inputs:
+        apkFiles: "**/*.aab"
+        apksign: true
+        apksignerKeystoreFile: android-key.jks
+        apksignerKeystorePassword: "$(androidKeystorePassword)"
+        apksignerKeystoreAlias: helloworld-counterapp
+        apksignerKeyPassword: "$(androidKeyPassword)"
+
     - task: CopyFiles@2
       displayName: "Copy app to staging directory"
       inputs:
