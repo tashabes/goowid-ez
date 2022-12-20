@@ -38,18 +38,18 @@ jobs:
           apksignerKeystoreAlias: helloworld-counterapp
           apksignerKeyPassword: "$(androidKeyPassword)"
 
-       - task: CopyFiles@2
+      - task: CopyFiles@2
           displayName: "Copy apk to artifact directory"
           inputs:
             contents: "**/*.apk"
             targetFolder: "$(build.artifactStagingDirectory)"
 
-        - task: PublishBuildArtifacts@1
+      - task: PublishBuildArtifacts@1
             displayName: "Publish signed apk as artifact"
             inputs:
             artifactName: "drop"
 
-       - task: Bash@3
+      - task: Bash@3
           displayName: "Upload to firebase app distribution"
           inputs:
             targetType: "inline"
