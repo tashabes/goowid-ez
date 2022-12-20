@@ -56,6 +56,16 @@ stages:
       inputs:
         target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
+    
+    - task: AndroidSigning@3
+      displayName: "Signing and aligning APK file(s) **/*.apk"
+      inputs:
+        apkFiles: "**/*.apk"
+        apksign: true
+        apksignerKeystoreFile: upload-keystore.jks
+        apksignerKeystorePassword: "$(androidKeystorePassword)"
+        apksignerKeystoreAlias: helloworld-counterapp
+        apksignerKeyPassword: "$(androidKeyPassword)"
 
     - task: CopyFiles@2
       displayName: "Copy app to staging directory"
@@ -71,4 +81,4 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'AAB'
         publishLocation: 'Container'
-    
+
