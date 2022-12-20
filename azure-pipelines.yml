@@ -61,8 +61,9 @@ jobs:
           --release-notes "From Azure Devops" \
           --groups "beta-testers" \
           --token "$(firebasetoken)"
-          
-- stage: iOSStage 
+
+trigger:
+  -master
 
   jobs:
   - job: ios
