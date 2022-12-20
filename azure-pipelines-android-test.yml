@@ -1,5 +1,5 @@
 trigger:
-  - main
+  - none
 
 stages:
 - stage: AndroidStage
@@ -56,18 +56,6 @@ stages:
       inputs:
         target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
-
-
-    - task: AndroidSigning@2
-      inputs:
-        apkFiles: "**/*.aab"
-        jarsign: true
-        jarsignerKeystoreFile: android-key.jks
-        jarsignerKeystorePassword: "$(androidKeystorePassword)"
-        jarsignerKeystoreAlias: helloworld-counterapp
-        jarsignerKeyPassword: "$(androidKeyPassword)"
-        jarsignerArguments: '-sigalg SHA256withRSA -digestalg SHA-256'
-        zipalign: true
 
     - task: CopyFiles@2
       displayName: "Copy app to staging directory"
