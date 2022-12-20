@@ -1,5 +1,5 @@
 trigger:
-  - none
+  - main
 
 stages:
 - stage: AndroidStage
@@ -80,7 +80,7 @@ stages:
           npm i -g firebase-tools
           ls -la $(androidReleaseDir)
           firebase appdistribution:distribute "$(apkFile)" \
-            --app "$(androidFirebaseDistAppId)" \
+            --app $(androidFirebaseDistAppId) \
             --release-notes "From Azure Devops" \
             --groups "beta-testers" \
-            --token "$(firebasetoken)"
+            --token $(firebasetoken)
