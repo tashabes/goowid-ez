@@ -1,6 +1,18 @@
 trigger:
   - master
 
+stages: 
+
+  - stage: AndroidStage 
+
+  pool: 
+
+    vmImage: 'ubuntu-latest' 
+
+  dependsOn: [] 
+
+  displayName: Android 
+
 jobs:
   - job: android
     pool:
@@ -62,6 +74,7 @@ jobs:
           --groups "beta-testers" \
           --token "$(firebasetoken)"
 
+- stage: iOSStage
 
 jobs:
   - job: ios
