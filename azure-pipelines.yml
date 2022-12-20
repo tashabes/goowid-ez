@@ -79,14 +79,14 @@ stages:
         publishLocation: 'Container'
 
     - task: CmdLine@2
-  inputs:
-    script: 'npm install -g firebase-tools'
-    workingDirectory: '$(Agent.ToolsDirectory)'
-    displayName: 'Install firebase cli'
+      inputs:
+        script: 'npm install -g firebase-tools'
+        workingDirectory: '$(Agent.ToolsDirectory)'
+        displayName: 'Install firebase cli'
 
     - task: CmdLine@2
-  inputs:
-    script: 'firebase appdistribution:distribute $(Build.SourcesDirectory)/../s/app/build/outputs/apk/debug/*.apk --token '$(firebasetoken)' --app '$(androidFirebaseDistAppId)' --release-notes "Upload from azure"'
+      inputs:
+        script: 'firebase appdistribution:distribute $(Build.SourcesDirectory)/../s/app/build/outputs/apk/debug/*.apk --token '$(firebasetoken)' --app '$(androidFirebaseDistAppId)' --release-notes "Upload from azure"'
 
 - stage: iOSStage 
 
