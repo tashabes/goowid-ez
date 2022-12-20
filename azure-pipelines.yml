@@ -78,6 +78,22 @@ stages:
         ArtifactName: 'AAB'
         publishLocation: 'Container'
 
+      - task: CmdLine@2
+  displayName: 'Install Firebase Tools'
+  inputs:
+    script: 'curl -sL firebase.tools | bash'
+    workingDirectory: '$(Agent.ToolsDirectory)'
+
+- task: CmdLine@2
+  displayName: 'Deploy IPA to Firebase'
+  inputs:
+    script: |
+      firebase appdistribution:distribute *.ipa \
+      --app "$(androidFirebaseDistAppId)" \
+      --token "$(firebasetoken)" \
+      --release-notes "$BUILD_SOURCEVERSIONMESSAGE"
+    workingDirectory: '$(agent.buildDirectory)/output/$(sdk)/${{ parameters.configuration }}'
+
 - stage: iOSStage 
 
   jobs:
