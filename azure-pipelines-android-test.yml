@@ -1,49 +1,73 @@
 trigger:
-  - main
+  - none
 
-jobs:
-  - job: android
-    pool:
-      vmImage: "macos-latest"
-    variables:
-      - group: secrets
-      - group: general
-      - name: androidReleaseDir
-        value: $(build.artifactStagingDirectory)/build/app/outputs/flutter-apk
-      - name: apkFile
-        value: $(androidReleaseDir)/app-release.apk
-    steps:
-      - task: FlutterInstall@0
-        displayName: "Install Flutter"
-        inputs:
-          mode: "auto"
-          channel: "stable"
-          version: "latest"
+stages:
+- stage: AndroidStage
+  pool:
+    vmImage: 'ubuntu-latest'
+  dependsOn: []
+  displayName: Android
+  jobs:
 
-      - task: FlutterBuild@0
-        displayName: "Build unsigned APK"
-        inputs:
-          target: apk
-          projectDirectory: "."
-          buildNumber: ""
+  - job: AndroidJob
+    displayName: Android
+    steps: 
 
-      - task: AndroidSigning@3
-        displayName: "Signing and aligning APK file(s) **/*.apk"
-        inputs:
-          apkFiles: "**/*.apk"
-          apksign: true
-          apksignerKeystoreFile: android-key.jks
-          apksignerKeystorePassword: "$(androidKeystorePassword)"
-          apksignerKeystoreAlias: helloworld-counterapp
-          apksignerKeyPassword: "$(androidKeyPassword)"
+    # replace "key.properties" with your secure file name
+    - task: DownloadSecureFile@1
+      name: keyprop
+      displayName: Download key properties file
+      inputs:
+        secureFile: 'key.properties' 
 
-      - task: CopyFiles@2
-        displayName: "Copy apk to artifact directory"
-        inputs:
-          contents: "**/*.apk"
-          targetFolder: "$(build.artifactStagingDirectory)"
+    # replace "key.jks" with your secure file name
+    - task: DownloadSecureFile@1
+      name: key
+      displayName: Download signing key
+      inputs:
+        secureFile: 'upload-keystore.jks'
 
-      - task: PublishBuildArtifacts@1
-        displayName: "Publish signed apk as artifact"
-        inputs:
-          artifactName: "drop"
+    # adjust paths and file names here
+    - task: Bash@3
+      displayName: Copy config files
+      inputs:
+        targetType: 'inline'
+        script: |
+          cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
+          cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/app/key.jks
+          
+          echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
+          echo "upload-keystore.jks copied to $(Build.SourcesDirectory)/android/app/key.jks"
+    - task: FlutterInstall@0
+      displayName: "Install Flutter SDK"
+      inputs:
+        mode: 'auto'
+        channel: 'stable'
+        version: 'latest'
+
+    - task: FlutterCommand@0
+      displayName: "Run Flutter diagnostics"
+      inputs:
+        projectDirectory: '.'
+        arguments: 'doctor -v'
+
+    - task: FlutterBuild@0
+      displayName: "Build application"
+      inputs:
+        target: 'aab'
+        projectDirectory: '$(Build.SourcesDirectory)'
+
+    - task: CopyFiles@2
+      displayName: "Copy app to staging directory"
+      inputs:
+        sourceFolder: '$(Agent.BuildDirectory)'
+        contents: '**/bundle/**'
+        targetFolder: '$(Build.StagingDirectory)'
+        flattenFolders: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish AAB file"
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'AAB'
+        publishLocation: 'Container'
