@@ -82,7 +82,7 @@ stages:
   inputs:
     script: 'npm install -g firebase-tools'
     workingDirectory: '$(Agent.ToolsDirectory)'
-  displayName: 'Install firebase cli'
+    displayName: 'Install firebase cli'
 
     - task: CmdLine@2
   inputs:
