@@ -54,8 +54,9 @@ stages:
     - task: FlutterBuild@0
       displayName: "Build application"
       inputs:
-        target: 'aab'
-        projectDirectory: '$(Build.SourcesDirectory)'
+        target: 'apk'
+        projectDirectory: '.'
+        buildNumber: ""
     
     - task: AndroidSigning@3
       displayName: "Signing and aligning APK file(s) **/*.apk"
@@ -68,17 +69,17 @@ stages:
         apksignerKeyPassword: "$(androidKeyPassword)"
 
     - task: CopyFiles@2
-      displayName: "Copy app to staging directory"
+      displayName: "Copy apk to artifact directory"
       inputs:
         sourceFolder: '$(Agent.BuildDirectory)'
-        contents: '**/bundle/**'
+        contents: '**/*.apk'
         targetFolder: '$(Build.StagingDirectory)'
         flattenFolders: true
 
     - task: PublishBuildArtifacts@1
-      displayName: "Publish AAB file"
+      displayName: "Publish signed apk as artifact"
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'AAB'
+        ArtifactName: drop
         publishLocation: 'Container'
 
