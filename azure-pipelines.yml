@@ -79,20 +79,14 @@ stages:
         publishLocation: 'Container'
 
     - task: CmdLine@2
-      displayName: 'Install Firebase Tools'
-      inputs:
-      script: 'curl -sL firebase.tools | bash'
-      workingDirectory: '$(Agent.ToolsDirectory)'
+  inputs:
+    script: 'npm install -g firebase-tools'
+    workingDirectory: '$(Agent.ToolsDirectory)'
+  displayName: 'Install firebase cli'
 
     - task: CmdLine@2
-      displayName: 'Deploy IPA to Firebase'
-      inputs:
-      script: |
-      firebase appdistribution:distribute *.ipa \
-      --app: "$(androidFirebaseDistAppId)" \
-      --token "$(firebasetoken)" \
-      --release-notes "$BUILD_SOURCEVERSIONMESSAGE"
-      workingDirectory: '$(agent.buildDirectory)/output/$(sdk)/${{ parameters.configuration }}'
+  inputs:
+    script: 'firebase appdistribution:distribute $(Build.SourcesDirectory)/../s/app/build/outputs/apk/debug/*.apk --token '$(firebasetoken)' --app '$(androidFirebaseDistAppId)' --release-notes "Upload from azure"'
 
 - stage: iOSStage 
 
