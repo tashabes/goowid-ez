@@ -3,17 +3,9 @@ trigger:
 
 stages: 
 
-  - stage: AndroidStage 
+  - stage: AndroidStage  
 
-  pool: 
-
-    vmImage: 'ubuntu-latest' 
-
-  dependsOn: [] 
-
-  displayName: Android 
-
-    jobs:
+  jobs:
   - job: android
     pool:
       vmImage: "macos-latest"
