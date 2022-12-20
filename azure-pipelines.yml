@@ -13,7 +13,7 @@ stages:
 
   displayName: Android 
 
-jobs:
+    jobs:
   - job: android
     pool:
       vmImage: "macos-latest"
@@ -74,9 +74,9 @@ jobs:
           --groups "beta-testers" \
           --token "$(firebasetoken)"
 
-- stage: iOSStage
+  - stage: iOSStage
 
-jobs:
+  jobs:
   - job: ios
     pool:
       vmImage: "macos-latest"
