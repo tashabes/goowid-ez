@@ -79,10 +79,10 @@ stages:
         publishLocation: 'Container'
     
     - task: Bash@3
-    displayName: "Upload to firebase app distribution"
-    inputs:
-      targetType: "inline"
-      script: |
+      displayName: "Upload to firebase app distribution"
+      inputs:
+        targetType: "inline"
+        script: |
         npm i -g firebase-tools
         ls -la $(androidReleaseDir)
         firebase appdistribution:distribute "$(apkFile)" \
