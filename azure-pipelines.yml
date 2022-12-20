@@ -3,9 +3,9 @@ trigger:
 
 stages: 
 
-  - stage: AndroidStage  
+- stage: AndroidStage  
 
-  jobs:
+jobs:
   - job: android
     pool:
       vmImage: "macos-latest"
