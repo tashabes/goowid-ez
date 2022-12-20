@@ -62,10 +62,8 @@ jobs:
           --groups "beta-testers" \
           --token "$(firebasetoken)"
 
-trigger:
-  -master
 
-  jobs:
+jobs:
   - job: ios
     pool:
       vmImage: "macos-latest"
