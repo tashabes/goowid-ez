@@ -18,8 +18,7 @@ jobs:
         inputs:
           mode: "auto"
           channel: "stable"
-          version: "custom"
-          customVersion: "2.2.3"
+          version: "latest"
 
       - task: FlutterBuild@0
         displayName: "Build unsigned APK"
