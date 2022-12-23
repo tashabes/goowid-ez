@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:goowid_auth/classes/language_constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
 late User signedInUser; //this will give the email
@@ -60,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Image.asset('images/Goowid_Symbol_RGB.png', height: 25),
             SizedBox(width: 10),
-            Text('Get in touch')
+            Text(translation(context).getInTouch)
           ],
         ),
         actions: [
@@ -103,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           vertical: 10,
                           horizontal: 20,
                         ),
-                        hintText: 'Write your message here...',
+                        hintText: (translation(context).writeYourMessageHere),
                         border: InputBorder.none,
                       ),
                     ),
@@ -118,7 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       });
                     },
                     child: Text(
-                      'send',
+                      (translation(context).send),
                       style: TextStyle(
                         color: Colors.indigo[800],
                         fontWeight: FontWeight.bold,

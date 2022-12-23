@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:goowid_auth/classes/language_constants.dart';
 //import 'package:goowid_auth/src/presentation/widgets/';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -46,7 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   email = value;
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter your Email',
+                  hintText: (translation(context).enterYourEmail),
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -85,7 +86,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 },
                 // ignore: prefer_const_constructors
                 decoration: InputDecoration(
-                  hintText: 'Enter your password',
+                  hintText: (translation(context).enterYourPassword),
                   // ignore: prefer_const_constructors
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
@@ -119,7 +120,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               SizedBox(height: 10),
               MyButton(
                 color: Colors.indigo[800]!,
-                title: 'Register',
+                title: (translation(context).register),
                 onPressed: () async {
                   //print(email);
                   //print(password);

@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/classes/language_constants.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
@@ -44,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   email = value;
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter your Email',
+                  hintText: (translation(context).enterYourEmail),
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -82,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   password = value;
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter your password',
+                  hintText: (translation(context).enterYourPassword),
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -115,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
               SizedBox(height: 10),
               MyButton(
                 color: Colors.orange[900]!,
-                title: 'Sign in',
+                title: (translation(context).signIn),
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;

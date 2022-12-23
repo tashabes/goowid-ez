@@ -1,9 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, prefer_const_constructors, duplicate_ignore
 
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/classes/language_constants.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/registration_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/signin_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
+import 'package:goowid_auth/widgets/nav_bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String screenRoute = 'welcome_screen';
@@ -18,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: NavBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -33,7 +36,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 // ignore: prefer_const_constructors
                 Text(
-                  'Your data. Your choice',
+                  translation(context).yourDataYourChoice,
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
@@ -45,14 +48,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(height: 30),
             MyButton(
               color: Colors.orange[900]!,
-              title: 'Sign in',
+              title: (translation(context).signIn),
               onPressed: () {
                 Navigator.pushNamed(context, SignInScreen.screenRoute);
               },
             ),
             MyButton(
               color: Colors.indigo[800]!,
-              title: 'Register',
+              title: (translation(context).register),
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.screenRoute);
               },
