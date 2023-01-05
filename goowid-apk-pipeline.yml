@@ -61,7 +61,7 @@ stages:
       displayName: "Copy app to staging directory"
       inputs:
         sourceFolder: '$(Agent.BuildDirectory)'
-        contents: '**/bundle/**'
+        contents: '**/*.apk'
         targetFolder: '$(Build.StagingDirectory)'
         flattenFolders: true
 
