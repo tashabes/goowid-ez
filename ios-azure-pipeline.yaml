@@ -1,3 +1,4 @@
+---
 - stage: iOSStage
   pool:
     vmImage: macos-latest
@@ -44,7 +45,7 @@
           displayName: Copy app to staging directory
           inputs:
             sourceFolder: $(Agent.BuildDirectory)
-            contents: '**/ipa/*.ipa'
+            contents: "**/ipa/*.ipa"
             targetFolder: $(Build.StagingDirectory)
             flattenFolders: true
         - task: PublishBuildArtifacts@1
