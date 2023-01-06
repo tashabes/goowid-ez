@@ -1,74 +1,68 @@
-- stage: iOSStage 
-
+- stage: iOSStage
+  pool: 
+    vmImage: 'macos-latest'
+  dependsOn: []
+  displayName: iOS
   jobs:
-  - job: ios
-    pool:
-      vmImage: "macos-latest"
-    variables:
-      - group: secrets
-      - group: general
-      - name: configuration
-        value: "Release"
-      - name: sdk
-        value: "iphoneos"
-      - name: iosReleaseDir
-        value: $(Build.SourcesDirectory)/output/$(sdk)/$(configuration)
-      - name: ipaFile
-        value: $(iosReleaseDir)/hello_world_counter_app.ipa
+ 
+  - job: iOSJob
+    displayName: iOS
+    steps: 
+          
+    # replace "iosKey" and "yourPwd" with your secure file name and password
+    - task: InstallAppleCertificate@2
+      displayName: Install certificate
+      inputs:
+        certSecureFile: 'iosKey'
+        certPwd: 'yourPwd'
+        keychain: 'temp'
+    
+    # replace "ios_Profile.mobileprovision" with your secure file name
+    - task: InstallAppleProvisioningProfile@1
+      displayName: Install provisioning file
+      inputs:
+        provisioningProfileLocation: 'secureFiles'
+        provProfileSecureFile: 'ios_Profile.mobileprovision'
+        
+    - task: FlutterInstall@0
+      displayName: "Install Flutter SDK"
+      inputs:
+        mode: 'auto'
+        channel: 'stable'
+        version: 'latest'
 
-    steps:
-      - task: FlutterInstall@0
-        displayName: "Install Flutter"
-        inputs:
-          mode: "auto"
-          channel: "stable"
-          version: "custom"
-          customVersion: "2.2.3"
+    - task: FlutterCommand@0
+      displayName: "Run Flutter diagnostics"
+      inputs:
+        projectDirectory: '.'
+        arguments: 'doctor -v'
 
-      - task: FlutterBuild@0
-        displayName: "Flutter Build Apps - iOS"
-        inputs:
-          target: "ios"
-          buildName: "$(Build.BuildNumber)"
-          entryPoint: "lib/main.dart"
-          iosCodesign: false
+    # adjust path to the *.plist file
+    - task: FlutterBuild@0
+      displayName: "Build application"
+      inputs:
+        target: ipa
+        projectDirectory: '$(Build.SourcesDirectory)'
+        exportOptionsPlist: 'ios/exportOptions.plist'
 
-      - task: InstallAppleCertificate@2
-        displayName: "Install Apple p12 cert"
-        inputs:
-          certSecureFile: "goowid.p12"
-          certPwd: 'GreenSignals$24'
-          keychain: "temp"
+    - task: FlutterTest@0
+      displayName: "Run unit tests"
+      inputs:
+        generateCodeCoverageReport: true
+        projectDirectory: '$(Build.SourcesDirectory)'
 
-      - task: InstallAppleProvisioningProfile@1
-        displayName: "Install Apple Mobile Provisioning Profile"
-        inputs:
-          provisioningProfileLocation: "secureFiles"
-          provProfileSecureFile: "Goowid.mobileprovision"
+    - task: CopyFiles@2
+      displayName: "Copy app to staging directory"
+      inputs:
+        sourceFolder: '$(Agent.BuildDirectory)'
+        contents: '**/ipa/*.ipa'
+        targetFolder: '$(Build.StagingDirectory)'
+        flattenFolders: true
 
-      - task: Xcode@5
-        displayName: "Code Sign ipa for Distribution"
-        inputs:
-          actions: "build"
-          scheme: "Runner"
-          sdk: "$(sdk)"
-          configuration: "$(configuration)"
-          xcWorkspacePath: "ios/Runner.xcworkspace"
-          xcodeVersion: "default"
-          packageApp: true
-          signingOption: "manual"
-          signingIdentity: "$(APPLE_CERTIFICATE_SIGNING_IDENTITY)"
-          provisioningProfileUuid: "$(APPLE_PROV_PROFILE_UUID)"
-
-      - task: Bash@3
-        displayName: "Upload to firebase app distribution"
-        inputs:
-          targetType: "inline"
-          script: |
-            npm i -g firebase-tools
-            ls -la $(iosReleaseDir)        
-            firebase appdistribution:distribute "$(ipaFile)" \
-            --app "$(iosFirebaseDistAppId)" \
-            --release-notes "From Azure Devops" \
-            --token "$(firebasetoken)" \
-            --groups "beta-testers"
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish IPA file"
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'IPA'
+        publishLocation: 'Container'
+        
