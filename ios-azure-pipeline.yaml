@@ -1,5 +1,5 @@
----
-- stage: iOSStage
+
+  stage: iOSStage
   pool:
     vmImage: macos-latest
   dependsOn: []
