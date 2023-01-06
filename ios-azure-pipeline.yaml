@@ -13,8 +13,8 @@
     - task: InstallAppleCertificate@2
       displayName: Install certificate
       inputs:
-        certSecureFile: 'iosKey'
-        certPwd: 'yourPwd'
+        certSecureFile: 'goowid.p12'
+        certPwd: 'GreenSignals$24'
         keychain: 'temp'
     
     # replace "ios_Profile.mobileprovision" with your secure file name
@@ -22,7 +22,7 @@
       displayName: Install provisioning file
       inputs:
         provisioningProfileLocation: 'secureFiles'
-        provProfileSecureFile: 'ios_Profile.mobileprovision'
+        provProfileSecureFile: 'Goowid.mobileprovision'
         
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
