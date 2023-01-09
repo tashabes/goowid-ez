@@ -1,0 +1,11 @@
+{
+    "hello": "Bonjour",
+    "yourDataYourChoice": "Vos données. Votre choix.",
+    "signIn": "S'identifier",
+    "register": "Enregistrer",
+    "enterYourEmail": "Entrer votre Email",
+    "enterYourPassword": "Tapez votre mot de passe",
+    "getInTouch": "Entrer en contact",
+    "writeYourMessageHere": "Ecrivez votre message ici...",
+    "send": "Envoyer"
+    }
