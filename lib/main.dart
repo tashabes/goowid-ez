@@ -9,6 +9,8 @@ import 'src/presentation/widgets/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:lottie/lottie.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,11 +63,28 @@ class _MyAppState extends State<MyApp> {
           ? ChatScreen.screenRoute
           : WelcomeScreen.screenRoute,
       routes: {
-        WelcomeScreen.screenRoute: (context) => WelcomeScreen(),
+        WelcomeScreen.screenRoute: (context) => SplashScreen(),
         SignInScreen.screenRoute: (context) => SignInScreen(),
         RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
         ChatScreen.screenRoute: (context) => ChatScreen(),
       },
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash: Lottie.asset('lib/src/assets/secure_splash_screen.json'),
+      nextScreen: WelcomeScreen(),
+      splashIconSize: 250,
+      backgroundColor: Colors.orange.shade900,
+      duration: 3000,
+      splashTransition: SplashTransition.fadeTransition,
+      animationDuration: const Duration(seconds: 1),
     );
   }
 }
