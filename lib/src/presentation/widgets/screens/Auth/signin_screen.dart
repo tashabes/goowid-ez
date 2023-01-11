@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/src/presentation/app_bar.dart';
+import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
@@ -128,7 +129,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     if (user != null) {
-                      Navigator.pushNamed(context, ChatScreen.screenRoute);
+                      Navigator.pushNamed(
+                          context, DashboardHomePage.screenRoute);
                       setState(() {
                         showSpinner = false;
                       });

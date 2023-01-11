@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:goowid_auth/src/presentation/app_bar.dart';
+import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 //import 'package:goowid_auth/src/presentation/widgets/';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -133,7 +134,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   try {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
-                    Navigator.pushNamed(context, ChatScreen.screenRoute);
+                    Navigator.pushNamed(context, DashboardHomePage.screenRoute);
                     setState(() {
                       showSpinner = false;
                     });
