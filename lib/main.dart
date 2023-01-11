@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
+import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'classes/language_constants.dart';
 import 'src/presentation/widgets/screens/Auth/registration_screen.dart';
 import 'src/presentation/widgets/screens/Auth/signin_screen.dart';
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         WelcomeScreen.screenRoute: (context) => SplashScreen(),
         SignInScreen.screenRoute: (context) => SignInScreen(),
         RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
+        DashboardHomePage.screenRoute: (context) => DashboardHomePage(),
         ChatScreen.screenRoute: (context) => ChatScreen(),
       },
     );
