@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/src/presentation/app_bar.dart';
-import 'package:goowid_auth/src/presentation/widgets/bottom_nav_bar.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/registration_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/signin_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
@@ -23,7 +22,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(),
-      //bottomNavigationBar: BottomNavBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
