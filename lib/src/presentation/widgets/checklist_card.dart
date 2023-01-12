@@ -38,7 +38,7 @@ class CourseCard extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 12, bottom: 8),
                     child: Text(
-                      "Get the data you need without disrupting your team's workflow.",
+                      "Get.",
                       style: TextStyle(
                         color: Colors.white38,
                       ),
