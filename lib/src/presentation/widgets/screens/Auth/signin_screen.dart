@@ -3,7 +3,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/src/presentation/app_bar.dart';
-import 'package:goowid_auth/src/presentation/widgets/bottom_nav_bar.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -29,7 +28,6 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(),
-      //bottomNavigationBar: BottomNavBar(),
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,

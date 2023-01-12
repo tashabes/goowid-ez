@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/src/presentation/widgets/bottom_nav_bar.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'classes/language_constants.dart';
@@ -65,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           ? ChatScreen.screenRoute
           : WelcomeScreen.screenRoute,
       routes: {
-        WelcomeScreen.screenRoute: (context) => WelcomeScreen(),
+        WelcomeScreen.screenRoute: (context) => SplashScreen(),
         SignInScreen.screenRoute: (context) => SignInScreen(),
         RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
         DashboardHomePage.screenRoute: (context) => DashboardHomePage(),

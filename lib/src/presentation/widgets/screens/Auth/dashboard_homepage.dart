@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/src/presentation/widgets/bottom_nav_bar.dart';
-import 'package:goowid_auth/src/presentation/widgets/models/rive_assets.dart';
 
-import '../../../app_bar.dart';
 import '../../checklist.dart';
 import '../../checklist_card.dart';
 import '../../secondary_checklist_card.dart';
@@ -19,8 +16,6 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NavBar(),
-      //bottomNavigationBar: BottomNavBar(),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
