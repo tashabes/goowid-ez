@@ -21,37 +21,26 @@ stages:
             inputs:
               provisioningProfileLocation: secureFiles
               provProfileSecureFile: Goowid_Authenticator.mobileprovision
-          - task: FlutterInstall@0
-            displayName: Install Flutter SDK
+          - task: Xcode@5
             inputs:
-              mode: auto
-              channel: stable
-              version: latest
-          - task: FlutterCommand@0
-            displayName: Run Flutter diagnostics
-            inputs:
-              projectDirectory: .
-              arguments: doctor -v
-          - task: FlutterBuild@0
-            displayName: Build application
-            inputs:
-              target: ipa
-              projectDirectory: $(Build.SourcesDirectory)
-          - task: FlutterTest@0
-            displayName: Run unit tests
-            inputs:
-              generateCodeCoverageReport: true
-              projectDirectory: $(Build.SourcesDirectory)
+              actions: 'build'
+              scheme: ''
+              sdk: 'iphoneos'
+              configuration: 'Release'
+              xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
+              xcodeVersion: 'default'
+              signingOption: 'manual'
+              signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+              provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
+              packageApp: true
           - task: CopyFiles@2
-            displayName: Copy app to staging directory
             inputs:
-              sourceFolder: $(Agent.BuildDirectory)
-              contents: '**/ipa/*.ipa'
-              targetFolder: $(Build.StagingDirectory)
+              contents: '**/*.ipa'
+              targetFolder: '$(build.artifactStagingDirectory)'
+              overWrite: true
               flattenFolders: true
           - task: PublishBuildArtifacts@1
-            displayName: Publish IPA file
             inputs:
-              PathtoPublish: $(Build.ArtifactStagingDirectory)
-              ArtifactName: IPA
-              publishLocation: Container
+              pathtoPublish: '$(build.artifactStagingDirectory)'
+              artifactName: 'drop'
+              publishLocation: 'Container'
