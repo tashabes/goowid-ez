@@ -23,7 +23,7 @@ stages:
               provProfileSecureFile: Goowid_Authenticator.mobileprovision
           - task: CocoaPods@0
             inputs:
-              forceRepoUpdate: false
+              forceRepoUpdate: true
           - task: Xcode@5
             inputs:
               actions: 'build'
