@@ -26,16 +26,16 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                /Users/runner/hostedtoolcache/Flutter/3.3.10/macos/flutter/bin/flutter doctor -v
-                /Users/runner/hostedtoolcache/Flutter/3.3.10/macos/flutter/bin/flutter config --no-analytics
+                /Users/runner/hostedtoolcache/flutter doctor -v
+                /Users/runner/hostedtoolcache/flutter config --no-analytics
 
           - task: Bash@3
             displayName: '[Flutter] Build project environment'
             inputs:
               targetType: 'inline'
               script: |
-                $(FlutterToolPath)/flutter pub get
-                $(FlutterToolPath)/flutter pub global activate junitreport
+                /Users/runner/hostedtoolcache/flutter pub get
+                /Users/runner/hostedtoolcache/flutter pub global activate junitreport
 
           - task: Bash@3
             displayName: '[Flutter] Flutter coverage'
@@ -43,7 +43,7 @@ stages:
               targetType: 'inline'
               script: |
                 pip install lcov_cobertura
-                /Users/runner/hostedtoolcache/Flutter/3.3.10/macos/flutter/bin/flutter test --coverage
+                /Users/runner/hostedtoolcache/flutter test --coverage
                 python -m lcov_cobertura coverage/lcov.info -o coverage/coverage.xml
                 
           - task: Bash@3
@@ -51,7 +51,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                /Users/runner/hostedtoolcache/Flutter/3.3.10/macos/flutter/bin/flutter build ios --release --no-codesign --build-number $(Build.BuildId)
+                /Users/runner/hostedtoolcache/flutter build ios --release --no-codesign --build-number $(Build.BuildId)
 
           - task: CocoaPods@0
             inputs:
