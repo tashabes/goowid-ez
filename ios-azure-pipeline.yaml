@@ -20,7 +20,7 @@ stages:
             displayName: Install provisioning file
             inputs:
               provisioningProfileLocation: secureFiles
-              provProfileSecureFile: Goowid.mobileprovision
+              provProfileSecureFile: Goowid_Authenticator.mobileprovision
           - task: FlutterInstall@0
             displayName: Install Flutter SDK
             inputs:
