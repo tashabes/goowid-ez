@@ -21,9 +21,6 @@ stages:
             inputs:
               provisioningProfileLocation: secureFiles
               provProfileSecureFile: Goowid_Authenticator.mobileprovision
-          - task: CocoaPods@0
-            inputs:
-              forceRepoUpdate: true
           - task: Xcode@5
             inputs:
               actions: 'build'
@@ -32,7 +29,7 @@ stages:
               configuration: 'Release'
               xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
               xcodeVersion: 'default'
-              signingOption: 'default'
+              signingOption: 'manual'
               signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
               provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
               packageApp: true
