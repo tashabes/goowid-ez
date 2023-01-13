@@ -30,12 +30,12 @@ stages:
           - task: Xcode@5
             inputs:
               actions: 'build'
-              scheme: '$(scheme)'
-              sdk: '$(sdk)'
-              configuration: '$(configuration)'
+              scheme: ''
+              sdk: 'iphoneos'
+              configuration: 'Release'
               xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
               xcodeVersion: 'default'
-              signingOption: 'manual'
+              signingOption: 'default'
               signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
               provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
               packageApp: true
