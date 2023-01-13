@@ -13,14 +13,14 @@ stages:
           - task: InstallAppleCertificate@2
             displayName: Install certificate
             inputs:
-              certSecureFile: goowid.p12
+              certSecureFile: goowid_ajiil.p12
               certPwd: GreenSignals$24
               keychain: temp
           - task: InstallAppleProvisioningProfile@1
             displayName: Install provisioning file
             inputs:
               provisioningProfileLocation: secureFiles
-              provProfileSecureFile: Goowid.mobileprovision
+              provProfileSecureFile: Goowid_Authenticator.mobileprovision
           - task: FlutterInstall@0
             displayName: Install Flutter SDK
             inputs:
