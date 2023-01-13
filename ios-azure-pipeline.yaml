@@ -21,42 +21,12 @@ stages:
             inputs:
               provisioningProfileLocation: secureFiles
               provProfileSecureFile: Goowid_Authenticator.mobileprovision
-          - task: Bash@3
-            displayName: '[Flutter] Configure Flutter'
-            inputs:
-              targetType: 'inline'
-              script: |
-                /Users/runner/hostedtoolcache/flutter doctor -v
-                /Users/runner/hostedtoolcache/flutter config --no-analytics
-
-          - task: Bash@3
-            displayName: '[Flutter] Build project environment'
-            inputs:
-              targetType: 'inline'
-              script: |
-                /Users/runner/hostedtoolcache/flutter pub get
-                /Users/runner/hostedtoolcache/flutter pub global activate junitreport
-
-          - task: Bash@3
-            displayName: '[Flutter] Flutter coverage'
-            inputs:
-              targetType: 'inline'
-              script: |
-                pip install lcov_cobertura
-                /Users/runner/hostedtoolcache/flutter test --coverage
-                python -m lcov_cobertura coverage/lcov.info -o coverage/coverage.xml
-                
-          - task: Bash@3
-            displayName: '[Flutter] Flutter build'
-            inputs:
-              targetType: 'inline'
-              script: |
-                /Users/runner/hostedtoolcache/flutter build ios --release --no-codesign --build-number $(Build.BuildId)
-
           - task: CocoaPods@0
+            displayName: 'pod install using the CocoaPods task with defaults'
+            condition: ne(variables.PODS_CACHE_RESTORED, 'true')
             inputs:
-              workingDirectory: '$(Build.SourcesDirectory)/ios/Flutter'
-              forceRepoUpdate: true
+              forceRepoUpdate: false
+        
           - task: Xcode@5
             inputs:
               actions: 'build'
