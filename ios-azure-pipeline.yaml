@@ -42,6 +42,7 @@ stages:
             inputs:
               generateCodeCoverageReport: true
               projectDirectory: $(Build.SourcesDirectory)
+              exportOptionsPlist: 'ios/exportOptions.plist'
           - task: CopyFiles@2
             displayName: Copy app to staging directory
             inputs:
