@@ -22,11 +22,9 @@ stages:
               provisioningProfileLocation: secureFiles
               provProfileSecureFile: Goowid_Authenticator.mobileprovision
           - task: CocoaPods@0
-            displayName: 'pod install using the CocoaPods task with defaults'
-            condition: ne(variables.PODS_CACHE_RESTORED, 'true')
             inputs:
-              forceRepoUpdate: false
-        
+              workingDirectory: '$(Build.SourcesDirectory)/ios/Flutter'
+              forceRepoUpdate: true
           - task: Xcode@5
             inputs:
               actions: 'build'
