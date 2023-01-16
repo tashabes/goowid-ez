@@ -24,7 +24,7 @@ def flutter_root
 end
 
 
-
+workspace = /ios/Runner.xcworkspace/contents.xcworkspacedata
 
 
 post_install do |installer|
