@@ -23,7 +23,7 @@ def flutter_root
   raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
 end
 
-workspace = \ios\Runner.xcworkspace\contents.xcworkspacedata
+workspace = '\ios\Runner.xcworkspace\contents.xcworkspacedata'
 
 post_install do |installer|
   installer.pods_project.build_configurations.each do |config|
