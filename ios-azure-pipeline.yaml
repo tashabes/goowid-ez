@@ -20,7 +20,7 @@ stages:
             displayName: Install provisioning file
             inputs:
               provisioningProfileLocation: secureFiles
-              provProfileSecureFile: Goowid_Authenticator.mobileprovision
+              provProfileSecureFile: Goowid_Auth.mobileprovision
           - task: FlutterInstall@0
             displayName: Install Flutter SDK
             inputs:
@@ -42,7 +42,6 @@ stages:
             inputs:
               generateCodeCoverageReport: true
               projectDirectory: $(Build.SourcesDirectory)
-              exportOptionsPlist: 'ios/exportOptions.plist'
           - task: CopyFiles@2
             displayName: Copy app to staging directory
             inputs:
