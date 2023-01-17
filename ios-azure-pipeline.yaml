@@ -37,6 +37,7 @@ stages:
             inputs:
               target: ipa
               projectDirectory: $(Build.SourcesDirectory)
+              iosCodesign: false
           - task: FlutterTest@0
             displayName: Run unit tests
             inputs:
