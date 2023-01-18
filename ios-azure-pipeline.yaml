@@ -47,8 +47,8 @@ jobs:
         inputs:
           actions: "build"
           scheme: "Runner"
-          sdk: "$(sdk)"
-          configuration: "$(configuration)"
+          sdk: 'iphoneos'
+          configuration: 'Release'
           xcWorkspacePath: "ios/Runner.xcworkspace"
           xcodeVersion: "default"
           packageApp: true
