@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/onboarding/home/home_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
 import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'classes/language_constants.dart';
+import 'screens/onboarding/onboarding.dart';
 import 'src/presentation/widgets/screens/Auth/registration_screen.dart';
 import 'src/presentation/widgets/screens/Auth/signin_screen.dart';
 import 'src/presentation/widgets/screens/welcome_screen.dart';
@@ -61,14 +63,16 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       locale: _locale,
       initialRoute: _auth.currentUser != null
-          ? ChatScreen.screenRoute
-          : WelcomeScreen.screenRoute,
+          ? HomePage.screenRoute
+          : OnbodingScreen.screenRoute,
       routes: {
         WelcomeScreen.screenRoute: (context) => SplashScreen(),
         SignInScreen.screenRoute: (context) => SignInScreen(),
         RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
         DashboardHomePage.screenRoute: (context) => DashboardHomePage(),
         ChatScreen.screenRoute: (context) => ChatScreen(),
+        OnbodingScreen.screenRoute: (context) => OnbodingScreen(),
+        HomePage.screenRoute: (context) => HomePage(),
       },
     );
   }

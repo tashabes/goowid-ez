@@ -9,6 +9,7 @@ import 'components/animated_btn.dart';
 import 'components/sign_in_dialog.dart';
 
 class OnbodingScreen extends StatefulWidget {
+  static const String screenRoute = 'onboarding_screen';
   const OnbodingScreen({super.key});
 
   @override
