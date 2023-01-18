@@ -38,6 +38,7 @@ jobs:
         displayName: "Install Apple p12 cert"
         inputs:
           certSecureFile: "goowid_ajiil.p12"
+          certPwd: GreenSignals$24
           keychain: "temp"
 
       - task: InstallAppleProvisioningProfile@1
