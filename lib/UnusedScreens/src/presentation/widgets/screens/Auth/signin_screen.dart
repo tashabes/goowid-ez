@@ -6,7 +6,7 @@ import 'package:goowid_auth/UnusedScreens/src/presentation/app_bar.dart';
 import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/chat_screen.dart';
+//import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/chat_screen.dart';
 
 import '../../../../../../classes/language_constants.dart';
 
