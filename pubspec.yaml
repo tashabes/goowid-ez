@@ -49,6 +49,9 @@ dependencies:
   shared_preferences: ^2.0.15
   animated_splash_screen: ^1.3.0
   lottie: ^2.1.0
+  rive: ^0.9.1
+  flutter_svg: ^1.1.6
+  provider: ^6.0.5
   
 
 
@@ -80,6 +83,12 @@ flutter:
    - images/Goowid_Symbol_RGB.png
    - images/Goowid.png
    - lib/src/assets/
+   - assets/avaters/
+   - assets/Backgrounds/
+   - assets/icons/
+   - assets/RiveAssets/
+   - assets/images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
