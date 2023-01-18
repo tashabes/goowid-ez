@@ -34,7 +34,7 @@ class SecondaryCourseCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  "Watch video - 15 mins",
+                  "Bahia.Murad@etztec.com",
                   style: TextStyle(
                     color: Colors.white60,
                     fontSize: 16,
@@ -46,7 +46,7 @@ class SecondaryCourseCard extends StatelessWidget {
           const SizedBox(
             height: 40,
             child: VerticalDivider(
-              // thickness: 5,
+              thickness: 5,
               color: Colors.white70,
             ),
           ),

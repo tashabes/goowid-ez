@@ -38,14 +38,14 @@ class CourseCard extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(top: 12, bottom: 8),
                     child: Text(
-                      "Get the data you need without disrupting your team's workflow.",
+                      "NI number, ID, bank accounts... keep all your personal data safe and easy to find.",
                       style: TextStyle(
                         color: Colors.white38,
                       ),
                     ),
                   ),
                   const Text(
-                    "Read More >",
+                    "Get Started >",
                     style: TextStyle(
                       color: Colors.white38,
                     ),
@@ -56,12 +56,11 @@ class CourseCard extends StatelessWidget {
                       3,
                       (index) => Transform.translate(
                         offset: Offset((-10 * index).toDouble(), 0),
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: AssetImage(
-                            "assets/avaters/Avatar ${index + 1}.jpg",
-                          ),
-                        ),
+                        // child: CircleAvatar(
+                        //   radius: 20,
+                        //   backgroundImage: AssetImage(
+                        //"assets/avaters/Avatar ${index + 1}.jpg",
+                        //   ),
                       ),
                     ),
                   ),

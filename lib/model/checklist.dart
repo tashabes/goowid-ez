@@ -14,25 +14,25 @@ class Course {
 
 final List<Course> courses = [
   Course(
-    title: "Start time tracking!",
+    title: "Store Digital Records In Your Vault",
   ),
   Course(
-    title: "Get paid for every billable hour.",
+    title: "Digital Wallet Set Up.",
     //iconSrc: "assets/icons/.svg",
     color: const Color(0xFF80A4FF),
   ),
 ];
 
 final List<Course> recentCourses = [
-  Course(title: "Project Budgeting"),
+  Course(title: "ETZ AD"),
   Course(
-    title: "Caspian Reporting",
+    title: "Facebook",
     color: const Color(0xFF9CC5FF),
     //iconSrc: "assets/icons/.svg",
   ),
-  Course(title: "Fuss-free Payroll"),
+  Course(title: "Goowid"),
   Course(
-    title: "Available Integrations",
+    title: "Caspian",
     color: const Color(0xFF9CC5FF),
     //iconSrc: "assets/icons/.svg",
   ),
