@@ -1,14 +1,17 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
-import 'package:goowid_auth/screens/onboding/onboding_screen.dart';
-import 'package:goowid_auth/screens/register/register_screen.dart';
+import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
+import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'classes/language_constants.dart';
-
+import 'src/presentation/widgets/screens/Auth/registration_screen.dart';
+import 'src/presentation/widgets/screens/Auth/signin_screen.dart';
+import 'src/presentation/widgets/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:lottie/lottie.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +50,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    RegistrationScreen;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Goowid Auth',
@@ -57,19 +61,20 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       locale: _locale,
       initialRoute: _auth.currentUser != null
-          ? OnboardingScreen.screenRoute
-          : OnboardingScreen.screenRoute,
+          ? ChatScreen.screenRoute
+          : WelcomeScreen.screenRoute,
       routes: {
-        OnboardingScreen.screenRoute: (context) => OnboardingScreen(),
-        RegisterScreen.screenRoute: (context) => RegisterScreen(),
-        // ChatScreen.screenRoute: (context) => ChatScreen(),
-        //EntryPoint.screenRoute: (context) => EntryPoint(),
+        WelcomeScreen.screenRoute: (context) => SplashScreen(),
+        SignInScreen.screenRoute: (context) => SignInScreen(),
+        RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
+        DashboardHomePage.screenRoute: (context) => DashboardHomePage(),
+        ChatScreen.screenRoute: (context) => ChatScreen(),
       },
     );
   }
 }
 
-/*class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
@@ -84,4 +89,4 @@ class _MyAppState extends State<MyApp> {
       animationDuration: const Duration(seconds: 1),
     );
   }
-}*/
+}
