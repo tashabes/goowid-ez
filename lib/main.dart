@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/chat_screen.dart';
 import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
+import 'package:goowid_auth/screens/register/components/register_form.dart';
+import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'classes/language_constants.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/onboarding/onboarding.dart';
@@ -73,6 +75,7 @@ class _MyAppState extends State<MyApp> {
         ChatScreen.screenRoute: (context) => ChatScreen(),
         OnbodingScreen.screenRoute: (context) => OnbodingScreen(),
         HomePage.screenRoute: (context) => HomePage(),
+        RegisterScreen.screenRoute: (context) => RegisterScreen(),
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../register/register_screen.dart';
 import 'sign_in_form.dart';
 
 void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
@@ -85,7 +86,10 @@ void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, RegisterScreen.screenRoute);
+                            },
                             padding: EdgeInsets.zero,
                             icon: SvgPicture.asset(
                               "assets/icons/email_box.svg",
