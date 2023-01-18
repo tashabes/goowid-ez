@@ -98,7 +98,7 @@ class _SignInFormState extends State<SignInForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Email",
+                "Email, phone number or username",
                 style: TextStyle(
                   color: Colors.black54,
                 ),
@@ -116,30 +116,6 @@ class _SignInFormState extends State<SignInForm> {
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: SvgPicture.asset("assets/icons/email.svg"),
-                    ),
-                  ),
-                ),
-              ),
-              const Text(
-                "Password",
-                style: TextStyle(
-                  color: Colors.black54,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 16),
-                child: TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: SvgPicture.asset("assets/icons/password.svg"),
                     ),
                   ),
                 ),
