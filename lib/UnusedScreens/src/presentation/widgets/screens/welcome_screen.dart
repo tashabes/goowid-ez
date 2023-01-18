@@ -1,12 +1,12 @@
 // ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, prefer_const_constructors, duplicate_ignore
 
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/src/presentation/app_bar.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/registration_screen.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/signin_screen.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/app_bar.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/registration_screen.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/signin_screen.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/my_button.dart';
 
-import '../../../../classes/language_constants.dart';
+import '../../../../../classes/language_constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String screenRoute = 'welcome_screen';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../../classes/language_constants.dart';
+import '../../../../../../classes/language_constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
 late User signedInUser; //this will give the email

@@ -1,14 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/screens/onboarding/home/home_screen.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/chat_screen.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
 import 'classes/language_constants.dart';
+import 'screens/home/home_screen.dart';
 import 'screens/onboarding/onboarding.dart';
-import 'src/presentation/widgets/screens/Auth/registration_screen.dart';
-import 'src/presentation/widgets/screens/Auth/signin_screen.dart';
-import 'src/presentation/widgets/screens/welcome_screen.dart';
+import 'UnusedScreens/src/presentation/widgets/screens/Auth/registration_screen.dart';
+import 'UnusedScreens/src/presentation/widgets/screens/Auth/signin_screen.dart';
+import 'UnusedScreens/src/presentation/widgets/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
