@@ -1,29 +1,31 @@
-// ignore_for_file: library_private_types_in_public_api, sized_box_for_whitespace, prefer_const_constructors, unnecessary_null_comparison, use_build_context_synchronously, avoid_print
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, duplicate_ignore, unused_local_variable, use_build_context_synchronously, avoid_print
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/src/presentation/app_bar.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/my_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/app_bar.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/dashboard_homepage.dart';
+//import 'package:goowid_auth/src/presentation/widgets/';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/my_button.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:goowid_auth/src/presentation/widgets/screens/Auth/chat_screen.dart';
+import 'package:goowid_auth/UnusedScreens/src/presentation/widgets/screens/Auth/chat_screen.dart';
 
-import '../../../../../classes/language_constants.dart';
+import '../../../../../../classes/language_constants.dart';
 
-class SignInScreen extends StatefulWidget {
-  static const String screenRoute = 'signin_screen';
-
-  const SignInScreen({Key? key}) : super(key: key);
+class RegistrationScreen extends StatefulWidget {
+  static const String screenRoute = 'registration_screen';
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
+
   bool showSpinner = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +39,7 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
+              SizedBox(
                 height: 180,
                 child: Image.asset('images/Goowid.png'),
               ),
@@ -61,7 +63,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.orange[900]!,
+                      color: Colors.orange,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.all(
@@ -86,8 +88,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 onChanged: (value) {
                   password = value;
                 },
+                // ignore: prefer_const_constructors
                 decoration: InputDecoration(
                   hintText: (translation(context).enterYourPassword),
+                  // ignore: prefer_const_constructors
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -99,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.orange[900]!,
+                      color: Colors.orange,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.all(
@@ -119,22 +123,21 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               SizedBox(height: 10),
               MyButton(
-                color: Colors.orange[900]!,
-                title: (translation(context).signIn),
+                color: Colors.indigo[800]!,
+                title: (translation(context).register),
                 onPressed: () async {
+                  //print(email);
+                  //print(password);
                   setState(() {
                     showSpinner = true;
                   });
                   try {
-                    final user = await _auth.signInWithEmailAndPassword(
+                    final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
-                    if (user != null) {
-                      Navigator.pushNamed(
-                          context, DashboardHomePage.screenRoute);
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    }
+                    Navigator.pushNamed(context, DashboardHomePage.screenRoute);
+                    setState(() {
+                      showSpinner = false;
+                    });
                   } catch (e) {
                     print(e);
                   }

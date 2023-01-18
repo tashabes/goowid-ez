@@ -77,7 +77,7 @@ void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 24),
                         child: Text(
-                          "Sign up with Email, Apple or Google",
+                          "Sign up with Email or Phone Number",
                           style: TextStyle(color: Colors.black54),
                         ),
                       ),
@@ -89,24 +89,6 @@ void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
                             padding: EdgeInsets.zero,
                             icon: SvgPicture.asset(
                               "assets/icons/email_box.svg",
-                              height: 64,
-                              width: 64,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            padding: EdgeInsets.zero,
-                            icon: SvgPicture.asset(
-                              "assets/icons/apple_box.svg",
-                              height: 64,
-                              width: 64,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            padding: EdgeInsets.zero,
-                            icon: SvgPicture.asset(
-                              "assets/icons/google_box.svg",
                               height: 64,
                               width: 64,
                             ),
