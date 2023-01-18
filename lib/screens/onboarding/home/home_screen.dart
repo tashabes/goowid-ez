@@ -4,6 +4,8 @@ import 'components/checklist_card.dart';
 import 'components/secondary_checklist_card.dart';
 
 class HomePage extends StatelessWidget {
+  static const String screenRoute = 'home_screen';
+
   const HomePage({super.key});
 
   @override
