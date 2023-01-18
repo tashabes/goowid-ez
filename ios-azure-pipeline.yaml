@@ -24,7 +24,7 @@ jobs:
           mode: "auto"
           channel: "stable"
           version: "custom"
-          customVersion: "2.2.3"
+          
 
       - task: FlutterBuild@0
         displayName: "Flutter Build Apps - iOS"
