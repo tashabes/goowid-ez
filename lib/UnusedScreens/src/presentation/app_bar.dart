@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/classes/language.dart';
-import 'package:goowid_auth/classes/language_constants.dart';
-import 'package:goowid_auth/main.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:goowid_auth/classes/language_constants.dart';
+// import 'package:goowid_auth/main.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   const NavBar({super.key});
@@ -23,8 +23,8 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
             //
             onChanged: (Language? language) async {
               if (language != null) {
-                Locale _locale = await setLocale(language.languageCode);
-                MyApp.setLocale(context, _locale);
+                // Locale locale = await setLocale(language.languageCode);
+//MyApp.setLocale(context, _locale);
               }
             },
             items: Language.languageList()
@@ -51,6 +51,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
+  // ignore: todo
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
