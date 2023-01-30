@@ -34,7 +34,7 @@
               "client_id": "307302039403-09doqtd6hs48p79nh75m75aia407043o.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.goowidAuth"
+                "bundle_id": "com.goowid.goowidAuth"
               }
             }
           ]
