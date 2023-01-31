@@ -33,7 +33,7 @@ class Profile extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Natasha Abel',
+              '',
               style: TextStyle(
                   color: Color(0xFFF77D8E),
                   letterSpacing: 2,
@@ -47,7 +47,7 @@ class Profile extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              '+44 7717133855',
+              '',
               style: TextStyle(
                   color: Color(0xFFF77D8E),
                   letterSpacing: 2,
@@ -65,7 +65,7 @@ class Profile extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'natasha.abel@goowid.com',
+                  '',
                   style: TextStyle(
                       color: Colors.grey[400], fontSize: 18, letterSpacing: 1),
                 ),
