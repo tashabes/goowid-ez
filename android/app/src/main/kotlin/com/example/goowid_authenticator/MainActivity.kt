@@ -1,4 +1,4 @@
-package com.example.goowid_authenticator
+package com.goowid.goowid_authenticator
 
 import io.flutter.embedding.android.FlutterActivity
 
