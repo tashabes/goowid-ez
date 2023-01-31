@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../register/register_screen.dart';
 import 'sign_in_form.dart';
 
 void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  late ScaffoldMessengerState scaffoldMessenger;
+  scaffoldMessenger = ScaffoldMessenger.of(context);
   showGeneralDialog(
     context: context,
     barrierLabel: "Barrier",
@@ -34,6 +37,7 @@ void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
             ],
           ),
           child: Scaffold(
+            key: _scaffoldKey,
             backgroundColor: Colors.transparent,
             body: Stack(
               clipBehavior: Clip.none,
@@ -144,4 +148,4 @@ void showCustomDialog(BuildContext context, {required ValueChanged onValue}) {
       );
     },
   ).then(onValue);
-}
+}*/

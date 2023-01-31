@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
+import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
+import 'package:goowid_auth/screens/home/home_test.dart';
+import 'package:goowid_auth/screens/register/register_screen.dart';
+import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
 import 'screens/onboarding/onboarding.dart';
 
 void main() {
@@ -12,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Goowid',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEEF1F8),
@@ -27,7 +33,15 @@ class MyApp extends StatelessWidget {
           errorBorder: defaultInputBorder,
         ),
       ),
-      home: const OnbodingScreen(),
+      routes: <String, WidgetBuilder>{
+        '/onboarding': (BuildContext context) => new OnbodingScreen(),
+        '/entrypoint': (BuildContext context) => new EntryPoint(),
+        '/register': (BuildContext context) => new RegisterScreen(),
+        '/signin': (BuildContext context) => new SignIn(),
+        '/homeTest': (BuildContext context) => new HomeTest(),
+        '/profile': (BuildContext context) => new Profile(),
+      },
+      home: OnbodingScreen(),
     );
   }
 }

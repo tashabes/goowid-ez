@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/menu.dart';
 import '../../../../utils/rive_utils.dart';
+import '../../../model/user_details.dart';
 import 'info_card.dart';
 import 'side_menu.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  const SideBar({
+    super.key,
+    this.userName,
+  });
+
+  final String? userName;
 
   @override
   State<SideBar> createState() => _SideBarState();
 }
 
 class _SideBarState extends State<SideBar> {
+  @override
   Menu selectedSideMenu = sidebarMenus.first;
+
   @override
   Widget build(BuildContext context) {
+    /*Future<String> getName(preferences) async {
+      final userName = await SharedPreferences.getInstance();
+      return preferences.getString.displayName;
+    }*/
+
     return SafeArea(
       child: Container(
         width: 288,
@@ -31,13 +45,13 @@ class _SideBarState extends State<SideBar> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const InfoCard(
-                name: "Bahia Murad",
-                bio: "Chief Operating Officer",
+                name: "",
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
                 child: Text(
-                  "Browse".toUpperCase(),
+                  "hello",
+                  //"${getName()}".toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!

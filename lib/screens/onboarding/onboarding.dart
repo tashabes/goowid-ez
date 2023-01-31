@@ -95,7 +95,33 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                         ],
                       ),
                     ),
-                    const Spacer(flex: 2),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(context, "/signin");
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF77D8E),
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Text(
+                          "GET STARTED",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Poppins',
+                              letterSpacing: 1),
+                        ),
+                      ),
+                    ),
+                    /* const Spacer(flex: 2),
                     AnimatedBtn(
                       btnAnimationController: _btnAnimationController,
                       press: () {
@@ -119,7 +145,7 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                           },
                         );
                       },
-                    ),
+                    ),*/
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Text(
