@@ -42,7 +42,7 @@ class SecondaryCourseCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  "Bahia.Murad@etztec.com",
+                  "",
                   style: TextStyle(
                     color: Colors.white60,
                     fontSize: 16,
