@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../model/checklist.dart';
-import '../../model/user_details.dart';
-import '../../model/user_provider.dart';
 import 'components/checklist_card.dart';
 import 'components/secondary_checklist_card.dart';
 

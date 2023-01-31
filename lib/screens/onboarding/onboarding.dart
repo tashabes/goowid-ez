@@ -1,12 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:rive/rive.dart';
-
-import 'components/animated_btn.dart';
-
-import 'components/sign_in_dialog.dart';
 
 class OnbodingScreen extends StatefulWidget {
   static const String screenRoute = 'onboarding_screen';
