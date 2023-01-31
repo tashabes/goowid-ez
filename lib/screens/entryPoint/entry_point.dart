@@ -1,13 +1,10 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/model/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:goowid_auth/screens/holdingScreens/holding_screen.dart';
 import 'package:rive/rive.dart';
 import '../../../constants.dart';
 import '../../../model/menu.dart';
 import '../../../utils/rive_utils.dart';
-import '../../model/user_details.dart';
 import '../home/home_screen.dart';
 import 'components/btm_nav_item.dart';
 import 'components/menu_btn.dart';
@@ -164,6 +161,11 @@ class _EntryPointState extends State<EntryPoint>
                       press: () {
                         RiveUtils.chnageSMIBoolState(navBar.rive.status!);
                         updateSelectedBtmNav(navBar);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HoldingScreen(),
+                            ));
                       },
                       riveOnInit: (artboard) {
                         navBar.rive.status = RiveUtils.getRiveInput(artboard,
