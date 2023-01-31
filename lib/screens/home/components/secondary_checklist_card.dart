@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:flutter_svg/svg.dart';
 
 class SecondaryCourseCard extends StatelessWidget {
+// Retrieving a value
+
   const SecondaryCourseCard({
     Key? key,
     required this.title,
+    required this.colorl,
     //this.iconsSrc = "assets/icons/ios.svg",
-    this.colorl = const Color(0xFF7553F6),
   }) : super(key: key);
 
   final String title; //iconsSrc;
   final Color colorl;
+
+  Future<String> getValue(preferences) async {
+    final name = await SharedPreferences.getInstance();
+    return preferences.getString.displayName;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +47,7 @@ class SecondaryCourseCard extends StatelessWidget {
                     color: Colors.white60,
                     fontSize: 16,
                   ),
-                )
+                ),
               ],
             ),
           ),

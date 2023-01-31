@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../model/checklist.dart';
+import '../../model/user_details.dart';
+import '../../model/user_provider.dart';
 import 'components/checklist_card.dart';
 import 'components/secondary_checklist_card.dart';
 
@@ -10,6 +13,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*User user = Provider.of<UserProvider>(context).user;*/
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -21,7 +25,7 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  "Checklist",
+                  'Hello',
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),

@@ -1,9 +1,15 @@
+/*import 'dart:convert';
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../api/api.dart';
+import 'sign_in_dialog.dart';
 import '../../entryPoint/entry_point.dart';
+import 'package:http/http.dart' as http;
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -16,6 +22,13 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late String email, password;
+  bool isloading = false;
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  late ScaffoldMessengerState scaffoldMessenger;
+
   bool isShowLoading = false;
   bool isShowConfetti = false;
   late SMITrigger error;
@@ -98,7 +111,7 @@ class _SignInFormState extends State<SignInForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Email, phone number or username",
+                "Email",
                 style: TextStyle(
                   color: Colors.black54,
                 ),
@@ -106,25 +119,57 @@ class _SignInFormState extends State<SignInForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 16),
                 child: TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "";
-                    }
-                    return null;
-                  },
+                  controller: _emailController,
                   decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: SvgPicture.asset("assets/icons/email.svg"),
                     ),
                   ),
+                  onSaved: (val) {
+                    email = val!;
+                  },
+                ),
+              ),
+              const Text(
+                "Email",
+                style: TextStyle(
+                  color: Colors.black54,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 16),
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: SvgPicture.asset("assets/icons/email.svg"),
+                    ),
+                  ),
+                  onSaved: (val) {
+                    password = val!;
+                  },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    singIn(context);
+                    if (isloading) {
+                      return;
+                    }
+                    if (_emailController.text.isEmpty ||
+                        _passwordController.text.isEmpty) {
+                      scaffoldMessenger.showSnackBar(
+                          SnackBar(content: Text("Please Fill All Fields")));
+                      return;
+                    }
+                    login(_emailController.text, _passwordController.text);
+                    setState(() {
+                      isloading = true;
+                    });
+                    //TODO Navigate to homepage
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF77D8E),
@@ -148,6 +193,7 @@ class _SignInFormState extends State<SignInForm> {
             ],
           ),
         ),
+        //TO DO add in loading
         isShowLoading
             ? CustomPositioned(
                 child: RiveAnimation.asset(
@@ -168,6 +214,7 @@ class _SignInFormState extends State<SignInForm> {
               )
             : const SizedBox(),
       ],
+      //ADD IN DON'T HAVE AN ACCOUNT - SIGN UP
     );
   }
 }
@@ -198,3 +245,45 @@ class CustomPositioned extends StatelessWidget {
     );
   }
 }
+//
+
+login(email, password) async {
+  Map data = {'email': email, 'password': password};
+  print(data.toString());
+  final response = await http.post(Uri.parse(LOGIN),
+      headers: {
+        "Ocp-Apim-Subscription-Key": "7814fdc73dbe4abeb94bcc2d14956272",
+        "Content-Type": "application/json"
+      },
+      body: data,
+      encoding: Encoding.getByName("utf-8"));
+  setState(() {
+    isLoading = false;
+  });
+  if (response.statusCode == 200) {
+    Map<String, dynamic> resposne = jsonDecode(response.body);
+    if (!response['error']) {
+      Map<String, dynamic> user = response['data'];
+      print(" User name ${user['id']}");
+      savePref(1, user['name'], user['email'], user['id']);
+      //Navigator.pushReplacementNamed(context, "/home");
+    } else {
+      print(" ${response['message']}");
+    }
+    // scaffoldMessenger
+    //.showSnackBar(SnackBar(content: Text("${response['message']}")));
+    //} else {
+    //scaffoldMessenger
+    //.showSnackBar(SnackBar(content: Text("Please try again!")));
+  }
+}
+
+savePref(int value, String name, String email, int id) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  preferences.setInt("value", value);
+  preferences.setString("name", name);
+  preferences.setString("email", email);
+  preferences.setString("id", id.toString());
+  preferences.commit();
+}*/

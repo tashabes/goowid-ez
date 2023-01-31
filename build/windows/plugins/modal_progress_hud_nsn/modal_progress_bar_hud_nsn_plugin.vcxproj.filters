@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\NatashaAbel\source\repos\Authenticator\Goowid Authenticator-18\windows\flutter\ephemeral\.plugin_symlinks\modal_progress_hud_nsn\windows\modal_progress_bar_hud_nsn_plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\NatashaAbel\source\repos\Authenticator\Goowid Authenticator-18\windows\flutter\ephemeral\.plugin_symlinks\modal_progress_hud_nsn\windows\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7802AF9F-DB77-33C2-B922-C6E1344C96AA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
