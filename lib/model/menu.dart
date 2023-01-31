@@ -1,3 +1,4 @@
+import 'package:goowid_auth/screens/holdingScreens/holding_screen.dart';
 import 'rive_model.dart';
 
 class Menu {
@@ -58,9 +59,10 @@ List<Menu> bottomNavItems = [
   Menu(
     title: "Chat",
     rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "CHAT",
-        stateMachineName: "CHAT_Interactivity"),
+      src: "assets/RiveAssets/icons.riv",
+      artboard: "CHAT",
+      stateMachineName: "CHAT_Interactivity",
+    ),
   ),
   Menu(
     title: "Search",
