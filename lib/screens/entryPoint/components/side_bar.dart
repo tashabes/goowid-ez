@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/menu.dart';
 import '../../../../utils/rive_utils.dart';
 import '../../../model/user_details.dart';
+import '../../holdingScreens/holding_screen.dart';
 import 'info_card.dart';
 import 'side_menu.dart';
 
@@ -63,6 +64,11 @@ class _SideBarState extends State<SideBar> {
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HoldingScreen(),
+                              ));
                           RiveUtils.chnageSMIBoolState(menu.rive.status!);
                           setState(() {
                             selectedSideMenu = menu;
