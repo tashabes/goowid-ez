@@ -1,12 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
-import '../../model/user_details.dart';
-import '../../model/user_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -362,6 +358,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (response.statusCode == 200) {
       Map<String, dynamic> resposne = jsonDecode(response.body);
       if (resposne['displayName'] != null) {
+        //return user;
         // User user = resposne['user'];
         //Provider.of<UserProvider>(context, listen: false).setUser(user);
         savePref(
@@ -404,14 +401,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     preferences.setString("id", id.toString());
   }
 
-  Future<String> getUser() async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
+  // Future<String> getUser() async {
+  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    String? name = preferences.getString("displayName");
-    String? phone = preferences.getString("mobileNumber");
+  //   String? name = preferences.getString("displayName");
+  //   String? phone = preferences.getString("mobileNumber");
 
-    String? email = preferences.getString("email");
+  //   String? email = preferences.getString("email");
 
-    return user;
-  }
+  //   return user;
 }
