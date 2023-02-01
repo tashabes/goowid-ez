@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/model/user_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
@@ -258,9 +256,8 @@ class _SignInState extends State<SignIn> {
         Navigator.pushReplacementNamed(context, "/entrypoint");
       }
     } else {
-      scaffoldMessenger.showSnackBar(const SnackBar(
-          content:
-              Text("You do not yet have a Goowid account, please sign up")));
+      scaffoldMessenger.showSnackBar(
+          SnackBar(content: Text("Your email or password are incorrect")));
     }
   }
 
