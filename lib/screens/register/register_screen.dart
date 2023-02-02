@@ -12,6 +12,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   late String name, phone, email, password;
+  final String emailFormat = "@goowid.com";
   bool isLoading = false;
   late String user;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -188,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   _formKey.currentState!.validate();
                                 },
                                 onSaved: (val) {
-                                  email = val!;
+                                  password = val!;
                                 },
                                 validator: (password) {
                                   if (password!.isEmpty) {
@@ -254,6 +255,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       "Enter Valid Email")));
                                           return;
                                         }
+                                        if (!(_emailController.text)
+                                            .contains(emailFormat)) {
+                                          scaffoldMessenger.showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Enter a Goowid.com email")));
+                                          return;
+                                        }
+
                                         if (_passwordController.text.isEmpty ||
                                             _passwordController.text.length <
                                                 6) {
