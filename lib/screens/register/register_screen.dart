@@ -1,8 +1,10 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
+import '../../core/client/http_client.dart';
+import '../../core/failure/failure.dart';
+import '../../utils/app_logger.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -333,40 +335,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   signup(name, phone, email, password) async {
+    print("Calling");
+
     setState(() {
       isLoading = true;
     });
-    print("Calling");
+    try {
+      Map data = {
+        'displayName': name,
+        'firstName': name,
+        'surname': 'test',
+        'givenName': 'test',
+        'mailNickname': name,
+        'streetAddress': 'test',
+        'accountEnabled': true,
+        'email': email,
+        'mobilePhone': '"' + phone + '"',
+        'passwordProfile': {
+          "forceChangePasswordNextSignIn": false,
+          "password": password,
+        }
+      };
+      print(data.toString());
+      HttpClient httpClient = HttpClient();
+      Response? res = await httpClient.post(
+        REGISTRATION,
+        data,
+        headers: {
+          "Ocp-Apim-Subscription-Key": "7814fdc73dbe4abeb94bcc2d14956272",
+          "Content-Type": "application/json"
+        },
+      );
+      setState(() {
+        isLoading = false;
+      });
+      Map<String, dynamic> resposne = res?.data;
 
-    Map data = {
-      'displayName': name,
-      'firstName': name,
-      'surname': 'test',
-      'givenName': 'test',
-      'mailNickname': name,
-      'streetAddress': 'test',
-      'accountEnabled': true,
-      'email': email,
-      'mobilePhone': '"' + phone + '"',
-      'passwordProfile': {
-        "forceChangePasswordNextSignIn": false,
-        "password": '"' + password + '"',
-      }
-    };
-    print(data.toString());
-    final response = await http.post(
-      Uri.parse(REGISTRATION),
-      headers: {
-        "Ocp-Apim-Subscription-Key": "7814fdc73dbe4abeb94bcc2d14956272",
-        "Content-Type": "application/json"
-      },
-      body: jsonEncode(data),
-    );
-    setState(() {
-      isLoading = false;
-    });
-    if (response.statusCode == 200) {
-      Map<String, dynamic> resposne = jsonDecode(response.body);
+      AppLogger.log("This is the result: ======> ${res?.data}");
+
       if (resposne['displayName'] != null) {
         //return user;
         // User user = resposne['user'];
@@ -383,10 +389,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
         scaffoldMessenger.showSnackBar(
             SnackBar(content: Text("Welcome ${resposne['displayName']}")));
         Navigator.pushReplacementNamed(context, "/signin");
+        setState(() {
+          isLoading = false;
+        });
       }
-    } else {
-      scaffoldMessenger.showSnackBar(SnackBar(
-          content: Text("Please try again!" + response.statusCode.toString())));
+    } on Failure catch (e) {
+      scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
+      setState(() {
+        isLoading = false;
+      });
+      AppLogger.log("Error:  =====> ${e.errorMessage}");
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      AppLogger.log("Error:  =====> $e");
+      AppLogger.log(e.toString());
+      scaffoldMessenger.showSnackBar(const SnackBar(
+          content: Text("Something went wrong, try again later")));
     }
   }
 
