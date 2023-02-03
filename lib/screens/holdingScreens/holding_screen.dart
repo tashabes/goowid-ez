@@ -37,7 +37,7 @@ class HoldingScreen extends StatelessWidget {
               SvgPicture.asset("assets/illustrations/no_task_1.svg"),
               const SizedBox(height: defaultPadding * 2),
               const Text(
-                "Check back later..",
+                "No updates",
                 style: TextStyle(
                     color: Colors.black,
                     letterSpacing: 1,
@@ -48,7 +48,7 @@ class HoldingScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  "Please check back here in a little while.",
+                  "You're all up to date",
                   textAlign: TextAlign.center,
                 ),
               )

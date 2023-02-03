@@ -51,7 +51,7 @@ class _SideBarState extends State<SideBar> {
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
                 child: Text(
-                  "hello",
+                  "Hello 👋",
                   //"${getName()}".toUpperCase(),
                   style: Theme.of(context)
                       .textTheme
@@ -95,6 +95,11 @@ class _SideBarState extends State<SideBar> {
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HoldingScreen(),
+                              ));
                           RiveUtils.chnageSMIBoolState(menu.rive.status!);
                           setState(() {
                             selectedSideMenu = menu;
