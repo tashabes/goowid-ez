@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
 import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
+import '../../utils/app_flushbar.dart';
 import '../../utils/app_logger.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -386,15 +387,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
             resposne['mobilePhone'],
             resposne['userPrincipalName'],
             resposne['id']);
-        scaffoldMessenger.showSnackBar(
-            SnackBar(content: Text("Welcome ${resposne['displayName']}")));
+
         Navigator.pushReplacementNamed(context, "/signin");
+        GoodWidFlushBar.showSuccess(
+            message: "Welcome ${resposne['displayName']}", context: context);
         setState(() {
           isLoading = false;
         });
       }
     } on Failure catch (e) {
       scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
+      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
       setState(() {
         isLoading = false;
       });
@@ -405,8 +408,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       AppLogger.log("Error:  =====> $e");
       AppLogger.log(e.toString());
-      scaffoldMessenger.showSnackBar(const SnackBar(
-          content: Text("Something went wrong, try again later")));
+      GoodWidFlushBar.showError(
+          message: "Something went wrong, try again later", context: context);
     }
   }
 
