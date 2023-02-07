@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/holdingScreens/holding_screen.dart';
+import 'package:goowid_auth/screens/toDo/to_do_list.dart';
 import 'package:rive/rive.dart';
 import '../../../constants.dart';
 import '../../../model/menu.dart';
@@ -91,7 +92,7 @@ class _EntryPointState extends State<EntryPoint>
                   borderRadius: BorderRadius.all(
                     Radius.circular(24),
                   ),
-                  child: HomePage(),
+                  child: ToDoListPage(),
                 ),
               ),
             ),
