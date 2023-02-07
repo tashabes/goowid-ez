@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/home/home_test.dart';
+import 'package:goowid_auth/screens/passwordManager/add_account.dart';
+import 'package:goowid_auth/screens/passwordManager/password_homepage.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
 import 'screens/onboarding/onboarding.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/homeTest': (BuildContext context) => new HomeTest(),
         '/profile': (BuildContext context) => new Profile(),
       },
-      home: OnbodingScreen(),
+      home: const AddAccountScreen(),
     );
   }
 }
