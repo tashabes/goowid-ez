@@ -396,7 +396,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
       }
     } on Failure catch (e) {
-      scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
+      //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
       GoodWidFlushBar.showError(message: e.errorMessage, context: context);
       setState(() {
         isLoading = false;

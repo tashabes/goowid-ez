@@ -50,11 +50,14 @@ class HttpClient {
       return response;
     } on DioError catch (e) {
       AppLogger.log("============> response data ${e.response?.data}");
+      AppLogger.log("============> status code ${e.response?.statusCode}");
       AppLogger.log("============> message ${e.message}");
       AppLogger.log("============> error ${e.error}");
       AppLogger.log("============> type ${e.type}");
 
-      if (e.response != null && e.response?.data != null) {
+      if (e.response?.statusCode == 400) {
+        throw Failure('This email is already registered.');
+      } else if (e.response != null && e.response?.data != null) {
         throw Failure(e.response?.data['message']);
       } else {
         AppLogger.log("Error ================> $e");
