@@ -64,11 +64,6 @@ class _SideBarState extends State<SideBar> {
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HoldingScreen(),
-                              ));
                           RiveUtils.chnageSMIBoolState(menu.rive.status!);
                           setState(() {
                             selectedSideMenu = menu;
@@ -95,11 +90,6 @@ class _SideBarState extends State<SideBar> {
                         menu: menu,
                         selectedMenu: selectedSideMenu,
                         press: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HoldingScreen(),
-                              ));
                           RiveUtils.chnageSMIBoolState(menu.rive.status!);
                           setState(() {
                             selectedSideMenu = menu;
