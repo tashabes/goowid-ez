@@ -59,7 +59,7 @@ class _SignInState extends State<SignIn> {
                         height: 40,
                       ),
                       const Text(
-                        "Sign In",
+                        "Log in",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.black,
@@ -162,7 +162,7 @@ class _SignInState extends State<SignIn> {
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: const Text(
-                                        "SUBMIT",
+                                        "Log in",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Colors.white,
@@ -208,7 +208,23 @@ class _SignInState extends State<SignIn> {
                           Navigator.pushReplacementNamed(context, "/register");
                         },
                         child: const Text(
-                          "Don't have an account?",
+                          "Don't have an account?  Create one.",
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 13,
+                              decoration: TextDecoration.underline,
+                              letterSpacing: 0.5),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, "/register");
+                        },
+                        child: const Text(
+                          "Forgotten your Goowid Password?",
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 13,
