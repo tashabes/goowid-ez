@@ -19,6 +19,7 @@ class _SignInState extends State<SignIn> {
   TextEditingController _passwordController = new TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late ScaffoldMessengerState scaffoldMessenger;
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -111,15 +112,24 @@ class _SignInState extends State<SignIn> {
                                 controller: _passwordController,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black12)),
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
-                                ),
+                                obscureText: _obscureText,
+                                decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black12)),
+                                    hintText: "Password",
+                                    hintStyle: TextStyle(
+                                        color: Colors.black54, fontSize: 15),
+                                    suffixIcon: IconButton(
+                                        onPressed: () => setState(() {
+                                              _obscureText = !_obscureText;
+                                            }),
+                                        icon: Icon(
+                                          _obscureText
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          color: Color(0xFFF77D8E),
+                                        ))),
                                 onSaved: (val) {
                                   password = val!;
                                 },

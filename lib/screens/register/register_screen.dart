@@ -62,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _confirmPasswordController =
       new TextEditingController();
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -201,17 +202,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.black54,
                                 ),
                                 controller: _passwordController,
-                                obscureText: true,
+                                obscureText: _obscureText,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black12)),
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
-                                ),
+                                decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black12)),
+                                    hintText: "Password",
+                                    hintStyle: TextStyle(
+                                        color: Colors.black54, fontSize: 15),
+                                    suffixIcon: IconButton(
+                                        onPressed: () => setState(() {
+                                              _obscureText = !_obscureText;
+                                            }),
+                                        icon: Icon(
+                                          _obscureText
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          color: Color(0xFFF77D8E),
+                                        ))),
                                 onChanged: (value) {
                                   _formKey.currentState!.validate();
                                   password = value;
@@ -240,17 +250,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.black54,
                                 ),
                                 controller: _confirmPasswordController,
-                                obscureText: true,
+                                obscureText: _obscureText,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black12)),
-                                  hintText: "Confirm Password",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
-                                ),
+                                decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black12)),
+                                    hintText: "Confirm Password",
+                                    hintStyle: TextStyle(
+                                        color: Colors.black54, fontSize: 15),
+                                    suffixIcon: IconButton(
+                                        onPressed: () => setState(() {
+                                              _obscureText = !_obscureText;
+                                            }),
+                                        icon: Icon(
+                                          _obscureText
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          color: Color(0xFFF77D8E),
+                                        ))),
                                 onChanged: (value) {
                                   confirmPassword = value;
                                   _formKey.currentState!.validate();
