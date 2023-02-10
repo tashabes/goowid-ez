@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/sign_in_screen.dart/components/forgotton_password_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
@@ -231,7 +232,9 @@ class _SignInState extends State<SignIn> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, "/register");
+                          String title = "Forgot Password";
+                          String message = "Email address";
+                          showAlertDialog(context, title, message);
                         },
                         child: const Text(
                           "Forgotten your Goowid Password?",
