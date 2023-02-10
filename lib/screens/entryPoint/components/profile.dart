@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../entry_point.dart';
@@ -13,6 +14,11 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     getName();
+  }
+
+  signOut() async {
+    await Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => SignIn()));
   }
 
   @override
@@ -75,23 +81,45 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      floatingActionButton: SizedBox(
-        height: 64,
-        width: 64,
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EntryPoint(),
-                ));
-          },
-          style: ElevatedButton.styleFrom(
-            shape: const CircleBorder(),
-            backgroundColor: const Color(0xFFF77D8E),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 30.0),
+            child: SizedBox(
+              height: 64,
+              width: 64,
+              child: ElevatedButton(
+                onPressed: () {
+                  signOut();
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  backgroundColor: const Color(0xFFF77D8E),
+                ),
+                child: const Icon(Icons.logout_rounded),
+              ),
+            ),
           ),
-          child: const Icon(Icons.arrow_back),
-        ),
+          SizedBox(
+            height: 64,
+            width: 64,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EntryPoint(),
+                    ));
+              },
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                backgroundColor: const Color(0xFFF77D8E),
+              ),
+              child: const Icon(Icons.arrow_back),
+            ),
+          ),
+        ],
       ),
     );
   }
