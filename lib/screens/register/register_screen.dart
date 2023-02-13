@@ -14,7 +14,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String name, surname, email, password, confirmPassword;
+  late String name, surname, email, password;
   final String emailFormat = "@goowid.com";
   bool isLoading = false;
   late String user;
@@ -60,8 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController _surnameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
+
   bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
@@ -245,43 +244,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              TextFormField(
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                ),
-                                controller: _confirmPasswordController,
-                                obscureText: _obscureText,
-                                enableSuggestions: false,
-                                autocorrect: false,
-                                decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black12)),
-                                    hintText: "Confirm Password",
-                                    hintStyle: TextStyle(
-                                        color: Colors.black54, fontSize: 15),
-                                    suffixIcon: IconButton(
-                                        onPressed: () => setState(() {
-                                              _obscureText = !_obscureText;
-                                            }),
-                                        icon: Icon(
-                                          _obscureText
-                                              ? Icons.visibility_off
-                                              : Icons.visibility,
-                                          color: Color(0xFFF77D8E),
-                                        ))),
-                                onChanged: (value) {
-                                  confirmPassword = value;
-                                  _formKey.currentState!.validate();
-                                },
-                                validator: (value) {
-                                  if (value != _passwordController.text) {
-                                    return "Your passwords don't match";
-                                  }
-
-                                  return null;
-                                },
-                              ),
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
                                 child: LinearProgressIndicator(
@@ -364,7 +326,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             _emailController.text,
                                             _passwordController.text);
                                       },
-                                      child: const Text("Sign in",
+                                      child: const Text("Sign up",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: Colors.white,
@@ -401,7 +363,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onTap: () {
                           Navigator.pushReplacementNamed(context, "/signin");
                         },
-                        child: const Text("Already have an account? Log in",
+                        child: const Text("Already have an account?",
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 13,
@@ -470,7 +432,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             resposne['userPrincipalName'],
             resposne['id']);
 
-        Navigator.pushReplacementNamed(context, "/signin");
+        Navigator.pushReplacementNamed(context, "/entrypoint");
         GoodWidFlushBar.showSuccess(
             message: "Welcome ${resposne['displayName']}", context: context);
         setState(() {
