@@ -219,7 +219,7 @@ class _SignInState extends State<SignIn> {
                           Navigator.pushReplacementNamed(context, "/register");
                         },
                         child: const Text(
-                          "Don't have an account?  Create one.",
+                          "Don't have an account?",
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 13,
@@ -237,7 +237,7 @@ class _SignInState extends State<SignIn> {
                           showAlertDialog(context, title, message);
                         },
                         child: const Text(
-                          "Forgotten your Goowid Password?",
+                          "Forgot password?",
                           style: TextStyle(
                               color: Colors.black54,
                               fontSize: 13,
