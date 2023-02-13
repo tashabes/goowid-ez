@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../utils/routes.dart';
 
 class InfoCard extends StatelessWidget {
   const InfoCard({
@@ -14,7 +15,7 @@ class InfoCard extends StatelessWidget {
     return ListTile(
       leading: GestureDetector(
         onTap: () {
-          Navigator.pushReplacementNamed(context, "/profile");
+          Navigator.pushReplacementNamed(context, profile);
         },
         child: const CircleAvatar(
           backgroundColor: Colors.white24,

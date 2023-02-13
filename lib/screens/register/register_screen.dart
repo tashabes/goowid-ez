@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
 import '../../core/client/http_client.dart';
@@ -361,7 +362,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, "/signin");
+                          Navigator.pushReplacementNamed(context, signIn);
                         },
                         child: const Text("Already have an account?",
                             style: TextStyle(
@@ -432,7 +433,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             resposne['userPrincipalName'],
             resposne['id']);
 
-        Navigator.pushReplacementNamed(context, "/entrypoint");
+        Navigator.pushReplacementNamed(context, homePage);
         GoodWidFlushBar.showSuccess(
             message: "Welcome ${resposne['displayName']}", context: context);
         setState(() {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/components/forgotton_password_dialog.dart';
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
@@ -216,7 +217,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, "/register");
+                          Navigator.pushReplacementNamed(context, signUp);
                         },
                         child: const Text(
                           "Don't have an account?",
@@ -281,7 +282,7 @@ class _SignInState extends State<SignIn> {
             resposne['userPrincipalName'],
             resposne['id']);
 
-        Navigator.pushReplacementNamed(context, "/entrypoint");
+        Navigator.pushReplacementNamed(context, homePage);
         GoodWidFlushBar.showSuccess(
             message: "Welcome ${resposne['displayName']}", context: context);
       }
