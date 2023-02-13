@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/onboarding/onboarding.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -78,6 +79,25 @@ class _ProfileState extends State<Profile> {
                 ),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OnbodingScreen(),
+                      ));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF77D8E),
+                ),
+                child: Text(
+                  'Delete Account',
+                  style: TextStyle(fontFamily: 'Poppins'),
+                ),
+              ),
+            )
           ],
         ),
       ),
