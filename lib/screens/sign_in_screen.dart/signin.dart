@@ -61,15 +61,10 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(
                         height: 40,
                       ),
-                      const Text(
+                      Text(
                         "Log in",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            letterSpacing: 1,
-                            fontSize: 34,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Poppins'),
+                        //textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                       const SizedBox(
                         height: 8,

@@ -46,14 +46,12 @@ showAlertDialog(BuildContext context, String title, String message) {
   AlertDialog alert = AlertDialog(
     title: Text(
       title,
-      style: const TextStyle(
-          color: Colors.black,
-          letterSpacing: 1,
-          fontSize: 34,
-          fontWeight: FontWeight.w600,
-          fontFamily: 'Poppins'),
+      style: Theme.of(context).textTheme.headline2,
     ),
-    content: Text(message),
+    content: Text(
+      message,
+      style: Theme.of(context).textTheme.subtitle1,
+    ),
     actions: [
       emailTextField,
       okbtn,

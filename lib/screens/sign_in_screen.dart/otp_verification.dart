@@ -32,19 +32,24 @@ class OtpVerificationScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Text('Verification code',
-                          style:
-                              TextStyle(fontFamily: 'Poppins', fontSize: 30)),
+                      Text('Verification code',
+                          style: Theme.of(context).textTheme.headline2),
                       const SizedBox(
                         height: 15,
                       ),
-                      const Text('We have sent the code verifcation to:'),
+                      Text(
+                        'We have sent the code verifcation to:',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
                       Row(
                         children: [
-                          Text(phoneNumber),
+                          Text(
+                            phoneNumber,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                           Padding(
                             padding: EdgeInsets.only(left: 8.0),
                             child: GestureDetector(
@@ -54,13 +59,19 @@ class OtpVerificationScreen extends StatelessWidget {
                                     "Enter your phone number.  We'll send you a verification code to reset your password.";
                                 showAlertDialog(context, title, message);
                               },
-                              child: Text('Change phone number?'),
+                              child: Text(
+                                'Change phone number?',
+                                style: TextStyle(color: Color(0xFFF77D8E)),
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -69,8 +80,8 @@ class OtpVerificationScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
@@ -91,8 +102,8 @@ class OtpVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
@@ -113,8 +124,8 @@ class OtpVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
@@ -135,8 +146,8 @@ class OtpVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
@@ -157,8 +168,8 @@ class OtpVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
@@ -179,8 +190,8 @@ class OtpVerificationScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 60,
-                                  width: 56,
+                                  height: 55,
+                                  width: 51,
                                   child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {

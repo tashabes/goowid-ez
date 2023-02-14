@@ -47,19 +47,16 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Enter your new password',
-                    style: TextStyle(fontFamily: 'Poppins', fontSize: 30)),
+                Text(
+                  'Enter your new password',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'Enter a secure password including the following criteria below.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
+                    'Enter a secure password including the following criteria below.',
+                    style: Theme.of(context).textTheme.subtitle1),
                 SizedBox(
                   height: 10,
                 ),
@@ -120,7 +117,8 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Contains at least 8 characters'),
+                    Text('Contains at least 8 characters',
+                        style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
                 SizedBox(
@@ -152,7 +150,8 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Contains at least 1 number'),
+                    Text('Contains at least 1 number',
+                        style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
                 SizedBox(
@@ -184,7 +183,10 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Contains a capital letter'),
+                    Text(
+                      'Contains a capital letter',
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -216,7 +218,8 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     SizedBox(
                       width: 10,
                     ),
-                    Text('Contains a special character'),
+                    Text('Contains a special character',
+                        style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
                 SizedBox(
