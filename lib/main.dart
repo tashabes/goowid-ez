@@ -31,6 +31,25 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEEF1F8),
         primarySwatch: Colors.blue,
         fontFamily: "Intel",
+        textTheme: TextTheme(
+            headline1: const TextStyle(
+                color: Colors.black,
+                letterSpacing: 1,
+                fontSize: 34,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins'),
+            headline2: const TextStyle(
+                fontFamily: 'Poppins', fontSize: 30, color: Colors.black),
+            subtitle1: TextStyle(
+              fontSize: 16,
+              height: 1.5,
+              color: Colors.grey[600]!,
+            ),
+            subtitle2: TextStyle(
+              fontSize: 14,
+              height: 1.5,
+              color: Colors.black,
+            )),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
