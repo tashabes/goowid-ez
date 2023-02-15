@@ -228,10 +228,12 @@ class _SignInState extends State<SignIn> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          String title = "Forgot Password";
-                          String message =
-                              "Enter your phone number.  We'll send you a verification code to reset your password.";
-                          showAlertDialog(context, title, message);
+                          Navigator.pushReplacementNamed(
+                              context, otpVerifyPhone);
+                          // String title = "Forgot Password";
+                          // String message =
+                          //     "Enter your phone number.  We'll send you a verification code to reset your password.";
+                          // showAlertDialog(context, title, message);
                         },
                         child: const Text(
                           "Forgot password?",

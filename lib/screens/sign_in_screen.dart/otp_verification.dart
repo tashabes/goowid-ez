@@ -1,13 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:goowid_auth/utils/routes.dart';
 
 import 'components/forgotton_password_dialog.dart';
 
-class OtpVerificationScreen extends StatelessWidget {
+class OtpVerificationScreen extends StatefulWidget {
   final String phoneNumber;
 
   const OtpVerificationScreen({super.key, required this.phoneNumber});
+
+  @override
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+}
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  int start = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +56,7 @@ class OtpVerificationScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            phoneNumber,
+                            widget.phoneNumber,
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Padding(
@@ -70,6 +79,34 @@ class OtpVerificationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 30,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.grey.shade300,
+                                margin: EdgeInsets.symmetric(horizontal: 12.0),
+                              ),
+                            ),
+                            Text(
+                              'Enter your 6 digit code',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.grey.shade300,
+                                margin: EdgeInsets.symmetric(horizontal: 12.0),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -77,141 +114,151 @@ class OtpVerificationScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Form(
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin1) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin1) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin2) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin2) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin3) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin3) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin4) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin4) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin5) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin5) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 55,
-                                  width: 51,
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      if (value.length == 1) {
-                                        FocusScope.of(context).nextFocus();
-                                      }
-                                    },
-                                    onSaved: (pin6) {},
-                                    decoration:
-                                        const InputDecoration(hintText: "0"),
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    keyboardType: TextInputType.number,
-                                    textAlign: TextAlign.center,
-                                    inputFormatters: [
-                                      LengthLimitingTextInputFormatter(1),
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
-                                  ),
+                              ),
+                              SizedBox(
+                                height: 55,
+                                width: 51,
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    if (value.length == 1) {
+                                      FocusScope.of(context).nextFocus();
+                                    }
+                                  },
+                                  onSaved: (pin6) {},
+                                  decoration:
+                                      const InputDecoration(hintText: "0"),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly,
+                                  ],
                                 ),
-                              ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: "Send code again in ",
+                                style: Theme.of(context).textTheme.subtitle1),
+                            TextSpan(
+                                text: "00:$start ",
+                                style: Theme.of(context).textTheme.subtitle1),
+                            TextSpan(
+                                text: "seconds",
+                                style: Theme.of(context).textTheme.subtitle1),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -274,5 +321,20 @@ class OtpVerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void startTimer() {
+    const onsec = Duration(seconds: 1);
+    Timer timer = Timer.periodic(onsec, (timer) {
+      if (start == 1) {
+        setState(() {
+          timer.cancel();
+        });
+      } else {
+        setState(() {
+          start--;
+        });
+      }
+    });
   }
 }

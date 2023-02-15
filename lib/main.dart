@@ -5,7 +5,7 @@ import 'package:goowid_auth/screens/home/home_test.dart';
 import 'package:goowid_auth/screens/passwordManager/add_account.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
-import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verification.dart';
+import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verify_phone.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/onboarding/onboarding.dart';
@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
         '/profile': (BuildContext context) => new Profile(),
         '/add_account': (BuildContext context) => new AddAccountScreen(),
         '/confirm_password': (BuildContext context) => new ConfirmNewPassword(),
+        '/OTP_verify_phone': (BuildContext context) => new OTPVerifyPhone(),
       },
       home: const OnbodingScreen(),
     );
