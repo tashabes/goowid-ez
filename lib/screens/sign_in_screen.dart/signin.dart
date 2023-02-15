@@ -91,7 +91,7 @@ class _SignInState extends State<SignIn> {
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
-                                  hintText: "Email",
+                                  hintText: "Username",
                                   hintStyle: TextStyle(
                                       color: Colors.black54, fontSize: 15),
                                 ),
@@ -254,7 +254,7 @@ class _SignInState extends State<SignIn> {
   }
 
   login(email, password) async {
-    Map data = {'userName': email, 'password': password};
+    Map data = {'userName': "$email@goowid.com", 'password': password};
     print(data.toString());
     final response = await http.post(
       Uri.parse(LOGIN),
