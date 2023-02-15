@@ -56,7 +56,7 @@ class HttpClient {
       AppLogger.log("============> type ${e.type}");
 
       if (e.response?.statusCode == 400) {
-        throw Failure('This email is already registered.');
+        throw Failure('This username is already registered.');
       } else if (e.response != null && e.response?.data != null) {
         throw Failure(e.response?.data['message']);
       } else {

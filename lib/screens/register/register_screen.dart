@@ -186,7 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
-                                  hintText: "Email",
+                                  hintText: "Username",
                                   hintStyle: TextStyle(
                                       color: Colors.black54, fontSize: 15),
                                 ),
@@ -295,22 +295,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       "Please Enter Surname")));
                                           return;
                                         }
-                                        if (!reg
-                                            .hasMatch(_emailController.text)) {
-                                          scaffoldMessenger.showSnackBar(
-                                              const SnackBar(
-                                                  content: Text(
-                                                      "Enter Valid Email")));
-                                          return;
-                                        }
-                                        if (!(_emailController.text)
-                                            .contains(emailFormat)) {
-                                          scaffoldMessenger.showSnackBar(
-                                              const SnackBar(
-                                                  content: Text(
-                                                      "Enter a Goowid.com email")));
-                                          return;
-                                        }
+                                        // if (!reg
+                                        //     .hasMatch(_emailController.text)) {
+                                        //   scaffoldMessenger.showSnackBar(
+                                        //       const SnackBar(
+                                        //           content: Text(
+                                        //               "Enter Valid Email")));
+                                        //   return;
+                                        // }
+                                        // if (!(_emailController.text)
+                                        //     .contains(emailFormat)) {
+                                        //   scaffoldMessenger.showSnackBar(
+                                        //       const SnackBar(
+                                        //           content: Text(
+                                        //               "Enter a Goowid.com email")));
+                                        //   return;
+                                        // }
 
                                         if (_passwordController.text.isEmpty ||
                                             _passwordController.text.length <
@@ -395,7 +395,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'mailNickname': name,
         'streetAddress': 'test',
         'accountEnabled': true,
-        'email': email,
+        'email': "$email@goowid.com",
         'mobilePhone': 'test',
         'passwordProfile': {
           "forceChangePasswordNextSignIn": false,
