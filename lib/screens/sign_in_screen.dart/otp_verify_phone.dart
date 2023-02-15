@@ -26,80 +26,80 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
-            child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Text(
-                'Verification Code',
-                style: Theme.of(context).textTheme.headline2,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 30,
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            textField(),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width - 30,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      color: Colors.grey.shade300,
-                      margin: EdgeInsets.symmetric(horizontal: 12.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Text(
+                  'Verification Code',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              textField(),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        color: Colors.grey.shade300,
+                        margin: EdgeInsets.symmetric(horizontal: 12.0),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Enter your 6 digit code',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      color: Colors.grey.shade300,
-                      margin: EdgeInsets.symmetric(horizontal: 12.0),
+                    Text(
+                      'Enter your 6 digit code',
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        color: Colors.grey.shade300,
+                        margin: EdgeInsets.symmetric(horizontal: 12.0),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            otpField(),
-            SizedBox(
-              height: 30,
-            ),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                      text: "Send code again in ",
-                      style: Theme.of(context).textTheme.subtitle1),
-                  TextSpan(
-                      text: "00:$start ",
-                      style: Theme.of(context).textTheme.subtitle2),
-                  TextSpan(
-                      text: "sec",
-                      style: Theme.of(context).textTheme.subtitle1),
-                ],
+              SizedBox(
+                height: 30,
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            GestureDetector(
-              onTap: (() {
-                Navigator.pushReplacementNamed(context, confirmPassword);
-              }),
-              child: Container(
+              otpField(),
+              SizedBox(
+                height: 30,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Send code again in ",
+                        style: Theme.of(context).textTheme.subtitle1),
+                    TextSpan(
+                        text: "00:$start ",
+                        style: Theme.of(context).textTheme.subtitle2),
+                    TextSpan(
+                        text: "sec",
+                        style: Theme.of(context).textTheme.subtitle1),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: (() {
+                  Navigator.pushReplacementNamed(context, confirmPassword);
+                }),
+                child: Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width - 60,
                   decoration: BoxDecoration(
@@ -115,10 +115,35 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                           fontFamily: 'Poppins',
                           letterSpacing: 1),
                     ),
-                  )),
-            )
-          ],
-        )),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 150,
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 64,
+                    width: 64,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, signIn);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        backgroundColor: const Color(0xFFF77D8E),
+                      ),
+                      child: const Icon(Icons.arrow_back),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
