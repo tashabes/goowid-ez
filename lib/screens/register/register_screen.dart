@@ -15,7 +15,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String name, surname, email, password;
+  late String name, phone, email, password;
   final String emailFormat = "@goowid.com";
   bool isLoading = false;
   late String user;
@@ -58,7 +58,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   TextEditingController _nameController = new TextEditingController();
-  TextEditingController _surnameController = new TextEditingController();
+  //TextEditingController _surnameController = new TextEditingController();
+  TextEditingController _phoneController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
 
@@ -122,55 +123,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               vertical: 10, horizontal: 45),
                           child: Column(
                             children: <Widget>[
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: TextFormField(
-                                      style: const TextStyle(
-                                        color: Colors.black54,
-                                      ),
-                                      controller: _nameController,
-                                      decoration: const InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.black12)),
-                                        hintText: "Name",
-                                        hintStyle: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 15),
-                                      ),
-                                      onSaved: (val) {
-                                        name = val!;
-                                      },
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      style: const TextStyle(
-                                        color: Colors.black54,
-                                      ),
-                                      controller: _surnameController,
-                                      decoration: const InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.black12)),
-                                        hintText: "Surname",
-                                        hintStyle: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 15),
-                                      ),
-                                      onSaved: (val) {
-                                        surname = val!;
-                                      },
-                                    ),
-                                  ),
-                                ],
+                              TextFormField(
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                ),
+                                controller: _nameController,
+                                decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black12)),
+                                  hintText: "Name",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54, fontSize: 15),
+                                ),
+                                onSaved: (val) {
+                                  name = val!;
+                                },
                               ),
                               const SizedBox(
                                 height: 16,
+                              ),
+                              TextFormField(
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                ),
+                                controller: _phoneController,
+                                decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black12)),
+                                  hintText: "Phone Number",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54, fontSize: 15),
+                                ),
+                                onSaved: (val) {
+                                  phone = val!;
+                                },
                               ),
                               const SizedBox(
                                 height: 16,
@@ -288,11 +276,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       "Please Enter Name")));
                                           return;
                                         }
-                                        if (_surnameController.text.isEmpty) {
+                                        if (_phoneController.text.isEmpty) {
                                           scaffoldMessenger.showSnackBar(
                                               const SnackBar(
                                                   content: Text(
-                                                      "Please Enter Surname")));
+                                                      "Please Enter Phone Number")));
                                           return;
                                         }
                                         // if (!reg
@@ -323,7 +311,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         }
                                         signup(
                                             _nameController.text,
-                                            _surnameController.text,
+                                            _phoneController.text,
                                             _emailController.text,
                                             _passwordController.text);
                                       },
@@ -380,7 +368,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ));
   }
 
-  signup(name, surname, email, password) async {
+  signup(name, phone, email, password) async {
     print("Calling");
 
     setState(() {
@@ -390,13 +378,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Map data = {
         'displayName': name,
         'firstName': name,
-        'surname': surname,
+        'surname': name,
         'givenName': 'test',
         'mailNickname': name,
         'streetAddress': 'test',
         'accountEnabled': true,
         'email': "$email@goowid.com",
-        'mobilePhone': 'test',
+        'mobilePhone': phone,
         'passwordProfile': {
           "forceChangePasswordNextSignIn": false,
           "password": password,
