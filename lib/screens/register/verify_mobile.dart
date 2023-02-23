@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
+import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
@@ -13,14 +14,14 @@ import 'package:dio/dio.dart';
 
 import '../../utils/app_logger.dart';
 
-class OTPVerifyPhone extends StatefulWidget {
-  const OTPVerifyPhone({super.key});
+class VerifyMobile extends StatefulWidget {
+  const VerifyMobile({super.key});
 
   @override
-  State<OTPVerifyPhone> createState() => _OTPVerifyPhoneState();
+  State<VerifyMobile> createState() => _VerifyMobileState();
 }
 
-class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
+class _VerifyMobileState extends State<VerifyMobile> {
   int start = 30;
   final _formKey = GlobalKey<FormState>();
   late ScaffoldMessengerState scaffoldMessenger;
@@ -47,8 +48,15 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: Text(
-                  'Verification Code',
+                  'Verify your phone',
                   style: Theme.of(context).textTheme.headline2,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'Please enter your user name, to recieve your 6 digit verification code to your phone number.',
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ),
               SizedBox(
@@ -189,7 +197,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               //   ),
               // ),
               SizedBox(
-                height: 150,
+                height: 110,
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -199,7 +207,9 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                     height: 64,
                     width: 64,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, signUp);
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         backgroundColor: const Color(0xFFF77D8E),
@@ -317,7 +327,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       print(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
-        SENDOTP,
+        SENDPHONEOTP,
         data,
         headers: {
           "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
@@ -355,7 +365,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       print(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
-        VALIDATEOTP,
+        VALIDATEPHONEOTP,
         data,
         headers: {
           "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
@@ -370,7 +380,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
 
       if (res!.statusCode == 200) {
         GoodWidFlushBar.showSuccess(message: "OTP validated", context: context);
-        Navigator.pushReplacementNamed(context, confirmPassword);
+        Navigator.pushReplacementNamed(context, homePage);
         setState(() {
           isLoading = false;
         });
