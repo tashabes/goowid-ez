@@ -1,5 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/core/client/http_client.dart';
 import 'package:goowid_auth/utils/routes.dart';
+
+import '../../api/api.dart';
+import '../../core/failure/failure.dart';
+import '../../utils/app_flushbar.dart';
+import '../../utils/app_logger.dart';
 
 class ConfirmNewPassword extends StatefulWidget {
   const ConfirmNewPassword({super.key});
@@ -11,10 +18,14 @@ class ConfirmNewPassword extends StatefulWidget {
 class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
   bool _obscureText = true;
   String? _newPassword;
+  String? _username;
   bool _isPasswordEightCharacters = false;
   bool _hasPasswordOneNumber = false;
   bool _hasCapitalLetter = false;
   bool _hasSpecialCharacter = false;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _userNameController = new TextEditingController();
 
   onPasswordChanged(String password) {
     final numericRegex = RegExp(r'[0-9]');
@@ -60,33 +71,63 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                 SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  onChanged: (password) => onPasswordChanged(password),
-                  style: const TextStyle(
-                    color: Colors.black54,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        //onChanged: (password) => onPasswordChanged(password),
+                        style: const TextStyle(
+                          color: Colors.black54,
+                        ),
+                        controller: _userNameController,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12)),
+                          hintText: "Username",
+                          hintStyle:
+                              TextStyle(color: Colors.black54, fontSize: 15),
+                        ),
+                        onSaved: (val) {
+                          _username = val!;
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        onChanged: (password) => onPasswordChanged(password),
+                        style: const TextStyle(
+                          color: Colors.black54,
+                        ),
+                        controller: _passwordController,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black12)),
+                            hintText: "Password",
+                            hintStyle:
+                                TextStyle(color: Colors.black54, fontSize: 15),
+                            suffixIcon: IconButton(
+                                onPressed: () => setState(() {
+                                      _obscureText = !_obscureText;
+                                    }),
+                                icon: Icon(
+                                  _obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Color(0xFFF77D8E),
+                                ))),
+                        onSaved: (val) {
+                          _newPassword = val!;
+                        },
+                      ),
+                    ],
                   ),
-                  //controller: _passwordController,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  obscureText: _obscureText,
-                  decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12)),
-                      hintText: "Password",
-                      hintStyle: TextStyle(color: Colors.black54, fontSize: 15),
-                      suffixIcon: IconButton(
-                          onPressed: () => setState(() {
-                                _obscureText = !_obscureText;
-                              }),
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Color(0xFFF77D8E),
-                          ))),
-                  onSaved: (val) {
-                    _newPassword = val!;
-                  },
                 ),
                 SizedBox(
                   height: 30,
@@ -229,7 +270,8 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                   height: 40,
                   minWidth: double.infinity,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, signIn);
+                    resetPassword(
+                        _userNameController.text, _passwordController.text);
                   },
                   color: Color(0xFFF77D8E),
                   child: Text(
@@ -246,5 +288,41 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
         ),
       ),
     );
+  }
+
+  resetPassword(username, newPassword) async {
+    print("Calling");
+
+    try {
+      Map data = {'userName': username, 'newPassword': newPassword};
+      print(data.toString());
+      HttpClient httpClient = HttpClient();
+      Response? res = await httpClient.post(
+        RESETPASSWORD,
+        data,
+        headers: {
+          "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
+          "Content-Type": "application/json"
+        },
+      );
+
+      AppLogger.log("This is the result: ======> ${res!.statusCode}");
+
+      if (res.statusCode == 200) {
+        GoodWidFlushBar.showSuccess(
+            message: "Your password has successfully been reset",
+            context: context);
+        Navigator.pushReplacementNamed(context, signIn);
+      }
+    } on Failure catch (e) {
+      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
+
+      AppLogger.log("Error:  =====> ${e.errorMessage}");
+    } catch (e) {
+      AppLogger.log("Error:  =====> $e");
+      AppLogger.log(e.toString());
+      GoodWidFlushBar.showError(
+          message: "Something went wrong, try again later", context: context);
+    }
   }
 }
