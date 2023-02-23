@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
@@ -421,7 +422,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             resposne['userPrincipalName'],
             resposne['id']);
 
-        Navigator.pushReplacementNamed(context, homePage);
+        Navigator.pushReplacementNamed(context, otpVerifyMobile);
         GoodWidFlushBar.showSuccess(
             message: "Welcome ${resposne['displayName']}", context: context);
         setState(() {
