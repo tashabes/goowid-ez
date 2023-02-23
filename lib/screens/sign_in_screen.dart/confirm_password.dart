@@ -23,7 +23,9 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
   bool _hasPasswordOneNumber = false;
   bool _hasCapitalLetter = false;
   bool _hasSpecialCharacter = false;
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
+  late ScaffoldMessengerState scaffoldMessenger;
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _userNameController = new TextEditingController();
 
@@ -48,6 +50,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
 
   @override
   Widget build(BuildContext context) {
+    scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -266,22 +269,63 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                 SizedBox(
                   height: 50,
                 ),
-                MaterialButton(
-                  height: 40,
-                  minWidth: double.infinity,
-                  onPressed: () {
-                    resetPassword(
-                        _userNameController.text, _passwordController.text);
-                  },
-                  color: Color(0xFFF77D8E),
-                  child: Text(
-                    'Confirm Password',
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: 'Poppins'),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                ),
+                Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 0),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF77D8E),
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          if (isLoading) {
+                            return;
+                          }
+                          if (_userNameController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(const SnackBar(
+                                content: Text("Please Enter User Name")));
+                            return;
+                          }
+                          if (_passwordController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(const SnackBar(
+                                content: Text("Please Enter new Password")));
+                            return;
+                          }
+
+                          resetPassword(_userNameController.text,
+                              _passwordController.text);
+                        },
+                        child: const Text("Confirm Password",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Poppins',
+                                fontSize: 16,
+                                letterSpacing: 1)),
+                      ),
+                    ),
+                    Positioned(
+                      child: (isLoading)
+                          ? Center(
+                              child: Container(
+                                  height: 26,
+                                  width: 26,
+                                  child: const CircularProgressIndicator(
+                                    backgroundColor: Colors.green,
+                                  )))
+                          : Container(),
+                      right: 30,
+                      bottom: 0,
+                      top: 0,
+                    )
+                  ],
+                )
               ],
             ),
           ),
@@ -292,6 +336,10 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
 
   resetPassword(username, newPassword) async {
     print("Calling");
+
+    setState(() {
+      isLoading = true;
+    });
 
     try {
       Map data = {'userName': username, 'newPassword': newPassword};
@@ -305,6 +353,9 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
           "Content-Type": "application/json"
         },
       );
+      setState(() {
+        isLoading = false;
+      });
 
       AppLogger.log("This is the result: ======> ${res!.statusCode}");
 
@@ -313,12 +364,20 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
             message: "Your password has successfully been reset",
             context: context);
         Navigator.pushReplacementNamed(context, signIn);
+        setState(() {
+          isLoading = false;
+        });
       }
     } on Failure catch (e) {
       GoodWidFlushBar.showError(message: e.errorMessage, context: context);
-
+      setState(() {
+        isLoading = false;
+      });
       AppLogger.log("Error:  =====> ${e.errorMessage}");
     } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       AppLogger.log("Error:  =====> $e");
       AppLogger.log(e.toString());
       GoodWidFlushBar.showError(

@@ -23,13 +23,16 @@ class OTPVerifyPhone extends StatefulWidget {
 class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
   int start = 30;
   final _formKey = GlobalKey<FormState>();
+  late ScaffoldMessengerState scaffoldMessenger;
   bool wait = false;
   String buttonName = "Send";
   late String otp, username;
+  bool isLoading = false;
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _otpController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
+    scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -105,30 +108,86 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               SizedBox(
                 height: 30,
               ),
-              GestureDetector(
-                onTap: (() {
-                  //Navigator.pushReplacementNamed(context, confirmPassword);
-                  validateOtp(otp.toString(), _usernameController.text);
-                }),
-                child: Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width - 60,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF77D8E),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Send",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Poppins',
-                          letterSpacing: 1),
+              Stack(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width - 60,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF77D8E),
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        if (isLoading) {
+                          return;
+                        }
+                        if (_usernameController.text.isEmpty) {
+                          scaffoldMessenger.showSnackBar(const SnackBar(
+                              content: Text("Please Enter User Name")));
+                          return;
+                        }
+                        if (otp.isEmpty) {
+                          scaffoldMessenger.showSnackBar(const SnackBar(
+                              content: Text("Please enter your 6 digit code")));
+                          return;
+                        }
+
+                        validateOtp(otp.toString(), _usernameController.text);
+                      },
+                      child: const Text("Send",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                              letterSpacing: 1)),
                     ),
                   ),
-                ),
+                  Positioned(
+                    child: (isLoading)
+                        ? Center(
+                            child: Container(
+                                height: 26,
+                                width: 26,
+                                child: const CircularProgressIndicator(
+                                  backgroundColor: Colors.green,
+                                )))
+                        : Container(),
+                    right: 30,
+                    bottom: 0,
+                    top: 0,
+                  )
+                ],
               ),
+              // GestureDetector(
+              //   onTap: (() {
+              //     //Navigator.pushReplacementNamed(context, confirmPassword);
+              //     validateOtp(otp.toString(), _usernameController.text);
+              //   }),
+              //   child: Container(
+              //     height: 60,
+              //     width: MediaQuery.of(context).size.width - 60,
+              //     decoration: BoxDecoration(
+              //       color: Color(0xFFF77D8E),
+              //       borderRadius: BorderRadius.circular(50),
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         "Send",
+              //         style: TextStyle(
+              //             color: Colors.white,
+              //             fontSize: 16,
+              //             fontFamily: 'Poppins',
+              //             letterSpacing: 1),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 150,
               ),
@@ -287,6 +346,10 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
   validateOtp(otp, username) async {
     print("Calling");
 
+    setState(() {
+      isLoading = false;
+    });
+
     try {
       Map data = {'otp': otp, 'userName': username};
       print(data.toString());
@@ -308,12 +371,20 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       if (res!.statusCode == 200) {
         GoodWidFlushBar.showSuccess(message: "OTP validated", context: context);
         Navigator.pushReplacementNamed(context, confirmPassword);
+        setState(() {
+          isLoading = false;
+        });
       }
     } on Failure catch (e) {
       GoodWidFlushBar.showError(message: e.errorMessage, context: context);
-
+      setState(() {
+        isLoading = false;
+      });
       AppLogger.log("Error:  =====> ${e.errorMessage}");
     } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       AppLogger.log("Error:  =====> $e");
       AppLogger.log(e.toString());
       GoodWidFlushBar.showError(
