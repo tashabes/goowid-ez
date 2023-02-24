@@ -326,6 +326,10 @@ pigeon
 2.12
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pigeon-4.2.10/
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pigeon-4.2.10/lib/
+pin_input_text_field
+2.13
+file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pin_input_text_field-4.4.1/
+file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/pin_input_text_field-4.4.1/lib/
 platform
 2.12
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0/
@@ -402,6 +406,10 @@ shelf_web_socket
 2.17
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.3/
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-1.0.3/lib/
+sms_autofill
+2.12
+file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/sms_autofill-2.3.0/
+file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/sms_autofill-2.3.0/lib/
 source_gen
 2.17
 file:///C:/Users/NatashaAbel/Development/sdks/flutter/.pub-cache/hosted/pub.dartlang.org/source_gen-1.2.6/
