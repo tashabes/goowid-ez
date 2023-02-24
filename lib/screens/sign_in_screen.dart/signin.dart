@@ -140,12 +140,18 @@ class _SignInState extends State<SignIn> {
                                       if (isLoading) {
                                         return;
                                       }
-                                      if (_emailController.text.isEmpty ||
-                                          _passwordController.text.isEmpty) {
+                                      if (_emailController.text.isEmpty) {
                                         scaffoldMessenger.showSnackBar(
                                             const SnackBar(
                                                 content: Text(
-                                                    "Please fill all fields")));
+                                                    "Please enter your user name")));
+                                        return;
+                                      }
+                                      if (_passwordController.text.isEmpty) {
+                                        scaffoldMessenger.showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    "Please enter your password")));
                                         return;
                                       }
                                       login(_emailController.text,
@@ -253,7 +259,7 @@ class _SignInState extends State<SignIn> {
   }
 
   login(email, password) async {
-    Map data = {'userName': "$email@goowid.com", 'password': password};
+    Map data = {'userName': email, 'password': password};
     print(data.toString());
     final response = await http.post(
       Uri.parse(LOGIN),

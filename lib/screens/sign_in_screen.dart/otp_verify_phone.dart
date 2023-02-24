@@ -325,11 +325,18 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
         },
       );
 
+      // Navigator.pushReplacementNamed(context, otpVerifyMobile);
+      // GoodWidFlushBar.showSuccess(
+      //     message: "Welcome ${resposne['displayName']}", context: context);
+
       AppLogger.log("This is the result: ======> ${res?.data}");
 
-      if (res?.data == "Success") {
+      if ((res?.data).contains("Success")) {
         GoodWidFlushBar.showSuccess(
             message: "Your 6 digit code has been sent", context: context);
+      } else if (res?.statusCode == 400) {
+        GoodWidFlushBar.showError(
+            message: "Your 6 digit code is incorrect", context: context);
       }
     } on Failure catch (e) {
       GoodWidFlushBar.showError(message: e.errorMessage, context: context);
