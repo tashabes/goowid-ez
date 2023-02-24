@@ -6,6 +6,7 @@ import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
@@ -30,6 +31,24 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
   bool isLoading = false;
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _otpController = new TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _listenSmsCode();
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+
+    super.dispose();
+  }
+
+  _listenSmsCode() async {
+    await SmsAutoFill().listenForCode();
+  }
+
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -86,10 +105,11 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               SizedBox(
                 height: 30,
               ),
-              otpField(),
-              SizedBox(
-                height: 30,
-              ),
+              //otpField(),
+              // SizedBox(
+              //   height: 30,
+              // ),
+              otpPinField(),
               RichText(
                 text: TextSpan(
                   children: [
@@ -139,7 +159,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
 
                         validateOtp(otp.toString(), _usernameController.text);
                       },
-                      child: const Text("Send",
+                      child: const Text("Get Started",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
@@ -199,7 +219,9 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                     height: 64,
                     width: 64,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, signIn);
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
                         backgroundColor: const Color(0xFFF77D8E),
@@ -247,6 +269,25 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       onChanged: (val) {
         otp = val.toString();
       },
+    );
+  }
+
+  Widget otpPinField() {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Center(
+        child: PinFieldAutoFill(
+          codeLength: 6,
+          autoFocus: true,
+          decoration: UnderlineDecoration(
+            lineHeight: 2,
+            lineStrokeCap: StrokeCap.square,
+            bgColorBuilder: PinListenColorBuilder(
+                Colors.green.shade200, Colors.grey.shade200),
+            colorBuilder: const FixedColorBuilder(Colors.transparent),
+          ),
+        ),
+      ),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/utils/routes.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class CourseCard extends StatelessWidget {
@@ -44,10 +45,24 @@ class CourseCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Text(
-                    "Get Started >",
-                    style: TextStyle(
-                      color: Colors.white38,
+                  Spacer(),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white54),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacementNamed(context, uploadDoc);
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Get Started >",
+                          style: TextStyle(
+                            color: Colors.white54,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   const Spacer(),
