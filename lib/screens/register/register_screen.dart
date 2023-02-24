@@ -274,14 +274,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           scaffoldMessenger.showSnackBar(
                                               const SnackBar(
                                                   content: Text(
-                                                      "Please Enter Name")));
+                                                      "Please enter your name")));
                                           return;
                                         }
-                                        if (_phoneController.text.isEmpty) {
+                                        if (_phoneController.text.isEmpty ||
+                                            _phoneController.text.length < 11) {
                                           scaffoldMessenger.showSnackBar(
                                               const SnackBar(
                                                   content: Text(
-                                                      "Please Enter Phone Number")));
+                                                      "Please enter a valid phone number")));
+                                          return;
+                                        }
+                                        if (_emailController.text.isEmpty) {
+                                          scaffoldMessenger.showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Please enter your user name")));
                                           return;
                                         }
                                         // if (!reg
@@ -308,6 +316,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               const SnackBar(
                                                   content: Text(
                                                       "Password should be min 6 characters")));
+                                          return;
+                                        }
+
+                                        if (password_strength == 1 / 4 ||
+                                            password_strength == 2 / 4 ||
+                                            password_strength == 3 / 4) {
+                                          scaffoldMessenger.showSnackBar(
+                                              const SnackBar(
+                                                  content: Text(
+                                                      "Password doesn't meet the requirements")));
                                           return;
                                         }
                                         signup(

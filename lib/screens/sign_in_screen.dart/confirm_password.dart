@@ -360,10 +360,10 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
       AppLogger.log("This is the result: ======> ${res!.statusCode}");
 
       if (res.statusCode == 200) {
+        Navigator.pushReplacementNamed(context, signIn);
         GoodWidFlushBar.showSuccess(
             message: "Your password has successfully been reset",
             context: context);
-        Navigator.pushReplacementNamed(context, signIn);
         setState(() {
           isLoading = false;
         });
