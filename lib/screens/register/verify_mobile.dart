@@ -7,6 +7,7 @@ import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
@@ -31,6 +32,24 @@ class _VerifyMobileState extends State<VerifyMobile> {
   bool isLoading = false;
   TextEditingController _usernameController = new TextEditingController();
   TextEditingController _otpController = new TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _listenSmsCode();
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+
+    super.dispose();
+  }
+
+  _listenSmsCode() async {
+    await SmsAutoFill().listenForCode();
+  }
+
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -94,7 +113,8 @@ class _VerifyMobileState extends State<VerifyMobile> {
               SizedBox(
                 height: 30,
               ),
-              otpField(),
+              //otpField(),
+              otpPinField(),
               SizedBox(
                 height: 30,
               ),
@@ -257,6 +277,25 @@ class _VerifyMobileState extends State<VerifyMobile> {
       onChanged: (val) {
         otp = val.toString();
       },
+    );
+  }
+
+  Widget otpPinField() {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Center(
+        child: PinFieldAutoFill(
+          codeLength: 6,
+          autoFocus: true,
+          decoration: UnderlineDecoration(
+            lineHeight: 2,
+            lineStrokeCap: StrokeCap.square,
+            bgColorBuilder:
+                PinListenColorBuilder(Color(0xFF7553F6), Colors.grey.shade200),
+            colorBuilder: const FixedColorBuilder(Colors.transparent),
+          ),
+        ),
+      ),
     );
   }
 
