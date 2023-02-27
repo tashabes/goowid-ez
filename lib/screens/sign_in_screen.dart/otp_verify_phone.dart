@@ -282,8 +282,8 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
           decoration: UnderlineDecoration(
             lineHeight: 2,
             lineStrokeCap: StrokeCap.square,
-            bgColorBuilder: PinListenColorBuilder(
-                Colors.green.shade200, Colors.grey.shade200),
+            bgColorBuilder:
+                PinListenColorBuilder(Color(0xFF7553F6), Colors.grey.shade200),
             colorBuilder: const FixedColorBuilder(Colors.transparent),
           ),
         ),

@@ -8,7 +8,7 @@ import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verify_phone.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
-import 'package:goowid_auth/screens/upload_document.dart';
+import 'package:goowid_auth/screens/document_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/onboarding/onboarding.dart';
 
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         '/confirm_password': (BuildContext context) => new ConfirmNewPassword(),
         '/OTP_verify_phone': (BuildContext context) => new OTPVerifyPhone(),
         '/OTP_verify_mobile': (BuildContext context) => new VerifyMobile(),
-        '/upload_doc': (BuildContext context) => new UploadDocument(),
+        '/upload_doc': (BuildContext context) => new DocumentManager(),
       },
       home: const OnbodingScreen(),
     );

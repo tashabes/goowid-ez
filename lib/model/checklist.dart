@@ -14,7 +14,7 @@ class Course {
 
 final List<Course> courses = [
   Course(
-    title: "Upload a document",
+    title: "Document Manager",
   ),
   Course(
     title: "Digital Wallet Set Up.",
