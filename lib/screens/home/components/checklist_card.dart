@@ -52,7 +52,7 @@ class CourseCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacementNamed(context, uploadDoc);
+                        Navigator.pushReplacementNamed(context, docMgmt);
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

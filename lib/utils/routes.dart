@@ -9,6 +9,7 @@ const confirmPassword = '/confirm_password';
 const otpVerifyPhone = '/OTP_verify_phone';
 const otpVerifyMobile = '/OTP_verify_mobile';
 const uploadDoc = '/upload_doc';
+const docMgmt = '/document_mgmt';
 
 //bottom nav routes
 const btmNavProfile = "bottomNavItems[4]";
