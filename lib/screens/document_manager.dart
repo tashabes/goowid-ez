@@ -25,7 +25,7 @@ class _DocumentManagerState extends State<DocumentManager> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => UploadScreen(),
+                builder: (context) => UploadScreen(1, '1', ti, sub),
               ),
             );
           },

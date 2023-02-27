@@ -3,6 +3,7 @@ import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/home/home_test.dart';
 import 'package:goowid_auth/screens/passwordManager/add_account.dart';
+import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
         '/OTP_verify_phone': (BuildContext context) => new OTPVerifyPhone(),
         '/OTP_verify_mobile': (BuildContext context) => new VerifyMobile(),
         '/upload_doc': (BuildContext context) => new DocumentManager(),
+        '/document_mgmt': (BuildContext context) => new DocumentMgmt(),
       },
       home: const OnbodingScreen(),
     );
