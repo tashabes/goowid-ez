@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
 import 'package:goowid_auth/utils/routes.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
@@ -52,7 +53,10 @@ class CourseCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacementNamed(context, docMgmt);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DocumentMgmt()));
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
