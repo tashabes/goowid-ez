@@ -4,6 +4,7 @@ import 'package:circle_progress_bar/circle_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/passwordManager/upload.dart';
+import 'package:goowid_auth/screens/passwordManager/upload_file.dart';
 
 class DocumentMgmt extends StatefulWidget {
   const DocumentMgmt({super.key});
@@ -25,7 +26,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => EntryPoint(),
+                builder: (context) => UploadFile(),
               ),
             );
           },
