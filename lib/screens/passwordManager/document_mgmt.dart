@@ -17,6 +17,14 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: BackButton(
+            onPressed: () => Navigator.of(context).pop(),
+            color: Colors.black,
+          )),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -47,9 +55,6 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(children: [
-          const SizedBox(
-            height: 15,
-          ),
           getStorageBox(),
           const SizedBox(
             height: 30,
