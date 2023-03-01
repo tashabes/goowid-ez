@@ -10,6 +10,7 @@ import '../../core/client/http_client.dart';
 import '../../utils/app_flushbar.dart';
 import '../../utils/app_logger.dart';
 import '../../core/failure/failure.dart';
+import 'dart:io';
 
 class UploadFile extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   final _formKey = GlobalKey<FormState>();
-  late String file, fileName, id;
+  late String file, fileName, id, email;
   late String? title;
   bool isLoading = false;
   TextEditingController _fileNameController = new TextEditingController();
@@ -27,6 +28,14 @@ class _UploadFileState extends State<UploadFile> {
   late ScaffoldMessengerState scaffoldMessenger;
   bool _obscureText = true;
   FilePickerResult? result;
+  FormData? formData;
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -109,6 +118,16 @@ class _UploadFileState extends State<UploadFile> {
                                     if (result == null) {
                                       print('No file selected');
                                     } else {
+                                      File imageFile =
+                                          File(result?.files.single.path ?? '');
+                                      formData = FormData.fromMap({
+                                        'file': await MultipartFile.fromFile(
+                                            imageFile.path,
+                                            filename:
+                                                imageFile.path.split('/').last),
+                                        'id': id,
+                                      });
+
                                       setState(() {});
                                       result?.files.forEach((element) {
                                         print(element.name);
@@ -122,6 +141,41 @@ class _UploadFileState extends State<UploadFile> {
                                   ),
                                 ),
                               ),
+
+// import 'dart:io';
+// import 'package:dio/dio.dart';
+// import 'package:file_picker/file_picker.dart';
+
+// void uploadImage() async {
+//   // Create a Dio instance
+//   Dio dio = new Dio();
+
+//   // Define the API endpoint for the upload request
+//   String apiUrl = 'https://example.com/api/upload';
+
+//   // Allow the user to select an image file
+//   FilePickerResult result = await FilePicker.platform.pickFiles(type: FileType.image);
+
+//   if (result != null) {
+//     // Create a FormData object to hold the image data
+//     File imageFile = File(result.files.single.path);
+//     FormData formData = new FormData.fromMap({
+//       "image": await MultipartFile.fromFile(imageFile.path, filename: imageFile.path.split('/').last),
+//     });
+
+//     // Send the request to the server
+//     try {
+//       Response response = await dio.post(apiUrl, data: formData);
+//       print(response.data);
+//     } catch (e) {
+//       print(e);
+//     }
+//   } else {
+//     // User canceled the file picker
+//     return;
+//   }
+// }
+
                               const SizedBox(
                                 height: 16,
                               ),
@@ -183,12 +237,11 @@ class _UploadFileState extends State<UploadFile> {
                                                     "Please enter your file name")));
                                         return;
                                       }
-                                      getUserId('natasha');
-                                      UploadDocument(
-                                          file, _fileNameController.text, id);
-                                      setState(() {
-                                        isLoading = true;
-                                      });
+
+                                      UploadDocument(formData!, _id);
+                                      // setState(() {
+                                      //   isLoading = true;
+                                      // });
                                       //Navigator.pushReplacementNamed(
                                       //context, "/entrypoint");
                                     },
@@ -259,15 +312,13 @@ class _UploadFileState extends State<UploadFile> {
         ));
   }
 
-  UploadDocument(file, fileName, id) async {
+  UploadDocument(FormData formData, id) async {
     print("Calling");
 
     try {
-      Map data = {
-        'file': file,
-        'fileName': fileName,
-        'id': id,
-      };
+      Map<String, dynamic> newData = {'file': '', 'fileName': '', 'id': "$id"};
+      FormData data = formData;
+
       print(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
@@ -275,21 +326,20 @@ class _UploadFileState extends State<UploadFile> {
         data,
         headers: {
           "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
-          "Content-Type": "application/json"
+          'Content-Type': 'multipart/form-data',
         },
       );
       setState(() {
         isLoading = false;
       });
-      Map<String, dynamic> resposne = res?.data;
 
-      AppLogger.log("This is the result: ======> ${res?.data}");
+      AppLogger.log("This is the result: ======> ${res!.statusCode}");
 
-      if (res!.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, otpVerifyMobile);
+      if (res.statusCode == 200) {
         GoodWidFlushBar.showSuccess(
             message: "Your document has been successfully uploaded",
             context: context);
+        _fileNameController.clear;
         setState(() {
           isLoading = false;
         });
@@ -312,53 +362,134 @@ class _UploadFileState extends State<UploadFile> {
     }
   }
 
-  void getUserId(userName) async {
-    print("Calling");
+  String? _id;
 
-    try {
-      Map data = {
-        'email': userName,
-      };
-      print(data.toString());
-      HttpClient httpClient = HttpClient();
-      Response? res = await httpClient.get(
-        GETUSER,
-        headers: {
-          "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
-          "Content-Type": "application/json"
-        },
-      );
-      setState(() {
-        isLoading = false;
-      });
-      Map<String, dynamic> resposne = res?.data;
-
-      AppLogger.log("This is the result: ======> ${res?.data}");
-
-      if (res!.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, otpVerifyMobile);
-        GoodWidFlushBar.showSuccess(
-            message: "Your document has been successfully uploaded",
-            context: context);
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } on Failure catch (e) {
-      //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
-      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> ${e.errorMessage}");
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> $e");
-      AppLogger.log(e.toString());
-      GoodWidFlushBar.showError(
-          message: "Something went wrong, try again later", context: context);
-    }
+  getUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      _id = preferences.getString('id')!;
+    });
   }
+
+  // void getUserId(userName) async {
+  //   print("Calling");
+
+  //   try {
+  //     Map data = {
+  //       'email': userName,
+  //     };
+  //     print(data.toString());
+  //     HttpClient httpClient = HttpClient();
+  //     Response? res = await httpClient.get(
+  //       GETUSER,
+  //       headers: {
+  //         "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
+  //         "Content-Type": "application/json"
+  //       },
+  //     );
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     Map<String, dynamic> resposne = res?.data;
+
+  //     AppLogger.log("This is the result: ======> ${res?.data}");
+
+  //     if (res!.statusCode == 200) {
+  //       Navigator.pushReplacementNamed(context, otpVerifyMobile);
+  //       GoodWidFlushBar.showSuccess(
+  //           message: "Your document has been successfully uploaded",
+  //           context: context);
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   } on Failure catch (e) {
+  //     //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
+  //     GoodWidFlushBar.showError(message: e.errorMessage, context: context);
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     AppLogger.log("Error:  =====> ${e.errorMessage}");
+  //   } catch (e) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     AppLogger.log("Error:  =====> $e");
+  //     AppLogger.log(e.toString());
+  //     GoodWidFlushBar.showError(
+  //         message: "Something went wrong, try again later", context: context);
+  //   }
+  // }
+
+  // getUserId(email) async {
+  //   print("Calling");
+
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   try {
+  //     Map data = {
+  //       'userName': email,
+  //     };
+  //     print(data.toString());
+  //     HttpClient httpClient = HttpClient();
+  //     Response? res = await httpClient.get(
+  //       "$GETUSER/$email",
+  //       headers: {
+  //         "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
+  //         "Content-Type": "application/json"
+  //       },
+  //     );
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     Map<String, dynamic> resposne = res?.data;
+
+  //     AppLogger.log("This is the result: ======> ${res?.data}");
+
+  //     if (resposne['displayName'] != null) {
+  //       //return user;
+  //       // User user = resposne['user'];
+  //       //Provider.of<UserProvider>(context, listen: false).setUser(user);
+  //       savePref(
+  //         resposne['id'],
+  //       );
+
+  //       GoodWidFlushBar.showSuccess(message: "Success", context: context);
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   } on Failure catch (e) {
+  //     //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
+  //     GoodWidFlushBar.showError(message: e.errorMessage, context: context);
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     AppLogger.log("Error:  =====> ${e.errorMessage}");
+  //   } catch (e) {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //     AppLogger.log("Error:  =====> $e");
+  //     AppLogger.log(e.toString());
+  //     GoodWidFlushBar.showError(
+  //         message: "Something went wrong, try again later", context: context);
+  //   }
+  // }
+
+  // savePref(
+  //   String id,
+  // ) async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  //   preferences.setString("id", id);
+  // }
+
+  // Future<String> getUser() async {
+  //   final SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  //   String? _id = preferences.getString("id");
+  //   return user;
+  // }
 }
