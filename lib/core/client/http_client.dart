@@ -51,16 +51,13 @@ class HttpClient {
       return response;
     } on DioError catch (e) {
       AppLogger.log("============> response data ${e.response?.data}");
-      AppLogger.log(
-          "============> response data ${e.response?.data['errors']['id']}");
       AppLogger.log("============> status code ${e.response?.statusCode}");
       AppLogger.log("============> message ${e.message}");
       AppLogger.log("============> error ${e.error}");
       AppLogger.log("============> type ${e.type}");
 
       if (e.response?.statusCode == 400) {
-        Map<String, dynamic> errorObject = e.response?.data['errors'];
-        throw Failure(filterFileUploadError(errorObject));
+        throw Failure(e.response?.data);
       } else if (e.response != null && e.response?.data != null) {
         throw Failure(e.response?.data['message']);
       } else {
@@ -72,16 +69,4 @@ class HttpClient {
       throw Failure("Something went wrong, please try again later");
     }
   }
-}
-
-String filterFileUploadError(Map<String, dynamic> errorObj) {
-  String error = "";
-
-  List<dynamic> errorStrings = errorObj.keys.toList();
-
-  if (errorStrings.isNotEmpty) {
-    error = errorObj[errorStrings[0]][0]!;
-  }
-
-  return error;
 }
