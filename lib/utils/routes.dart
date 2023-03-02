@@ -10,6 +10,7 @@ const otpVerifyPhone = '/OTP_verify_phone';
 const otpVerifyMobile = '/OTP_verify_mobile';
 const uploadDoc = '/upload_doc';
 const docMgmt = '/document_mgmt';
+const toDo = '/to_do_list';
 
 //bottom nav routes
 const btmNavProfile = "bottomNavItems[4]";

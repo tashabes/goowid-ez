@@ -105,11 +105,11 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               SizedBox(
                 height: 30,
               ),
-              //otpField(),
+              otpField(),
               // SizedBox(
               //   height: 30,
               // ),
-              otpPinField(),
+              //otpPinField(),
               RichText(
                 text: TextSpan(
                   children: [
