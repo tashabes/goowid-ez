@@ -184,8 +184,6 @@ class _EntryPointState extends State<EntryPoint>
   void navigate(navBar) {
     if (navBar.title == "Profile") {
       Navigator.pushReplacementNamed(context, profile);
-    } else if (navBar.title == "Timer") {
-      Navigator.pushReplacementNamed(context, toDo);
     }
   }
 }
