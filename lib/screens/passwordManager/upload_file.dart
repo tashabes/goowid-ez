@@ -1,15 +1,11 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
-import '../../core/client/http_client.dart';
 import '../../utils/app_flushbar.dart';
-import '../../utils/app_logger.dart';
-import '../../core/failure/failure.dart';
 
 class UploadFile extends StatefulWidget {
   @override
@@ -18,11 +14,11 @@ class UploadFile extends StatefulWidget {
 
 class _UploadFileState extends State<UploadFile> {
   final _formKey = GlobalKey<FormState>();
-  late String file, fileName, id;
+  late String email, password;
   late String? title;
   bool isLoading = false;
-  TextEditingController _fileNameController = new TextEditingController();
-  TextEditingController _categoryController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _passwordController = new TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late ScaffoldMessengerState scaffoldMessenger;
   bool _obscureText = true;
@@ -112,7 +108,6 @@ class _UploadFileState extends State<UploadFile> {
                                       setState(() {});
                                       result?.files.forEach((element) {
                                         print(element.name);
-                                        file = element.name;
                                       });
                                     }
                                   },
@@ -129,7 +124,7 @@ class _UploadFileState extends State<UploadFile> {
                                 style: const TextStyle(
                                   color: Colors.black54,
                                 ),
-                                controller: _fileNameController,
+                                controller: _passwordController,
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 decoration: const InputDecoration(
@@ -141,31 +136,31 @@ class _UploadFileState extends State<UploadFile> {
                                       color: Colors.black54, fontSize: 15),
                                 ),
                                 onSaved: (val) {
-                                  fileName = val!;
+                                  password = val!;
                                 },
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
-                              // TextFormField(
-                              //   style: const TextStyle(
-                              //     color: Colors.black54,
-                              //   ),
-                              //   controller: _categoryController,
-                              //   enableSuggestions: false,
-                              //   autocorrect: false,
-                              //   decoration: const InputDecoration(
-                              //     enabledBorder: UnderlineInputBorder(
-                              //         borderSide:
-                              //             BorderSide(color: Colors.black12)),
-                              //     hintText: "Category (optional)",
-                              //     hintStyle: TextStyle(
-                              //         color: Colors.black54, fontSize: 15),
-                              //   ),
-                              //   onSaved: (val) {
-                              //     category = val!;
-                              //   },
-                              // ),
+                              TextFormField(
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                ),
+                                controller: _passwordController,
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black12)),
+                                  hintText: "Category (optional)",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black54, fontSize: 15),
+                                ),
+                                onSaved: (val) {
+                                  password = val!;
+                                },
+                              ),
                               const SizedBox(
                                 height: 30,
                               ),
@@ -176,16 +171,22 @@ class _UploadFileState extends State<UploadFile> {
                                       if (isLoading) {
                                         return;
                                       }
-                                      if (_fileNameController.text.isEmpty) {
+                                      if (_emailController.text.isEmpty) {
                                         scaffoldMessenger.showSnackBar(
                                             const SnackBar(
                                                 content: Text(
-                                                    "Please enter your file name")));
+                                                    "Please enter your user name")));
                                         return;
                                       }
-                                      getUserId('natasha');
-                                      UploadDocument(
-                                          file, _fileNameController.text, id);
+                                      if (_passwordController.text.isEmpty) {
+                                        scaffoldMessenger.showSnackBar(
+                                            const SnackBar(
+                                                content: Text(
+                                                    "Please enter your password")));
+                                        return;
+                                      }
+                                      login(_emailController.text,
+                                          _passwordController.text);
                                       setState(() {
                                         isLoading = true;
                                       });
@@ -259,106 +260,78 @@ class _UploadFileState extends State<UploadFile> {
         ));
   }
 
-  UploadDocument(file, fileName, id) async {
-    print("Calling");
+  login(email, password) async {
+    Map data = {'userName': email, 'password': password};
+    print(data.toString());
+    final response = await http.post(
+      Uri.parse(LOGIN),
+      headers: {
+        "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
+        "Content-Type": "application/json"
+      },
+      body: jsonEncode(data),
+    );
+    setState(() {
+      isLoading = false;
+    });
+    if (response.statusCode == 200) {
+      Map<String, dynamic> resposne = jsonDecode(response.body);
+      if (resposne['displayName'] != null) {
+        savePref(
+            1,
+            resposne['displayName'],
+            resposne['givenName'],
+            resposne['surname'],
+            resposne['userPrincipalName'],
+            resposne['mobilePhone'],
+            resposne['userPrincipalName'],
+            resposne['id']);
 
-    try {
-      Map data = {
-        'file': file,
-        'fileName': fileName,
-        'id': id,
-      };
-      print(data.toString());
-      HttpClient httpClient = HttpClient();
-      Response? res = await httpClient.post(
-        UPLOADFILE,
-        data,
-        headers: {
-          "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
-          "Content-Type": "application/json"
-        },
-      );
-      setState(() {
-        isLoading = false;
-      });
-      Map<String, dynamic> resposne = res?.data;
-
-      AppLogger.log("This is the result: ======> ${res?.data}");
-
-      if (res!.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, otpVerifyMobile);
+        Navigator.pushReplacementNamed(context, homePage);
         GoodWidFlushBar.showSuccess(
-            message: "Your document has been successfully uploaded",
-            context: context);
-        setState(() {
-          isLoading = false;
-        });
+            message: "Welcome ${resposne['displayName']}", context: context);
       }
-    } on Failure catch (e) {
-      //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
-      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> ${e.errorMessage}");
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> $e");
-      AppLogger.log(e.toString());
+    } else {
       GoodWidFlushBar.showError(
-          message: "Something went wrong, try again later", context: context);
+          message: "Your email or password are incorrect", context: context);
     }
   }
 
-  void getUserId(userName) async {
-    print("Calling");
+  savePref(
+      int value,
+      String displayName,
+      String givenName,
+      String surname,
+      String userPrincipalName,
+      String mobileNumber,
+      String email,
+      String id) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    try {
-      Map data = {
-        'email': userName,
-      };
-      print(data.toString());
-      HttpClient httpClient = HttpClient();
-      Response? res = await httpClient.get(
-        GETUSER,
-        headers: {
-          "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
-          "Content-Type": "application/json"
-        },
-      );
-      setState(() {
-        isLoading = false;
-      });
-      Map<String, dynamic> resposne = res?.data;
+    preferences.setInt("value", value);
+    preferences.setString("displayName", json.encode(displayName));
+    preferences.setString("givenName", json.encode(givenName));
+    preferences.setString("surname", json.encode(surname));
+    preferences.setString("userPrincipalName", json.encode(userPrincipalName));
+    preferences.setString("mobileNumber", json.encode(mobileNumber));
+    preferences.setString("email", json.encode(email));
+    preferences.setString("id", id.toString());
+  }
+}
 
-      AppLogger.log("This is the result: ======> ${res?.data}");
+class SharedPref {
+  static write(String key, value) async {
+    final preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(key, json.encode(value));
+  }
 
-      if (res!.statusCode == 200) {
-        Navigator.pushReplacementNamed(context, otpVerifyMobile);
-        GoodWidFlushBar.showSuccess(
-            message: "Your document has been successfully uploaded",
-            context: context);
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } on Failure catch (e) {
-      //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
-      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> ${e.errorMessage}");
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      AppLogger.log("Error:  =====> $e");
-      AppLogger.log(e.toString());
-      GoodWidFlushBar.showError(
-          message: "Something went wrong, try again later", context: context);
-    }
+  static remove(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
+  }
+
+  static clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 }

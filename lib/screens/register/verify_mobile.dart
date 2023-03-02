@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
+import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';

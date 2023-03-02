@@ -18,7 +18,6 @@ class HttpClient {
 
   Future<Response?> get(String url, {Map<String, String>? headers}) async {
     AppLogger.log("url ==> $url");
-
     AppLogger.log("header ==> $headers");
 
     try {
