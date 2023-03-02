@@ -113,8 +113,8 @@ class _VerifyMobileState extends State<VerifyMobile> {
               SizedBox(
                 height: 30,
               ),
-              //otpField(),
-              otpPinField(),
+              otpField(),
+              //otpPinField(),
               SizedBox(
                 height: 30,
               ),

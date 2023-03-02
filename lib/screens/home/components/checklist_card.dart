@@ -49,7 +49,7 @@ class CourseCard extends StatelessWidget {
                   Spacer(),
                   Container(
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white54),
+                        border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(12)),
                     child: GestureDetector(
                       onTap: () {

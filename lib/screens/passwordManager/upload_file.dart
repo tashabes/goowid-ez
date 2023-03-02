@@ -241,7 +241,7 @@ class _UploadFileState extends State<UploadFile> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, docMgmt);
+                          Navigator.pop(context, docMgmt);
                         },
                         child: const Icon(
                           Icons.close_rounded,

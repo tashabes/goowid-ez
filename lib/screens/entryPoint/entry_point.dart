@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/screens/toDo/to_do_list.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:rive/rive.dart';
 import '../../../constants.dart';
@@ -161,8 +162,8 @@ class _EntryPointState extends State<EntryPoint>
                       press: () {
                         RiveUtils.chnageSMIBoolState(navBar.rive.status!);
                         updateSelectedBtmNav(navBar);
-
-                        navigate(navBar);
+                        Future.delayed(Duration(milliseconds: 300))
+                            .then((value) => navigate(navBar));
                       },
                       riveOnInit: (artboard) {
                         navBar.rive.status = RiveUtils.getRiveInput(artboard,
@@ -183,6 +184,8 @@ class _EntryPointState extends State<EntryPoint>
   void navigate(navBar) {
     if (navBar.title == "Profile") {
       Navigator.pushReplacementNamed(context, profile);
+    } else if (navBar.title == "Timer") {
+      Navigator.pushReplacementNamed(context, toDo);
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../utils/routes.dart';
 import 'components/dialog_box.dart';
 import 'components/todo_tile.dart';
 import 'data/database.dart';
@@ -79,13 +80,22 @@ class _ToDoListPageState extends State<ToDoListPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, homePage);
+          },
+        ),
         toolbarHeight: 70,
         backgroundColor: Color(0xFFF77D8E),
-        title: Center(
-            child: Text(
+        title: Text(
           'TO DO',
-          style: TextStyle(fontFamily: "Poppins", fontSize: 30),
-        )),
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: 30,
+          ),
+        ),
         elevation: 0,
       ),
       floatingActionButton: Padding(
