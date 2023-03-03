@@ -69,6 +69,7 @@ dependencies:
   blurrycontainer: ^1.0.2
   animate_do: ^3.0.2
   file_picker: ^5.2.5
+  flutter_countdown_timer: ^4.1.0
   
 
 

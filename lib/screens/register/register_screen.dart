@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
@@ -8,6 +7,7 @@ import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
 import '../../utils/app_logger.dart';
+import 'components/send_otp.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -446,6 +446,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
         });
+        sendOtp(context, email);
       }
     } on Failure catch (e) {
       //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
@@ -481,7 +482,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     preferences.setString("givenName", givenName);
     preferences.setString("surname", surname);
     preferences.setString("userPrincipalName", userPrincipalName);
-    preferences.setString("mobileNumber", mobileNumber);
+    preferences.setString("mobilePhone", mobileNumber);
     preferences.setString("email", email);
     preferences.setString("id", id.toString());
   }
