@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/onboarding/onboarding.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../widgets/app_bar.dart';
 import '../entry_point.dart';
 
 class Profile extends StatefulWidget {
@@ -26,17 +28,23 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('Home'),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
         elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: BackButton(
+          onPressed: () => Navigator.pushReplacementNamed(context, homePage),
+          color: Colors.black,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
             Center(
               child: CircleAvatar(
                 backgroundColor: Color(0xFFF77D8E),
@@ -62,7 +70,14 @@ class _ProfileState extends State<Profile> {
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
-            SizedBox(height: 30),
+
+            Text(
+              'Email',
+              style: TextStyle(color: Colors.grey, letterSpacing: 2),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: <Widget>[
                 Icon(
@@ -101,45 +116,22 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30.0),
-            child: SizedBox(
-              height: 64,
-              width: 64,
-              child: ElevatedButton(
-                onPressed: () {
-                  signOut();
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  backgroundColor: const Color(0xFFF77D8E),
-                ),
-                child: const Icon(Icons.logout_rounded),
-              ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30.0),
+        child: SizedBox(
+          height: 64,
+          width: 64,
+          child: ElevatedButton(
+            onPressed: () {
+              signOut();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: const Color(0xFFF77D8E),
             ),
+            child: const Icon(Icons.logout_rounded),
           ),
-          SizedBox(
-            height: 64,
-            width: 64,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EntryPoint(),
-                    ));
-              },
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                backgroundColor: const Color(0xFFF77D8E),
-              ),
-              child: const Icon(Icons.arrow_back),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

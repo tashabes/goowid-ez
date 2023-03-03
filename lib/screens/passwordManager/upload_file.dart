@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
 import '../../utils/app_flushbar.dart';
+import '../../widgets/app_bar.dart';
 
 class UploadFile extends StatefulWidget {
   @override
@@ -29,6 +30,8 @@ class _UploadFileState extends State<UploadFile> {
     return Scaffold(
         backgroundColor: Colors.white,
         key: _scaffoldKey,
+        extendBodyBehindAppBar: true,
+        appBar: ResusableBar(),
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,

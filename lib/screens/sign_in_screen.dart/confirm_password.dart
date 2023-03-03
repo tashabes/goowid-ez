@@ -7,6 +7,7 @@ import '../../api/api.dart';
 import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
 import '../../utils/app_logger.dart';
+import '../../widgets/app_bar.dart';
 
 class ConfirmNewPassword extends StatefulWidget {
   const ConfirmNewPassword({super.key});
@@ -53,6 +54,8 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
     scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: ResusableBar(),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
@@ -61,6 +64,9 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 30,
+                ),
                 Text(
                   'Enter your new password',
                   style: Theme.of(context).textTheme.headline2,
