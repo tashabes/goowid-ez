@@ -7,6 +7,7 @@ import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
@@ -24,10 +25,11 @@ class VerifyMobile extends StatefulWidget {
 
 class _VerifyMobileState extends State<VerifyMobile> {
   int start = 30;
+  late Timer _timer;
   final _formKey = GlobalKey<FormState>();
   late ScaffoldMessengerState scaffoldMessenger;
   bool wait = false;
-  String buttonName = "Send";
+  String buttonName = "Resend new code";
   late String otp, username;
   bool isLoading = false;
   TextEditingController _usernameController = new TextEditingController();
@@ -37,6 +39,8 @@ class _VerifyMobileState extends State<VerifyMobile> {
   void initState() {
     super.initState();
     _listenSmsCode();
+    getUser();
+    startTimer();
   }
 
   @override
@@ -44,6 +48,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
     SmsAutoFill().unregisterListener();
 
     super.dispose();
+    _timer.cancel();
   }
 
   _listenSmsCode() async {
@@ -71,17 +76,25 @@ class _VerifyMobileState extends State<VerifyMobile> {
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'Please enter your user name, to recieve your 6 digit verification code to your phone number.',
-                  style: Theme.of(context).textTheme.subtitle2,
+                padding: const EdgeInsets.only(top: 40.0),
+                child: RichText(
+                  softWrap: true,
+                  text: TextSpan(
+                    text: 'A verification code has been sent to ',
+                    style: Theme.of(context).textTheme.subtitle2,
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '$_phone',
+                        style: TextStyle(color: Color(0xFFF77D8E)),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              textField(),
               SizedBox(
                 height: 30,
               ),
@@ -154,20 +167,20 @@ class _VerifyMobileState extends State<VerifyMobile> {
                         if (isLoading) {
                           return;
                         }
-                        if (_usernameController.text.isEmpty) {
-                          scaffoldMessenger.showSnackBar(const SnackBar(
-                              content: Text("Please Enter User Name")));
-                          return;
-                        }
+                        // if (_usernameController.text.isEmpty) {
+                        //   scaffoldMessenger.showSnackBar(const SnackBar(
+                        //       content: Text("Please Enter User Name")));
+                        //   return;
+                        // }
                         if (otp.isEmpty) {
                           scaffoldMessenger.showSnackBar(const SnackBar(
                               content: Text("Please enter your 6 digit code")));
                           return;
                         }
 
-                        validateOtp(otp.toString(), _usernameController.text);
+                        validateOtp(otp.toString(), _email);
                       },
-                      child: const Text("Send",
+                      child: const Text("Verify",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
@@ -217,7 +230,16 @@ class _VerifyMobileState extends State<VerifyMobile> {
               //   ),
               // ),
               SizedBox(
-                height: 110,
+                height: 15,
+              ),
+              Text("Didn't receive a code?",
+                  style: Theme.of(context).textTheme.subtitle1),
+              SizedBox(
+                height: 5,
+              ),
+              textField(),
+              SizedBox(
+                height: 90,
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -248,7 +270,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
 
   void startTimer() {
     const onsec = Duration(seconds: 1);
-    Timer timer = Timer.periodic(onsec, (timer) {
+    _timer = Timer.periodic(onsec, (timer) {
       if (start == 0) {
         setState(() {
           timer.cancel();
@@ -300,58 +322,28 @@ class _VerifyMobileState extends State<VerifyMobile> {
   }
 
   Widget textField() {
-    return Form(
-      key: _formKey,
-      child: Container(
-        width: MediaQuery.of(context).size.width - 40,
-        decoration: BoxDecoration(
-            color: Colors.grey, borderRadius: BorderRadius.circular(15.0)),
-        child: TextFormField(
-          controller: _usernameController,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: "Enter your user name",
-            hintStyle: Theme.of(context).textTheme.subtitle1,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-            // prefixIcon: Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-            //   child: Text(
-            //     " (+44) ",
-            //     style: Theme.of(context).textTheme.subtitle1,
-            //   ),
-            // ),
-            suffixIcon: InkWell(
-              onTap: wait
-                  ? null
-                  : () {
-                      print(_usernameController.text);
-                      sendOtp(
-                        _usernameController.text,
-                      );
+    return InkWell(
+      onTap: wait
+          ? null
+          : () {
+              sendOtp(
+                _email,
+              );
 
-                      startTimer();
-                      setState(() {
-                        wait = true;
-                        buttonName = "Resend";
-                      });
-                    },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-                child: Text(buttonName,
-                    style: TextStyle(
-                        color: wait ? Color(0xFFF77D8E) : Colors.grey,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold)),
-              ),
-            ),
-          ),
-          onSaved: (val) {
-            username = val!;
-            print(_usernameController);
-          },
-        ),
+              setState(() {
+                wait = true;
+                buttonName = "Resend new code";
+                start = 30;
+                startTimer();
+              });
+            },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+        child: Text(buttonName,
+            style: TextStyle(
+                color: wait ? Color(0xFFF77D8E) : Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold)),
       ),
     );
   }
@@ -439,5 +431,16 @@ class _VerifyMobileState extends State<VerifyMobile> {
       GoodWidFlushBar.showError(
           message: "Something went wrong, try again later", context: context);
     }
+  }
+
+  String? _email;
+  String? _phone;
+
+  getUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      _email = preferences.getString('email') ?? '';
+      _phone = preferences.getString('mobilePhone') ?? '';
+    });
   }
 }
