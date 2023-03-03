@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
 import 'package:goowid_auth/utils/routes.dart';
+import 'package:goowid_auth/widgets/app_bar.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
@@ -54,6 +55,8 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
     scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: ResusableBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -159,7 +162,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
 
                         validateOtp(otp.toString(), _usernameController.text);
                       },
-                      child: const Text("Get Started",
+                      child: const Text("Verify",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.white,
@@ -210,26 +213,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               // ),
               SizedBox(
                 height: 150,
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 64,
-                    width: 64,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, signIn);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: const Color(0xFFF77D8E),
-                      ),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),

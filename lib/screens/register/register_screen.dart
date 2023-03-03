@@ -440,7 +440,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             resposne['userPrincipalName'],
             resposne['id']);
 
-        Navigator.pushReplacementNamed(context, otpVerifyMobile);
+        Navigator.pushNamed(context, otpVerifyMobile);
         GoodWidFlushBar.showSuccess(
             message: "Welcome ${resposne['displayName']}", context: context);
         setState(() {

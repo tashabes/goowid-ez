@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/passwordManager/upload.dart';
 import 'package:goowid_auth/screens/passwordManager/upload_file.dart';
+import 'package:goowid_auth/widgets/app_bar.dart';
 
 class DocumentMgmt extends StatefulWidget {
   const DocumentMgmt({super.key});
@@ -18,13 +19,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: BackButton(
-            onPressed: () => Navigator.of(context).pop(),
-            color: Colors.black,
-          )),
+      appBar: ResusableBar(),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(

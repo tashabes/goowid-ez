@@ -15,6 +15,7 @@ import '../../utils/app_flushbar.dart';
 import 'package:dio/dio.dart';
 
 import '../../utils/app_logger.dart';
+import '../../widgets/app_bar.dart';
 
 class VerifyMobile extends StatefulWidget {
   const VerifyMobile({super.key});
@@ -60,6 +61,8 @@ class _VerifyMobileState extends State<VerifyMobile> {
     scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: ResusableBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
