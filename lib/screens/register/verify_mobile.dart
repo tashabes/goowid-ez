@@ -244,26 +244,6 @@ class _VerifyMobileState extends State<VerifyMobile> {
               SizedBox(
                 height: 90,
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 64,
-                    width: 64,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, signUp);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: const Color(0xFFF77D8E),
-                      ),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
