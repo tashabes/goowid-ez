@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
+import 'package:goowid_auth/constants.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:goowid_auth/widgets/app_bar.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -108,26 +109,27 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               SizedBox(
                 height: 30,
               ),
-              otpField(),
+              //otpField(),
+              otpPinField(),
               // SizedBox(
               //   height: 30,
               // ),
               //otpPinField(),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                        text: "Send code again in ",
-                        style: Theme.of(context).textTheme.subtitle1),
-                    TextSpan(
-                        text: "00:$start ",
-                        style: Theme.of(context).textTheme.subtitle2),
-                    TextSpan(
-                        text: "sec",
-                        style: Theme.of(context).textTheme.subtitle1),
-                  ],
-                ),
-              ),
+              // RichText(
+              //   text: TextSpan(
+              //     children: [
+              //       TextSpan(
+              //           text: "Send code again in ",
+              //           style: Theme.of(context).textTheme.subtitle1),
+              //       TextSpan(
+              //           text: "00:$start ",
+              //           style: Theme.of(context).textTheme.subtitle2),
+              //       TextSpan(
+              //           text: "sec",
+              //           style: Theme.of(context).textTheme.subtitle1),
+              //     ],
+              //   ),
+              // ),
               SizedBox(
                 height: 30,
               ),
@@ -221,21 +223,21 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
     );
   }
 
-  void startTimer() {
-    const onsec = Duration(seconds: 1);
-    Timer timer = Timer.periodic(onsec, (timer) {
-      if (start == 0) {
-        setState(() {
-          timer.cancel();
-          wait = false;
-        });
-      } else {
-        setState(() {
-          start--;
-        });
-      }
-    });
-  }
+  // void startTimer() {
+  //   const onsec = Duration(seconds: 1);
+  //   Timer timer = Timer.periodic(onsec, (timer) {
+  //     if (start == 0) {
+  //       setState(() {
+  //         timer.cancel();
+  //         wait = false;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         start--;
+  //       });
+  //     }
+  //   });
+  // }
 
   Widget otpField() {
     return OTPTextField(
@@ -260,13 +262,16 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       padding: const EdgeInsets.all(12.0),
       child: Center(
         child: PinFieldAutoFill(
+          controller: _otpController,
+          onCodeChanged: (val) {
+            otp = val.toString();
+          },
           codeLength: 6,
           autoFocus: true,
           decoration: UnderlineDecoration(
             lineHeight: 2,
             lineStrokeCap: StrokeCap.square,
-            bgColorBuilder:
-                PinListenColorBuilder(Color(0xFF7553F6), Colors.grey.shade200),
+            bgColorBuilder: PinListenColorBuilder(blue, Colors.grey.shade200),
             colorBuilder: const FixedColorBuilder(Colors.transparent),
           ),
         ),
@@ -305,11 +310,11 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                         _usernameController.text,
                       );
 
-                      startTimer();
-                      setState(() {
-                        wait = true;
-                        buttonName = "Resend";
-                      });
+                      // startTimer();
+                      // setState(() {
+                      //   wait = true;
+                      //   buttonName = "Resend";
+                      // });
                     },
               child: Padding(
                 padding:
