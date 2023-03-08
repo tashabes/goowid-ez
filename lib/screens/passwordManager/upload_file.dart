@@ -254,6 +254,10 @@ class _UploadFileState extends State<UploadFile> {
     print('Calling');
     var dio = Dio();
 
+    setState(() {
+      isLoading = true;
+    });
+
     //FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (file != null) {
@@ -284,12 +288,24 @@ class _UploadFileState extends State<UploadFile> {
           }), onSendProgress: (int sent, int total) {
         print('This is the response $sent, $total');
       });
-      if (response == 'Saved!') {
+      setState(() {
+        isLoading = false;
+      });
+      if (response.data == 'Saved!') {
+        GoodWidFlushBar.showSuccess(
+            message: "File successfully uploaded", context: context);
         print('Success');
+        setState(() {
+          isLoading = false;
+        });
       }
       print(response.data);
     } else {
       print("Result is null");
+      GoodWidFlushBar.showError(message: "File not uploaded", context: context);
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
