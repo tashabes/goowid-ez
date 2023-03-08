@@ -3,6 +3,7 @@ import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:circle_progress_bar/circle_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
+import 'package:goowid_auth/screens/passwordManager/components/up_test.dart';
 import 'package:goowid_auth/screens/passwordManager/upload.dart';
 import 'package:goowid_auth/screens/passwordManager/upload_file.dart';
 import 'package:goowid_auth/widgets/app_bar.dart';

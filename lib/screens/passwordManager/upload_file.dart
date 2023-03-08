@@ -1,11 +1,15 @@
-import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
+import '../../core/client/http_client.dart';
+import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
+import '../../utils/app_logger.dart';
 import '../../widgets/app_bar.dart';
 
 class UploadFile extends StatefulWidget {
@@ -18,12 +22,19 @@ class _UploadFileState extends State<UploadFile> {
   late String email, password;
   late String? title;
   bool isLoading = false;
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _fileNameController = new TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late ScaffoldMessengerState scaffoldMessenger;
   bool _obscureText = true;
   FilePickerResult? result;
+  PlatformFile? file;
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -31,7 +42,7 @@ class _UploadFileState extends State<UploadFile> {
         backgroundColor: Colors.white,
         key: _scaffoldKey,
         extendBodyBehindAppBar: true,
-        appBar: ResusableBar(),
+        appBar: const ResusableBar(),
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -99,7 +110,7 @@ class _UploadFileState extends State<UploadFile> {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.white,
                                       side: const BorderSide(
-                                        width: 5.0,
+                                        width: 4.0,
                                         color: Color(0xFFF77D8E),
                                       )),
                                   onPressed: () async {
@@ -108,6 +119,7 @@ class _UploadFileState extends State<UploadFile> {
                                     if (result == null) {
                                       print('No file selected');
                                     } else {
+                                      file = result?.files.first;
                                       setState(() {});
                                       result?.files.forEach((element) {
                                         print(element.name);
@@ -127,7 +139,7 @@ class _UploadFileState extends State<UploadFile> {
                                 style: const TextStyle(
                                   color: Colors.black54,
                                 ),
-                                controller: _passwordController,
+                                controller: _fileNameController,
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 decoration: const InputDecoration(
@@ -145,25 +157,6 @@ class _UploadFileState extends State<UploadFile> {
                               const SizedBox(
                                 height: 30,
                               ),
-                              TextFormField(
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                ),
-                                controller: _passwordController,
-                                enableSuggestions: false,
-                                autocorrect: false,
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black12)),
-                                  hintText: "Category (optional)",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
-                                ),
-                                onSaved: (val) {
-                                  password = val!;
-                                },
-                              ),
                               const SizedBox(
                                 height: 30,
                               ),
@@ -174,25 +167,19 @@ class _UploadFileState extends State<UploadFile> {
                                       if (isLoading) {
                                         return;
                                       }
-                                      if (_emailController.text.isEmpty) {
+                                      if (_fileNameController.text.isEmpty) {
                                         scaffoldMessenger.showSnackBar(
                                             const SnackBar(
                                                 content: Text(
-                                                    "Please enter your user name")));
+                                                    "Please enter a file name")));
                                         return;
                                       }
-                                      if (_passwordController.text.isEmpty) {
-                                        scaffoldMessenger.showSnackBar(
-                                            const SnackBar(
-                                                content: Text(
-                                                    "Please enter your password")));
-                                        return;
-                                      }
-                                      login(_emailController.text,
-                                          _passwordController.text);
-                                      setState(() {
-                                        isLoading = true;
-                                      });
+
+                                      uploadFile(
+                                          file, _fileNameController.text, _id);
+                                      // setState(() {
+                                      //   isLoading = true;
+                                      // });
                                       //Navigator.pushReplacementNamed(
                                       //context, "/entrypoint");
                                     },
@@ -263,78 +250,55 @@ class _UploadFileState extends State<UploadFile> {
         ));
   }
 
-  login(email, password) async {
-    Map data = {'userName': email, 'password': password};
-    print(data.toString());
-    final response = await http.post(
-      Uri.parse(LOGIN),
-      headers: {
-        "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
-        "Content-Type": "application/json"
-      },
-      body: jsonEncode(data),
-    );
-    setState(() {
-      isLoading = false;
-    });
-    if (response.statusCode == 200) {
-      Map<String, dynamic> resposne = jsonDecode(response.body);
-      if (resposne['displayName'] != null) {
-        savePref(
-            1,
-            resposne['displayName'],
-            resposne['givenName'],
-            resposne['surname'],
-            resposne['userPrincipalName'],
-            resposne['mobilePhone'],
-            resposne['userPrincipalName'],
-            resposne['id']);
+  Future uploadFile(file, fileName, id) async {
+    print('Calling');
+    var dio = Dio();
 
-        Navigator.pushReplacementNamed(context, homePage);
-        GoodWidFlushBar.showSuccess(
-            message: "Welcome ${resposne['displayName']}", context: context);
+    //FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (file != null) {
+      PlatformFile file = result!.files.first;
+      print(file.name);
+      print(file.bytes);
+      print(file.size);
+      print(file.extension);
+      print(file.path);
+
+      String? filename = file.path?.split('/').last;
+
+      String? filepath = file.path;
+
+      FormData data = FormData.fromMap({
+        //'key': '5d94951785ea4e3d9f414c5b2d3d6f80',
+        'file': await MultipartFile.fromFile(filepath!, filename: filename),
+        'fileName': fileName,
+        'id': id
+      });
+      print(data.toString());
+      HttpClient httpClient = HttpClient();
+      var response = await dio.post(UPLOADFILE,
+          data: data,
+          options: Options(headers: {
+            "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
+            "Content-Type": "application/json"
+          }), onSendProgress: (int sent, int total) {
+        print('This is the response $sent, $total');
+      });
+      if (response == 'Saved!') {
+        print('Success');
       }
+      print(response.data);
     } else {
-      GoodWidFlushBar.showError(
-          message: "Your email or password are incorrect", context: context);
+      print("Result is null");
     }
   }
 
-  savePref(
-      int value,
-      String displayName,
-      String givenName,
-      String surname,
-      String userPrincipalName,
-      String mobileNumber,
-      String email,
-      String id) async {
+  String? _id;
+
+  getUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-
-    preferences.setInt("value", value);
-    preferences.setString("displayName", json.encode(displayName));
-    preferences.setString("givenName", json.encode(givenName));
-    preferences.setString("surname", json.encode(surname));
-    preferences.setString("userPrincipalName", json.encode(userPrincipalName));
-    preferences.setString("mobileNumber", json.encode(mobileNumber));
-    preferences.setString("email", json.encode(email));
-    preferences.setString("id", id.toString());
-  }
-}
-
-class SharedPref {
-  static write(String key, value) async {
-    final preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(key, json.encode(value));
-  }
-
-  static remove(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove(key);
-  }
-
-  static clear() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    setState(() {
+      _id = preferences.getString('id') ?? '';
+    });
   }
 }

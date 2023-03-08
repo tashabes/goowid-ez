@@ -8,3 +8,5 @@ const String RESETPASSWORD = "$ROOT/ResetPassword";
 //Verify phone number - user sign up
 const String SENDPHONEOTP = "$ROOT/MobileVarification/SendOTP";
 const String VALIDATEPHONEOTP = "$ROOT/MobileVarification/ValidateOTP";
+//Upload File
+const String UPLOADFILE = "$ROOT/Upload";
