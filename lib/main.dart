@@ -3,6 +3,7 @@ import 'package:goowid_auth/screens/chat/providers/chats_provider.dart';
 import 'package:goowid_auth/screens/chat/providers/models_provider.dart';
 import 'package:goowid_auth/screens/chat/screens/chat_screen.dart';
 import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
+import 'package:goowid_auth/screens/entryPoint/components/profile_new.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/home/home_test.dart';
 import 'package:goowid_auth/screens/passwordManager/add_account.dart';
@@ -94,6 +95,7 @@ class MyApp extends StatelessWidget {
           '/document_mgmt': (BuildContext context) => new DocumentMgmt(),
           '/to_do_list': (BuildContext context) => new ToDoListPage(),
           '/chat_screen': (BuildContext context) => new ChatScreen(),
+          '/user_profile': (BuildContext context) => new UserProfilePage(),
         },
         home: const OnbodingScreen(),
       ),
