@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
 import 'package:goowid_auth/constants.dart';
@@ -13,7 +11,6 @@ import '../../core/client/http_client.dart';
 import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
 import 'package:dio/dio.dart';
-
 import '../../utils/app_logger.dart';
 
 class OTPVerifyPhone extends StatefulWidget {
@@ -57,14 +54,14 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: ResusableBar(),
+      appBar: const ResusableBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Padding(
@@ -74,11 +71,11 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               textField(),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
@@ -89,7 +86,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                       child: Container(
                         height: 1,
                         color: Colors.grey.shade300,
-                        margin: EdgeInsets.symmetric(horizontal: 12.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 12.0),
                       ),
                     ),
                     Text(
@@ -100,13 +97,13 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                       child: Container(
                         height: 1,
                         color: Colors.grey.shade300,
-                        margin: EdgeInsets.symmetric(horizontal: 12.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 12.0),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               //otpField(),
@@ -130,7 +127,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               //     ],
               //   ),
               // ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Stack(
@@ -142,7 +139,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                         const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Color(0xFFF77D8E),
+                      color: const Color(0xFFF77D8E),
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(50),
                     ),
@@ -213,7 +210,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               //     ),
               //   ),
               // ),
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
             ],
@@ -246,9 +243,9 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       fieldWidth: 58,
       otpFieldStyle: OtpFieldStyle(
         backgroundColor: Colors.white,
-        borderColor: Color(0xFFF77D8E),
+        borderColor: const Color(0xFFF77D8E),
       ),
-      style: TextStyle(fontSize: 17, color: Color(0xFFF77D8E)),
+      style: const TextStyle(fontSize: 17, color: Color(0xFFF77D8E)),
       textFieldAlignment: MainAxisAlignment.spaceAround,
       fieldStyle: FieldStyle.underline,
       onChanged: (val) {
@@ -305,7 +302,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               onTap: wait
                   ? null
                   : () {
-                      print(_usernameController.text);
+                      AppLogger.log(_usernameController.text);
                       sendOtp(
                         _usernameController.text,
                       );
@@ -321,7 +318,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                     const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
                 child: Text(buttonName,
                     style: TextStyle(
-                        color: wait ? Color(0xFFF77D8E) : Colors.grey,
+                        color: wait ? brightCoral : Colors.grey,
                         fontSize: 17,
                         fontWeight: FontWeight.bold)),
               ),
@@ -329,7 +326,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
           ),
           onSaved: (val) {
             username = val!;
-            print(_usernameController);
+            AppLogger.log(_usernameController.text);
           },
         ),
       ),
@@ -337,13 +334,13 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
   }
 
   sendOtp(username) async {
-    print("Calling");
+    AppLogger.log("Calling");
 
     try {
       Map data = {
         'userName': username,
       };
-      print(data.toString());
+      AppLogger.log(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
         SENDOTP,
@@ -380,7 +377,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
   }
 
   validateOtp(otp, username) async {
-    print("Calling");
+    AppLogger.log("Calling");
 
     setState(() {
       isLoading = false;
@@ -388,7 +385,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
 
     try {
       Map data = {'otp': otp, 'userName': username};
-      print(data.toString());
+      AppLogger.log(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
         VALIDATEOTP,

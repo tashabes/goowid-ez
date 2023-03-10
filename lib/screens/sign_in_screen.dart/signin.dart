@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
 import '../../utils/app_flushbar.dart';
+import '../../utils/app_logger.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -98,11 +99,11 @@ class _SignInState extends State<SignIn> {
                                 autocorrect: false,
                                 obscureText: _obscureText,
                                 decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder: const UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black12)),
                                     hintText: "Password",
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: Colors.black54, fontSize: 15),
                                     suffixIcon: IconButton(
                                         onPressed: () => setState(() {
@@ -112,7 +113,7 @@ class _SignInState extends State<SignIn> {
                                           _obscureText
                                               ? Icons.visibility_off
                                               : Icons.visibility,
-                                          color: Color(0xFFF77D8E),
+                                          color: const Color(0xFFF77D8E),
                                         ))),
                                 onSaved: (val) {
                                   password = val!;
@@ -247,7 +248,7 @@ class _SignInState extends State<SignIn> {
 
   login(email, password) async {
     Map data = {'userName': email, 'password': password};
-    print(data.toString());
+    AppLogger.log(data.toString());
     final response = await http.post(
       Uri.parse(LOGIN),
       headers: {

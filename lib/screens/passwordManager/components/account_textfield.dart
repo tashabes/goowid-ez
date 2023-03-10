@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/constants.dart';
 import 'account_title.dart';
 
 class AccountTextField extends StatelessWidget {
@@ -77,7 +78,7 @@ class _AccountPasswordFieldState extends State<AccountPasswordField> {
                           }),
                       icon: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Color(0xFFF77D8E),
+                        color: brightCoral,
                       ))),
             )),
         const SizedBox(height: 24.0),

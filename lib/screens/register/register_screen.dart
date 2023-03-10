@@ -183,11 +183,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder: const UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black12)),
                                     hintText: "Password",
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         color: Colors.black54, fontSize: 15),
                                     suffixIcon: IconButton(
                                         onPressed: () => setState(() {
@@ -197,7 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           _obscureText
                                               ? Icons.visibility_off
                                               : Icons.visibility,
-                                          color: Color(0xFFF77D8E),
+                                          color: const Color(0xFFF77D8E),
                                         ))),
                                 onChanged: (value) {
                                   _formKey.currentState!.validate();
@@ -249,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         vertical: 10, horizontal: 0),
                                     height: 50,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFF77D8E),
+                                      color: const Color(0xFFF77D8E),
                                       border: Border.all(color: Colors.white),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
@@ -376,7 +376,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   signup(name, phone, email, password) async {
-    print("Calling");
+    AppLogger.log("Calling");
 
     setState(() {
       isLoading = true;
@@ -397,7 +397,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           "password": password,
         }
       };
-      print(data.toString());
+      AppLogger.log(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
         REGISTRATION,
@@ -434,6 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
         });
+        // ignore: use_build_context_synchronously
         sendOtp(context, email);
       }
     } on Failure catch (e) {

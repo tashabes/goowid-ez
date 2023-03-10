@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Hello ${_name.replaceAll(new RegExp(r'[^\w\s]+'), '')}',
+                  'Hello ${_name.replaceAll(RegExp(r'[^\w\s]+'), '')}',
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),

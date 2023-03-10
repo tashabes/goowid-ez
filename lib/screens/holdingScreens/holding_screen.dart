@@ -19,7 +19,7 @@ class HoldingScreen extends StatelessWidget {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EntryPoint(),
+                  builder: (context) => const EntryPoint(),
                 ));
           },
           style: ElevatedButton.styleFrom(
