@@ -12,6 +12,3 @@ const uploadDoc = '/upload_doc';
 const docMgmt = '/document_mgmt';
 const toDo = '/to_do_list';
 const chatScreen = '/chat_screen';
-
-//bottom nav routes
-const btmNavProfile = "bottomNavItems[4]";

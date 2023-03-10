@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/chat/providers/chats_provider.dart';
 import 'package:goowid_auth/screens/chat/providers/models_provider.dart';
 import 'package:goowid_auth/screens/chat/screens/chat_screen.dart';
+
 import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/home/home_test.dart';
