@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/constants.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -13,7 +14,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: Color(0xFFF77D8E),
+      color: brightCoral,
       child: Text(text),
     );
   }

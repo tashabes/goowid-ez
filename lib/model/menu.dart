@@ -1,4 +1,3 @@
-import 'package:goowid_auth/screens/holdingScreens/holding_screen.dart';
 import 'rive_model.dart';
 
 class Menu {

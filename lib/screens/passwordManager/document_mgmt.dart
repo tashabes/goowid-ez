@@ -1,10 +1,6 @@
-import 'dart:ui';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:circle_progress_bar/circle_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
-import 'package:goowid_auth/screens/passwordManager/components/up_test.dart';
-import 'package:goowid_auth/screens/passwordManager/upload.dart';
 import 'package:goowid_auth/screens/passwordManager/upload_file.dart';
 import 'package:goowid_auth/widgets/app_bar.dart';
 
@@ -20,7 +16,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: ResusableBar(),
+      appBar: const ResusableBar(),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -30,12 +26,12 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => UploadFile(),
+                builder: (context) => const UploadFile(),
               ),
             );
           },
-          backgroundColor: Color(0xFFF77D8E),
-          child: Icon(
+          backgroundColor: const Color(0xFFF77D8E),
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -76,7 +72,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
             "Categories",
             style: Theme.of(context).textTheme.headline2,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           SingleChildScrollView(
@@ -89,13 +85,14 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                     height: 150,
                     width: 140,
                     decoration: BoxDecoration(
-                        color: Color(0xFF7553F6).withOpacity(0.05),
+                        color: const Color(0xFF7553F6).withOpacity(0.05),
                         borderRadius: BorderRadius.circular(22)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
                         //Image.asset(categoryJson[index]['img'],width: 40,),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         // Text(categoryJson[index]['text'],style: TextStyle(
@@ -144,9 +141,9 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                       width: size.width * 0.6,
                       height: 160,
                       decoration: BoxDecoration(
-                        color: Color(0xFF80A4FF),
+                        color: const Color(0xFF80A4FF),
                         borderRadius: BorderRadius.circular(22),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             image: NetworkImage("url"), fit: BoxFit.cover),
                       ),
                       child: Column(
@@ -180,7 +177,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
       width: double.infinity,
       height: 120,
       decoration: BoxDecoration(
-        color: Color(0xFF7553F6),
+        color: const Color(0xFF7553F6),
         borderRadius: BorderRadius.circular(22),
       ),
       child: Stack(children: [
@@ -251,7 +248,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                           color: Colors.white.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Padding(
+                        child: const Padding(
                           padding: EdgeInsets.only(
                               left: 12, right: 12, top: 10, bottom: 10),
                           child: Text(

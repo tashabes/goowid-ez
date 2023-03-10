@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/constants.dart';
-
-import 'package:goowid_auth/utils/routes.dart';
+import 'package:goowid_auth/screens/entryPoint/components/work_card.dart';
 import 'package:goowid_auth/widgets/app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../utils/app_logger.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,16 +15,18 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final String _status = "Software Developer";
+  // final String _status = "Software Developer";
 
   final String _bio =
       "\"Hi, I am a Freelance developer working for hourly basis. If you wants to contact me to build your product leave a message.\"";
 
-  final String _followers = "173";
+  final String _onBudget = "80%";
 
   final String _jobs = "12";
 
-  final String _rating = "4.8";
+  final String _onTime = "100%";
+
+  late String? title;
 
   @override
   void initState() {
@@ -65,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
             clipBehavior: Clip.none,
             fit: StackFit.expand,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 backgroundImage:
                     AssetImage("assets/avaters/Avatar Default.jpg"),
               ),
@@ -75,13 +78,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: RawMaterialButton(
                     onPressed: () {},
                     elevation: 2.0,
-                    fillColor: Color(0xFFF5F6F9),
-                    child: Icon(
+                    fillColor: const Color(0xFFF5F6F9),
+                    child: const Icon(
                       Icons.edit,
                       color: Colors.grey,
                     ),
-                    padding: EdgeInsets.all(2.0),
-                    shape: CircleBorder(),
+                    padding: const EdgeInsets.all(2.0),
+                    shape: const CircleBorder(),
                   )),
             ],
           ),
@@ -91,13 +94,41 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _syncLinkedin() {
-    return GestureDetector(
-      onTap: () {
-        //Navigator.pushNamed(context, linkedIn);
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(right: 12.0),
-        child: Text('Sync to Linkedin'),
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: GestureDetector(
+        onTap: () {
+          //Navigator.pushNamed(context, linkedIn);
+        },
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Image.asset(
+                'assets/icons/linkedin.png',
+                width: 35,
+              ),
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    'Connect your',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    'LinkedIn',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -110,14 +141,53 @@ class _ProfilePageState extends State<ProfilePage> {
       fontWeight: FontWeight.w700,
     );
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 12.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          _name!.replaceAll(RegExp(r'[^\w\s]+'), ''),
-          style: _nameTextStyle,
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Text(
+            _name!.replaceAll(RegExp(r'[^\w\s]+'), ''),
+            style: _nameTextStyle,
+          ),
         ),
+        const SizedBox(
+          width: 5,
+        ),
+        const Icon(
+          Icons.edit,
+          color: Colors.grey,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRating() {
+    return RatingBar.builder(
+      initialRating: 3,
+      minRating: 1,
+      itemSize: 30,
+      direction: Axis.horizontal,
+      allowHalfRating: true,
+      itemCount: 5,
+      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+      itemBuilder: (context, _) => const Icon(
+        Icons.star,
+        color: Colors.amber,
+      ),
+      onRatingUpdate: (rating) {
+        print(rating);
+      },
+    );
+  }
+
+  Widget _buildLocation() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Row(
+        children: [
+          const Icon(Icons.location_on_sharp),
+          const Text('London, UK'),
+        ],
       ),
     );
   }
@@ -211,9 +281,9 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildStatItem("Followers", _followers),
           _buildStatItem("Jobs", _jobs),
-          _buildStatItem("Rating", _rating),
+          _buildStatItem("On Time", _onTime),
+          _buildStatItem("On Budget", _onBudget),
         ],
       ),
     );
@@ -239,6 +309,18 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget _buildExperience(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        'My Work',
+        textAlign: TextAlign.left,
+        style: Theme.of(context).textTheme.headline2,
+      ),
+    );
+  }
+
   Widget _buildSeparator(Size screenSize) {
     return Container(
       width: screenSize.width / 1.6,
@@ -248,67 +330,95 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildGetInTouch(BuildContext context) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Text(
-        "Get in Touch with ${_name!.replaceAll(new RegExp(r'[^\w\s]+'), '')}",
-        style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
-      ),
-    );
-  }
+  // Widget _buildGetInTouch(BuildContext context) {
+  //   return Container(
+  //     color: Theme.of(context).scaffoldBackgroundColor,
+  //     padding: const EdgeInsets.only(top: 8.0),
+  //     child: Text(
+  //       "Get in Touch with ${_name!.replaceAll(new RegExp(r'[^\w\s]+'), '')}",
+  //       style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
+  //     ),
+  //   );
+  // }
 
   Widget _buildButtons() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: InkWell(
-              onTap: () => print("followed"),
-              child: Container(
-                height: 40.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: brightCoral,
-                ),
-                child: const Center(
-                  child: Text(
-                    "HIRE",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+      child: Expanded(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: InkWell(
+                onTap: () async {
+                  String email = Uri.encodeComponent("$_name@goowid.com");
+                  String subject = Uri.encodeComponent("Job interest");
+                  String body = Uri.encodeComponent(
+                      "Hi! I'd love to speak with you about a job.");
+                  print(subject); //output: Hello%20Flutter
+                  Uri mail =
+                      Uri.parse("mailto:$email?subject=$subject&body=$body");
+                  if (await launchUrl(mail)) {
+                    //email app opened
+                  } else {
+                    //email app is not opened
+                  }
+                },
+                child: Container(
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: brightCoral,
                   ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: InkWell(
-              onTap: () => '',
-              child: Container(
-                height: 40.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: brightCoral,
-                ),
-                child: const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                  child: const Center(
                     child: Text(
-                      "MESSAGE",
+                      "HIRE",
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, color: Colors.white),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: InkWell(
+                onTap: () async {
+                  String email = Uri.encodeComponent("$_name@goowid.com");
+                  String subject = Uri.encodeComponent("Job interest");
+                  String body = Uri.encodeComponent(
+                      "Hi! I'd love to speak with you about a job.");
+                  print(subject); //output: Hello%20Flutter
+                  Uri mail =
+                      Uri.parse("mailto:$email?subject=$subject&body=$body");
+                  if (await launchUrl(mail)) {
+                    //email app opened
+                  } else {
+                    //email app is not opened
+                  }
+                },
+                child: Container(
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: brightCoral,
+                  ),
+                  child: const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        "MESSAGE",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -320,37 +430,70 @@ class _ProfilePageState extends State<ProfilePage> {
       extendBodyBehindAppBar: true,
       appBar: const ResusableBar(),
       //backgroundColor: Colors.white,
-      body: Stack(
-        children: <Widget>[
-          _buildCoverImage(screenSize),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: screenSize.height / 6.4),
-                  const SizedBox(height: 60),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildProfileImage(),
-                      _syncLinkedin(),
-                    ],
-                  ),
-                  _buildFullName(),
-                  _buildStatus(context),
-                  _buildEmail(context),
-                  _buildStatContainer(),
-                  _buildBio(context),
-                  _buildSeparator(screenSize),
-                  const SizedBox(height: 10.0),
-                  _buildGetInTouch(context),
-                  const SizedBox(height: 8.0),
-                  _buildButtons(),
-                ],
+      body: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 9.9),
+        child: SingleChildScrollView(
+          child: Stack(
+            children: <Widget>[
+              _buildCoverImage(screenSize),
+              SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: screenSize.height / 6.4),
+                    const SizedBox(height: 60),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildProfileImage(),
+                        _syncLinkedin(),
+                      ],
+                    ),
+                    _buildFullName(),
+                    _buildLocation(),
+                    _buildRating(),
+                    _buildStatus(context),
+                    _buildEmail(context),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    _buildStatContainer(),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    _buildBio(context),
+                    _buildSeparator(screenSize),
+                    const SizedBox(height: 10.0),
+                    _buildExperience(context),
+                    const SizedBox(height: 10.0),
+                    // ignore: prefer_const_constructors
+                    WorkCard(
+                      title: 'Develop mobile application',
+                      company: 'Etz Tech',
+                      time: '3 weeks',
+                      skill: 'Flutter/Dart',
+                      skill2: 'Mobile Applications',
+                      skill3: 'Firebase',
+                    ),
+                    const SizedBox(height: 10.0),
+                    const WorkCard(
+                      title: 'Software Engineer',
+                      company: 'Google',
+                      time: '5 weeks',
+                      skill: 'Flutter/Dart',
+                      skill2: 'GCP',
+                      skill3: 'Firebase',
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.only(top: 15.0),
+        child: _buildButtons(),
       ),
     );
   }

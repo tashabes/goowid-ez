@@ -7,13 +7,13 @@ import '../../../utils/app_flushbar.dart';
 import '../../../utils/app_logger.dart';
 
 void sendOtp(BuildContext context, String username) async {
-  print("Calling");
+  AppLogger.log("Calling");
 
   try {
     Map data = {
       'userName': username,
     };
-    print(data.toString());
+    AppLogger.log(data.toString());
     HttpClient httpClient = HttpClient();
     Response? res = await httpClient.post(
       SENDPHONEOTP,

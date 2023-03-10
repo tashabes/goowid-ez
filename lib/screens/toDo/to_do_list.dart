@@ -88,8 +88,8 @@ class _ToDoListPageState extends State<ToDoListPage> {
           },
         ),
         toolbarHeight: 70,
-        backgroundColor: Color(0xFFF77D8E),
-        title: Text(
+        backgroundColor: const Color(0xFFF77D8E),
+        title: const Text(
           'TO DO',
           style: TextStyle(
             fontFamily: "Poppins",
@@ -101,9 +101,9 @@ class _ToDoListPageState extends State<ToDoListPage> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 60.0),
         child: FloatingActionButton(
-          backgroundColor: Color(0xFFF77D8E),
+          backgroundColor: const Color(0xFFF77D8E),
           onPressed: createNewTask,
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
       body: ListView.builder(

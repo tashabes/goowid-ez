@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
-import 'package:goowid_auth/utils/routes.dart';
+
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class CourseCard extends StatelessWidget {
@@ -46,7 +46,7 @@ class CourseCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white),
@@ -56,7 +56,7 @@ class CourseCard extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DocumentMgmt()));
+                                builder: (context) => const DocumentMgmt()));
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

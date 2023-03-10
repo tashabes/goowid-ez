@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:goowid_auth/screens/toDo/to_do_list.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:rive/rive.dart';
 import '../../../constants.dart';
@@ -162,7 +161,7 @@ class _EntryPointState extends State<EntryPoint>
                       press: () {
                         RiveUtils.chnageSMIBoolState(navBar.rive.status!);
                         updateSelectedBtmNav(navBar);
-                        Future.delayed(Duration(milliseconds: 300))
+                        Future.delayed(const Duration(milliseconds: 300))
                             .then((value) => navigate(navBar));
                       },
                       riveOnInit: (artboard) {

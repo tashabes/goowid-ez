@@ -96,15 +96,15 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                       child: Container(
                         alignment: Alignment.center,
                         width: double.infinity,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 0),
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF77D8E),
+                          color: const Color(0xFFF77D8E),
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Text(
+                        child: const Text(
                           "GET STARTED",
                           textAlign: TextAlign.center,
                           style: TextStyle(

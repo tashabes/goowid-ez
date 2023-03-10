@@ -55,7 +55,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: ResusableBar(),
+      appBar: const ResusableBar(),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
@@ -64,20 +64,20 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Text(
                   'Enter your new password',
                   style: Theme.of(context).textTheme.headline2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                     'Enter a secure password including the following criteria below.',
                     style: Theme.of(context).textTheme.subtitle1),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Form(
@@ -92,7 +92,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         controller: _userNameController,
                         enableSuggestions: false,
                         autocorrect: false,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black12)),
                           hintText: "Username",
@@ -103,7 +103,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                           _username = val!;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       TextFormField(
@@ -116,11 +116,11 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         autocorrect: false,
                         obscureText: _obscureText,
                         decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black12)),
                             hintText: "Password",
-                            hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 15),
+                            hintStyle: const TextStyle(
+                                color: Colors.black54, fontSize: 15),
                             suffixIcon: IconButton(
                                 onPressed: () => setState(() {
                                       _obscureText = !_obscureText;
@@ -129,7 +129,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                                   _obscureText
                                       ? Icons.visibility_off
                                       : Icons.visibility,
-                                  color: Color(0xFFF77D8E),
+                                  color: const Color(0xFFF77D8E),
                                 ))),
                         onSaved: (val) {
                           _newPassword = val!;
@@ -138,13 +138,13 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                             : Border.all(color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.check,
                           color: Colors.white,
@@ -164,20 +164,20 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text('Contains at least 8 characters',
                         style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
@@ -189,7 +189,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                             : Border.all(color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.check,
                           color: Colors.white,
@@ -197,20 +197,20 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text('Contains at least 1 number',
                         style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
@@ -222,7 +222,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                             : Border.all(color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.check,
                           color: Colors.white,
@@ -230,7 +230,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
@@ -239,13 +239,13 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
                     AnimatedContainer(
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
@@ -257,7 +257,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                             : Border.all(color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.check,
                           color: Colors.white,
@@ -265,14 +265,14 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text('Contains a special character',
                         style: Theme.of(context).textTheme.subtitle2),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Stack(
@@ -284,7 +284,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                           vertical: 10, horizontal: 0),
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Color(0xFFF77D8E),
+                        color: const Color(0xFFF77D8E),
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -341,7 +341,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
   }
 
   resetPassword(username, newPassword) async {
-    print("Calling");
+    AppLogger.log("Calling");
 
     setState(() {
       isLoading = true;
@@ -349,7 +349,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
 
     try {
       Map data = {'userName': username, 'newPassword': newPassword};
-      print(data.toString());
+      AppLogger.log(data.toString());
       HttpClient httpClient = HttpClient();
       Response? res = await httpClient.post(
         RESETPASSWORD,

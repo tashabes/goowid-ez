@@ -1,18 +1,16 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/utils/routes.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../api/api.dart';
-import '../../core/client/http_client.dart';
-import '../../core/failure/failure.dart';
 import '../../utils/app_flushbar.dart';
 import '../../utils/app_logger.dart';
 import '../../widgets/app_bar.dart';
 
 class UploadFile extends StatefulWidget {
+  const UploadFile({super.key});
+
   @override
   _UploadFileState createState() => _UploadFileState();
 }
@@ -117,12 +115,12 @@ class _UploadFileState extends State<UploadFile> {
                                     result =
                                         await FilePicker.platform.pickFiles();
                                     if (result == null) {
-                                      print('No file selected');
+                                      AppLogger.log('No file selected');
                                     } else {
                                       file = result?.files.first;
                                       setState(() {});
                                       result?.files.forEach((element) {
-                                        print(element.name);
+                                        AppLogger.log(element.name);
                                       });
                                     }
                                   },
@@ -251,7 +249,7 @@ class _UploadFileState extends State<UploadFile> {
   }
 
   Future uploadFile(file, fileName, id) async {
-    print('Calling');
+    AppLogger.log('Calling');
     var dio = Dio();
 
     setState(() {
@@ -262,11 +260,11 @@ class _UploadFileState extends State<UploadFile> {
 
     if (file != null) {
       PlatformFile file = result!.files.first;
-      print(file.name);
-      print(file.bytes);
-      print(file.size);
-      print(file.extension);
-      print(file.path);
+      AppLogger.log(file.name);
+      //AppLogger.log(file.bytes);
+      //AppLogger.log(file.size);
+      AppLogger.log(file.extension);
+      AppLogger.log(file.path);
 
       String? filename = file.path?.split('/').last;
 
@@ -278,15 +276,15 @@ class _UploadFileState extends State<UploadFile> {
         'fileName': fileName,
         'id': id
       });
-      print(data.toString());
-      HttpClient httpClient = HttpClient();
+      AppLogger.log(data.toString());
+
       var response = await dio.post(UPLOADFILE,
           data: data,
           options: Options(headers: {
             "Ocp-Apim-Subscription-Key": "5d94951785ea4e3d9f414c5b2d3d6f80",
             "Content-Type": "application/json"
           }), onSendProgress: (int sent, int total) {
-        print('This is the response $sent, $total');
+        AppLogger.log('This is the response $sent, $total');
       });
       setState(() {
         isLoading = false;
@@ -294,14 +292,14 @@ class _UploadFileState extends State<UploadFile> {
       if (response.data == 'Saved!') {
         GoodWidFlushBar.showSuccess(
             message: "File successfully uploaded", context: context);
-        print('Success');
+        AppLogger.log('Success');
         setState(() {
           isLoading = false;
         });
       }
-      print(response.data);
+      AppLogger.log(response.data);
     } else {
-      print("Result is null");
+      AppLogger.log("Result is null");
       GoodWidFlushBar.showError(message: "File not uploaded", context: context);
       setState(() {
         isLoading = false;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:goowid_auth/constants.dart';
 import 'package:goowid_auth/screens/chat/constants/constants.dart';
-import '../services/assets_manager.dart';
 import 'text_widget.dart';
 
 class ChatWidget extends StatelessWidget {

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/utils/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/menu.dart';
 import '../../../../utils/rive_utils.dart';
-import '../../../model/user_details.dart';
-import '../../holdingScreens/holding_screen.dart';
 import 'info_card.dart';
 import 'side_menu.dart';
 

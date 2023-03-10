@@ -22,7 +22,7 @@ class _PasswordHomePageState extends State<PasswordHomePage> {
     return Scaffold(
       //extendBody: true,
       //backgroundColor: BrandColor.background,
-      body: Center(
+      body: const Center(
           // child: _widgetOptions.elementAt(_selectedIndex),
           ),
       bottomNavigationBar: Container(

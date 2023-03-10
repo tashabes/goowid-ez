@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/chat/providers/chats_provider.dart';
 import 'package:goowid_auth/screens/chat/providers/models_provider.dart';
 import 'package:goowid_auth/screens/chat/screens/chat_screen.dart';
-
 import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
-import 'package:goowid_auth/screens/home/home_test.dart';
 import 'package:goowid_auth/screens/passwordManager/add_account.dart';
 import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
@@ -13,17 +11,16 @@ import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verify_phone.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
-import 'package:goowid_auth/screens/document_manager.dart';
+
 import 'package:goowid_auth/screens/toDo/to_do_list.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'screens/onboarding/onboarding.dart';
 
 void main() async {
   // init the hive
-  await Hive.initFlutter();
+  // await Hive.initFlutter();
 
-  var box = await Hive.openBox('mybox');
+  // var box = await Hive.openBox('mybox');
   runApp(const MyApp());
 }
 
@@ -63,7 +60,7 @@ class MyApp extends StatelessWidget {
               height: 1.5,
               color: Colors.grey[600]!,
             ),
-            subtitle2: TextStyle(
+            subtitle2: const TextStyle(
               fontSize: 14,
               height: 1.5,
               color: Colors.black,
@@ -80,21 +77,19 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: <String, WidgetBuilder>{
-          '/onboarding': (BuildContext context) => new OnbodingScreen(),
-          '/entrypoint': (BuildContext context) => new EntryPoint(),
-          '/register': (BuildContext context) => new RegisterScreen(),
-          '/signin': (BuildContext context) => new SignIn(),
-          '/homeTest': (BuildContext context) => new HomeTest(),
-          '/add_account': (BuildContext context) => new AddAccountScreen(),
+          '/onboarding': (BuildContext context) => const OnbodingScreen(),
+          '/entrypoint': (BuildContext context) => const EntryPoint(),
+          '/register': (BuildContext context) => RegisterScreen(),
+          '/signin': (BuildContext context) => SignIn(),
+          '/add_account': (BuildContext context) => const AddAccountScreen(),
           '/confirm_password': (BuildContext context) =>
-              new ConfirmNewPassword(),
-          '/OTP_verify_phone': (BuildContext context) => new OTPVerifyPhone(),
-          '/OTP_verify_mobile': (BuildContext context) => new VerifyMobile(),
-          '/upload_doc': (BuildContext context) => new DocumentManager(),
-          '/document_mgmt': (BuildContext context) => new DocumentMgmt(),
-          '/to_do_list': (BuildContext context) => new ToDoListPage(),
-          '/chat_screen': (BuildContext context) => new ChatScreen(),
-          '/user_profile': (BuildContext context) => new ProfilePage(),
+              const ConfirmNewPassword(),
+          '/OTP_verify_phone': (BuildContext context) => const OTPVerifyPhone(),
+          '/OTP_verify_mobile': (BuildContext context) => const VerifyMobile(),
+          '/document_mgmt': (BuildContext context) => const DocumentMgmt(),
+          '/to_do_list': (BuildContext context) => const ToDoListPage(),
+          '/chat_screen': (BuildContext context) => const ChatScreen(),
+          '/user_profile': (BuildContext context) => const ProfilePage(),
         },
         home: const OnbodingScreen(),
       ),
