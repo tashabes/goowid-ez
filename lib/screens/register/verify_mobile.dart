@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/api/api.dart';
+import 'package:goowid_auth/constants.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/utils/routes.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -25,8 +26,8 @@ class VerifyMobile extends StatefulWidget {
 }
 
 class _VerifyMobileState extends State<VerifyMobile> {
-  int start = 30;
-  late Timer _timer;
+  // int start = 30;
+  //late Timer _timer;
   final _formKey = GlobalKey<FormState>();
   late ScaffoldMessengerState scaffoldMessenger;
   bool wait = false;
@@ -41,7 +42,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
     super.initState();
     _listenSmsCode();
     getUser();
-    startTimer();
+    //great startTimer();
   }
 
   @override
@@ -49,7 +50,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
     SmsAutoFill().unregisterListener();
 
     super.dispose();
-    _timer.cancel();
+    //_timer.cancel();
   }
 
   _listenSmsCode() async {
@@ -129,26 +130,26 @@ class _VerifyMobileState extends State<VerifyMobile> {
               SizedBox(
                 height: 30,
               ),
-              otpField(),
-              //otpPinField(),
-              SizedBox(
-                height: 30,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                        text: "Send code again in ",
-                        style: Theme.of(context).textTheme.subtitle1),
-                    TextSpan(
-                        text: "00:$start ",
-                        style: Theme.of(context).textTheme.subtitle2),
-                    TextSpan(
-                        text: "sec",
-                        style: Theme.of(context).textTheme.subtitle1),
-                  ],
-                ),
-              ),
+              //otpField(),
+              otpPinField(),
+              // SizedBox(
+              //   height: 30,
+              // ),
+              // RichText(
+              //   text: TextSpan(
+              //     children: [
+              //       TextSpan(
+              //           text: "Send code again in ",
+              //           style: Theme.of(context).textTheme.subtitle1),
+              //       TextSpan(
+              //           text: "00:$start ",
+              //           style: Theme.of(context).textTheme.subtitle2),
+              //       TextSpan(
+              //           text: "sec",
+              //           style: Theme.of(context).textTheme.subtitle1),
+              //     ],
+              //   ),
+              // ),
               SizedBox(
                 height: 30,
               ),
@@ -251,21 +252,21 @@ class _VerifyMobileState extends State<VerifyMobile> {
     );
   }
 
-  void startTimer() {
-    const onsec = Duration(seconds: 1);
-    _timer = Timer.periodic(onsec, (timer) {
-      if (start == 0) {
-        setState(() {
-          timer.cancel();
-          wait = false;
-        });
-      } else {
-        setState(() {
-          start--;
-        });
-      }
-    });
-  }
+  // void startTimer() {
+  //   const onsec = Duration(seconds: 1);
+  //   _timer = Timer.periodic(onsec, (timer) {
+  //     if (start == 0) {
+  //       setState(() {
+  //         timer.cancel();
+  //         wait = false;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         start--;
+  //       });
+  //     }
+  //   });
+  // }
 
   Widget otpField() {
     return OTPTextField(
@@ -290,13 +291,16 @@ class _VerifyMobileState extends State<VerifyMobile> {
       padding: const EdgeInsets.all(12.0),
       child: Center(
         child: PinFieldAutoFill(
+          controller: _otpController,
+          onCodeChanged: (val) {
+            otp = val.toString();
+          },
           codeLength: 6,
           autoFocus: true,
           decoration: UnderlineDecoration(
             lineHeight: 2,
             lineStrokeCap: StrokeCap.square,
-            bgColorBuilder:
-                PinListenColorBuilder(Color(0xFF7553F6), Colors.grey.shade200),
+            bgColorBuilder: PinListenColorBuilder(blue, Colors.grey.shade200),
             colorBuilder: const FixedColorBuilder(Colors.transparent),
           ),
         ),
@@ -316,8 +320,8 @@ class _VerifyMobileState extends State<VerifyMobile> {
               setState(() {
                 wait = true;
                 buttonName = "Resend new code";
-                start = 30;
-                startTimer();
+                // start = 30;
+                // startTimer();
               });
             },
       child: Padding(

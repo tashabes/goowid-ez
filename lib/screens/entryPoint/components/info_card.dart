@@ -15,7 +15,7 @@ class InfoCard extends StatelessWidget {
     return ListTile(
       leading: GestureDetector(
         onTap: () {
-          Navigator.pushReplacementNamed(context, profile);
+          Navigator.pushNamed(context, profile);
         },
         child: const CircleAvatar(
           backgroundColor: Colors.white24,
