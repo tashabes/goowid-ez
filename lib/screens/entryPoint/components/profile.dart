@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/constants.dart';
+
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:goowid_auth/widgets/app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -51,22 +54,50 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildProfileImage() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        width: 140.0,
-        height: 140.0,
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/avaters/Avatar Default.jpg'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(80.0),
-          border: Border.all(
-            color: Colors.white,
-            width: 10.0,
+    return Padding(
+      padding: const EdgeInsets.only(left: 12.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: SizedBox(
+          height: 115,
+          width: 115,
+          child: Stack(
+            clipBehavior: Clip.none,
+            fit: StackFit.expand,
+            children: [
+              CircleAvatar(
+                backgroundImage:
+                    AssetImage("assets/avaters/Avatar Default.jpg"),
+              ),
+              Positioned(
+                  bottom: 0,
+                  right: -25,
+                  child: RawMaterialButton(
+                    onPressed: () {},
+                    elevation: 2.0,
+                    fillColor: Color(0xFFF5F6F9),
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.grey,
+                    ),
+                    padding: EdgeInsets.all(2.0),
+                    shape: CircleBorder(),
+                  )),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _syncLinkedin() {
+    return GestureDetector(
+      onTap: () {
+        //Navigator.pushNamed(context, linkedIn);
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 12.0),
+        child: Text('Sync to Linkedin'),
       ),
     );
   }
@@ -257,7 +288,7 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(width: 10.0),
           Expanded(
             child: InkWell(
-              onTap: () => print("Message"),
+              onTap: () => '',
               child: Container(
                 height: 40.0,
                 decoration: BoxDecoration(
@@ -298,7 +329,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: <Widget>[
                   SizedBox(height: screenSize.height / 6.4),
                   const SizedBox(height: 60),
-                  _buildProfileImage(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildProfileImage(),
+                      _syncLinkedin(),
+                    ],
+                  ),
                   _buildFullName(),
                   _buildStatus(context),
                   _buildEmail(context),
