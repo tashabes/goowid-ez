@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/menu.dart';
 import '../../../../utils/rive_utils.dart';
@@ -48,16 +49,38 @@ class _SideBarState extends State<SideBar> {
               const InfoCard(
                 name: "",
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
-                child: Text(
-                  "Hello 👋",
-                  //"${getName()}".toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white70),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 24, top: 32, bottom: 16),
+                    child: Text(
+                      "Hello 👋",
+                      //"${getName()}".toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: Colors.white70),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, signIn);
+                    },
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 32, bottom: 16, right: 24),
+                      child: Text(
+                        'Logout',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.white70),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               ...sidebarMenus
                   .map((menu) => SideMenu(

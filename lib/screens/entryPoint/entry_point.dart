@@ -183,7 +183,7 @@ class _EntryPointState extends State<EntryPoint>
 
   void navigate(navBar) {
     if (navBar.title == "Profile") {
-      Navigator.pushNamed(context, '/user_profile');
+      Navigator.pushNamed(context, profile);
     } else if (navBar.title == "Chat") {
       Navigator.pushNamed(context, chatScreen);
     }
