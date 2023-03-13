@@ -20,6 +20,23 @@ class _HomePageState extends State<HomePage> {
     getUser();
   }
 
+  String? name;
+  var _other;
+  String? _email;
+  var _phone;
+
+  getUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = preferences.getString('displayName') ?? '';
+      _other = preferences.getString('givenName')!;
+      _email = preferences.getString('email') ?? '';
+      _phone = preferences.getString('mobilePhone') ?? '';
+
+      name = name?.replaceAll(RegExp(r'[^\w\s]+'), '');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     /*User user = Provider.of<UserProvider>(context).user;*/
@@ -34,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Hello ${_name!.replaceAll(RegExp(r'[^\w\s]+'), '')}',
+                  "Hello ${name ?? ''}",
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -80,20 +97,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  String? _name;
-  var _other;
-  String? _email;
-  var _phone;
-
-  getUser() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      _name = preferences.getString('displayName');
-      _other = preferences.getString('givenName')!;
-      _email = preferences.getString('email') ?? '';
-      _phone = preferences.getString('mobilePhone') ?? '';
-    });
   }
 }

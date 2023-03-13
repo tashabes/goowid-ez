@@ -33,12 +33,15 @@ class _ProfilePageState extends State<ProfilePage> {
     getName();
   }
 
-  String? _name;
+  String? name;
+  String? email;
 
   getName() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      _name = preferences.getString('displayName')!;
+      name = preferences.getString('displayName') ?? '';
+      name = name?.replaceAll(RegExp(r'[^\w\s]+'), '');
+      email = name! + '@goowid.com';
     });
   }
 
@@ -145,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Text(
-            _name!.replaceAll(RegExp(r'[^\w\s]+'), ''),
+            name ?? '',
             style: _nameTextStyle,
           ),
         ),
@@ -228,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Text(
-            "${_name!.replaceAll(RegExp(r'[^\w\s]+'), '').toLowerCase()}@goowid.com",
+            email ?? '',
             style: const TextStyle(
               fontFamily: 'Spectral',
               color: Colors.black,
@@ -348,7 +351,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Expanded(
             child: InkWell(
               onTap: () async {
-                String email = Uri.encodeComponent("$_name@goowid.com");
+                String email = Uri.encodeComponent("$name@goowid.com");
                 String subject = Uri.encodeComponent("Job interest");
                 String body = Uri.encodeComponent(
                     "Hi! I'd love to speak with you about a job.");
@@ -383,7 +386,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Expanded(
             child: InkWell(
               onTap: () async {
-                String email = Uri.encodeComponent("$_name@goowid.com");
+                String email = Uri.encodeComponent("$name@goowid.com");
                 String subject = Uri.encodeComponent("Job interest");
                 String body = Uri.encodeComponent(
                     "Hi! I'd love to speak with you about a job.");
