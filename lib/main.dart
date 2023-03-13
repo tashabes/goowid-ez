@@ -11,7 +11,6 @@ import 'package:goowid_auth/screens/register/verify_mobile.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verify_phone.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
-
 import 'package:goowid_auth/screens/toDo/to_do_list.dart';
 import 'package:provider/provider.dart';
 import 'screens/onboarding/onboarding.dart';

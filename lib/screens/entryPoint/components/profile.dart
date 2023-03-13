@@ -5,7 +5,6 @@ import 'package:goowid_auth/widgets/app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../utils/app_logger.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -344,81 +343,79 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildButtons() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Expanded(
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: InkWell(
-                onTap: () async {
-                  String email = Uri.encodeComponent("$_name@goowid.com");
-                  String subject = Uri.encodeComponent("Job interest");
-                  String body = Uri.encodeComponent(
-                      "Hi! I'd love to speak with you about a job.");
-                  print(subject); //output: Hello%20Flutter
-                  Uri mail =
-                      Uri.parse("mailto:$email?subject=$subject&body=$body");
-                  if (await launchUrl(mail)) {
-                    //email app opened
-                  } else {
-                    //email app is not opened
-                  }
-                },
-                child: Container(
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: brightCoral,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: InkWell(
+              onTap: () async {
+                String email = Uri.encodeComponent("$_name@goowid.com");
+                String subject = Uri.encodeComponent("Job interest");
+                String body = Uri.encodeComponent(
+                    "Hi! I'd love to speak with you about a job.");
+                print(subject); //output: Hello%20Flutter
+                Uri mail =
+                    Uri.parse("mailto:$email?subject=$subject&body=$body");
+                if (await launchUrl(mail)) {
+                  //email app opened
+                } else {
+                  //email app is not opened
+                }
+              },
+              child: Container(
+                height: 40.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: brightCoral,
+                ),
+                child: const Center(
+                  child: Text(
+                    "HIRE",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  child: const Center(
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: InkWell(
+              onTap: () async {
+                String email = Uri.encodeComponent("$_name@goowid.com");
+                String subject = Uri.encodeComponent("Job interest");
+                String body = Uri.encodeComponent(
+                    "Hi! I'd love to speak with you about a job.");
+                print(subject); //output: Hello%20Flutter
+                Uri mail =
+                    Uri.parse("mailto:$email?subject=$subject&body=$body");
+                if (await launchUrl(mail)) {
+                  //email app opened
+                } else {
+                  //email app is not opened
+                }
+              },
+              child: Container(
+                height: 40.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: brightCoral,
+                ),
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "HIRE",
+                      "MESSAGE",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                          fontWeight: FontWeight.w600, color: Colors.white),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: InkWell(
-                onTap: () async {
-                  String email = Uri.encodeComponent("$_name@goowid.com");
-                  String subject = Uri.encodeComponent("Job interest");
-                  String body = Uri.encodeComponent(
-                      "Hi! I'd love to speak with you about a job.");
-                  print(subject); //output: Hello%20Flutter
-                  Uri mail =
-                      Uri.parse("mailto:$email?subject=$subject&body=$body");
-                  if (await launchUrl(mail)) {
-                    //email app opened
-                  } else {
-                    //email app is not opened
-                  }
-                },
-                child: Container(
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: brightCoral,
-                  ),
-                  child: const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        "MESSAGE",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
