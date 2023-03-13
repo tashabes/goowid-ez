@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Hello ${_name.replaceAll(RegExp(r'[^\w\s]+'), '')}',
+                  'Hello ${_name!.replaceAll(RegExp(r'[^\w\s]+'), '')}',
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  var _name;
+  String? _name;
   var _other;
   String? _email;
   var _phone;
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
   getUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      _name = preferences.getString('displayName')!;
+      _name = preferences.getString('displayName');
       _other = preferences.getString('givenName')!;
       _email = preferences.getString('email') ?? '';
       _phone = preferences.getString('mobilePhone') ?? '';
