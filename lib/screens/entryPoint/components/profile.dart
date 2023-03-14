@@ -518,8 +518,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 8,
                     ),
                     _buildBio(context),
-                    _buildSeparator(screenSize),
                     const SizedBox(height: 10.0),
+                    _buildSeparator(screenSize),
+                    const SizedBox(height: 25.0),
                     _buildExperience(context),
                     const SizedBox(height: 10.0),
                     // ignore: prefer_const_constructors
