@@ -30,7 +30,7 @@ List<Menu> sidebarMenus = [
         stateMachineName: "STAR_Interactivity"),
   ),
   Menu(
-    title: "Help",
+    title: "Chat",
     rive: RiveModel(
         src: "assets/RiveAssets/icons.riv",
         artboard: "CHAT",

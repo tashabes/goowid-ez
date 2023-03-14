@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/constants.dart';
+import 'package:goowid_auth/model/menu.dart';
+import 'package:goowid_auth/screens/entryPoint/components/app_bar_item.dart';
+
 import 'package:goowid_auth/screens/entryPoint/components/work_card.dart';
-import 'package:goowid_auth/widgets/app_bar.dart';
+import 'package:goowid_auth/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../utils/rive_utils.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -19,13 +24,25 @@ class _ProfilePageState extends State<ProfilePage> {
   final String _bio =
       "\"Hi, I am a Freelance developer working for hourly basis. If you wants to contact me to build your product leave a message.\"";
 
-  final String _onBudget = "80%";
+  final String _linkedInImage = "assets/icons/linkedin.png";
 
-  final String _jobs = "12";
+  final String _person = "assets/icons/user2.png";
 
-  final String _onTime = "100%";
+  final String _star = "assets/icons/star.png";
 
   late String? title;
+
+  Menu message = bottomNavItems[0];
+  Menu notification = bottomNavItems[3];
+  Menu selectedBottonNav = bottomNavItems.first;
+
+  void updateSelectedBtmNav(Menu menu) {
+    if (selectedBottonNav != menu) {
+      setState(() {
+        selectedBottonNav = menu;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -46,13 +63,16 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildCoverImage(Size screenSize) {
-    return Container(
-      height: screenSize.height / 2.6,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          image: AssetImage('assets/Backgrounds/etz_bg.png'),
-          fit: BoxFit.contain,
+    return Padding(
+      padding: const EdgeInsets.only(top: 60.0),
+      child: Container(
+        height: screenSize.height / 3,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            image: AssetImage('assets/Backgrounds/etz_bg.png'),
+            fit: BoxFit.contain,
+          ),
         ),
       ),
     );
@@ -206,11 +226,11 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: const Text(
-            'Job Title',
+            'Software Engineer',
             style: TextStyle(
               fontFamily: 'Spectral',
               color: Colors.black,
-              fontSize: 20.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.w300,
             ),
           ),
@@ -230,21 +250,14 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(4.0),
           ),
-          child: Text(
-            email ?? '',
-            style: const TextStyle(
-              fontFamily: 'Spectral',
-              color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
+          child:
+              Text(email ?? '', style: Theme.of(context).textTheme.subtitle1),
         ),
       ),
     );
   }
 
-  Widget _buildStatItem(String label, String count) {
+  Widget _buildStatItem(String image, Color color, double width) {
     TextStyle _statLabelTextStyle = const TextStyle(
       fontFamily: 'Roboto',
       color: Colors.black,
@@ -261,14 +274,15 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          count,
-          style: _statCountTextStyle,
+        Image.asset(
+          image,
+          color: color,
+          width: width,
         ),
-        Text(
-          label,
-          style: _statLabelTextStyle,
-        ),
+        // Text(
+        //   label,
+        //   style: _statLabelTextStyle,
+        // ),
       ],
     );
   }
@@ -283,9 +297,9 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildStatItem("Jobs", _jobs),
-          _buildStatItem("On Time", _onTime),
-          _buildStatItem("On Budget", _onBudget),
+          _buildStatItem(_star, amber, 35),
+          _buildStatItem(_person, blue, 45),
+          _buildStatItem(_linkedInImage, brightCoral, 35),
         ],
       ),
     );
@@ -325,9 +339,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildSeparator(Size screenSize) {
     return Container(
-      width: screenSize.width / 1.6,
+      width: screenSize.width / 1.1,
       height: 2.0,
-      color: Colors.black54,
+      color: Colors.grey,
       margin: const EdgeInsets.only(top: 4.0),
     );
   }
@@ -428,7 +442,55 @@ class _ProfilePageState extends State<ProfilePage> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const ResusableBar(),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(
+          'Profile',
+          style: Theme.of(context).textTheme.headline3,
+        ),
+        centerTitle: true,
+        backgroundColor: brightCoral,
+        leading: BackButton(
+          onPressed: () => Navigator.of(context).pop(),
+          color: Colors.black,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppBarItem(
+              navBar: message,
+              press: () {
+                RiveUtils.chnageSMIBoolState(message.rive.status!);
+                updateSelectedBtmNav(message);
+                Future.delayed(const Duration(milliseconds: 300))
+                    .then((value) => navigate(message));
+              },
+              riveOnInit: (artboard) {
+                message.rive.status = RiveUtils.getRiveInput(artboard,
+                    stateMachineName: message.rive.stateMachineName);
+              },
+              selectedNav: selectedBottonNav,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppBarItem(
+              navBar: notification,
+              press: () {
+                RiveUtils.chnageSMIBoolState(notification.rive.status!);
+                updateSelectedBtmNav(notification);
+                Future.delayed(const Duration(milliseconds: 300))
+                    .then((value) => navigate(notification));
+              },
+              riveOnInit: (artboard) {
+                notification.rive.status = RiveUtils.getRiveInput(artboard,
+                    stateMachineName: notification.rive.stateMachineName);
+              },
+              selectedNav: selectedBottonNav,
+            ),
+          ),
+        ],
+      ),
       //backgroundColor: Colors.white,
       body: Padding(
         padding:
@@ -442,18 +504,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: <Widget>[
                     SizedBox(height: screenSize.height / 6.4),
                     const SizedBox(height: 60),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildProfileImage(),
-                        _syncLinkedin(),
-                      ],
-                    ),
+                    _buildProfileImage(),
                     _buildFullName(),
                     _buildLocation(),
-                    _buildRating(),
+                    // _buildRating(),
                     _buildStatus(context),
-                    _buildEmail(context),
+                    //_buildEmail(context),
                     const SizedBox(
                       height: 8,
                     ),
@@ -475,7 +531,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       skill2: 'Mobile Applications',
                       skill3: 'Firebase',
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 20.0),
                     const WorkCard(
                       title: 'Software Engineer',
                       company: 'Google',
@@ -491,10 +547,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.only(top: 15.0),
-        child: _buildButtons(),
-      ),
     );
+  }
+
+  void navigate(navBar) {
+    if (navBar.title == "Profile") {
+      Navigator.pushNamed(context, profile);
+    } else if (navBar.title == "Chat") {
+      Navigator.pushNamed(context, chatScreen);
+    }
   }
 }
