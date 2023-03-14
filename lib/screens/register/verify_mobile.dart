@@ -59,7 +59,9 @@ class _VerifyMobileState extends State<VerifyMobile> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: const ResusableBar(),
+      appBar: const ResusableBar(
+        title: '',
+      ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

@@ -54,7 +54,9 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: const ResusableBar(),
+      appBar: const ResusableBar(
+        title: '',
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

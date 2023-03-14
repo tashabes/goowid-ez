@@ -8,3 +8,4 @@ const Color shadowColorDark = Colors.black;
 const Color brightCoral = Color(0xFFF77D8E);
 const Color purple = Color(0xFF7553F6);
 const Color blue = Color(0xFF81B4FF);
+const Color amber = Colors.amber;

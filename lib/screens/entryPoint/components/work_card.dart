@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goowid_auth/constants.dart';
 
 class WorkCard extends StatelessWidget {
   const WorkCard({
@@ -9,7 +10,7 @@ class WorkCard extends StatelessWidget {
     required this.skill,
     required this.skill2,
     required this.skill3,
-    this.color = const Color(0xFF7553F6),
+    this.color = Colors.white,
     //this.iconSrc = "assets/icons/ios.svg",
   }) : super(key: key);
 
@@ -36,7 +37,7 @@ class WorkCard extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 6, right: 8),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Align(
@@ -44,16 +45,16 @@ class WorkCard extends StatelessWidget {
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.w600),
+                          color: Colors.black, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Row(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(right: 8.0),
+                        padding: EdgeInsets.only(right: 8.0, top: 8.0),
                         child: Icon(
                           Icons.work,
-                          color: Colors.white,
+                          color: Colors.grey,
                         ),
                       ),
                       Padding(
@@ -61,7 +62,7 @@ class WorkCard extends StatelessWidget {
                         child: Text(
                           company,
                           style: const TextStyle(
-                            color: Colors.white38,
+                            color: Colors.grey,
                           ),
                         ),
                       ),
@@ -73,7 +74,7 @@ class WorkCard extends StatelessWidget {
                         padding: EdgeInsets.only(right: 8.0),
                         child: Icon(
                           Icons.lock_clock,
-                          color: Colors.white,
+                          color: Colors.grey,
                         ),
                       ),
                       Padding(
@@ -81,7 +82,7 @@ class WorkCard extends StatelessWidget {
                         child: Text(
                           time,
                           style: const TextStyle(
-                            color: Colors.white38,
+                            color: Colors.grey,
                           ),
                         ),
                       ),
@@ -94,42 +95,42 @@ class WorkCard extends StatelessWidget {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(12)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             skill,
                             style: const TextStyle(
-                              color: Colors.white54,
+                              color: brightCoral,
                             ),
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(12)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             skill2,
                             style: const TextStyle(
-                              color: Colors.white54,
+                              color: brightCoral,
                             ),
                           ),
                         ),
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
+                            border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(12)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             skill3,
                             style: const TextStyle(
-                              color: Colors.white54,
+                              color: brightCoral,
                             ),
                           ),
                         ),

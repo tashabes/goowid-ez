@@ -40,7 +40,9 @@ class _UploadFileState extends State<UploadFile> {
         backgroundColor: Colors.white,
         key: _scaffoldKey,
         extendBodyBehindAppBar: true,
-        appBar: const ResusableBar(),
+        appBar: const ResusableBar(
+          title: '',
+        ),
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -58,18 +60,6 @@ class _UploadFileState extends State<UploadFile> {
                     children: <Widget>[
                       const SizedBox(
                         height: 5,
-                      ),
-                      Container(
-                        width: 180,
-                        child: const Text(
-                          "Goowid Authenticator",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black54,
-                              letterSpacing: 0.6,
-                              fontFamily: 'Poppins',
-                              fontSize: 11),
-                        ),
                       ),
                       const SizedBox(
                         height: 40,

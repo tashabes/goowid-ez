@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:goowid_auth/utils/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/menu.dart';
 import '../../../../utils/rive_utils.dart';
 import 'info_card.dart';
 import 'side_menu.dart';
+import 'package:lottie/lottie.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({
@@ -20,6 +22,21 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   @override
   Menu selectedSideMenu = sidebarMenus.first;
+
+  void initState() {
+    super.initState();
+    getName();
+  }
+
+  String? name;
+
+  getName() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = preferences.getString('displayName') ?? '';
+      name = name?.replaceAll(RegExp(r'[^\w\s]+'), '');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +70,7 @@ class _SideBarState extends State<SideBar> {
                     padding:
                         const EdgeInsets.only(left: 24, top: 32, bottom: 16),
                     child: Text(
-                      "Hello 👋",
-                      //"${getName()}".toUpperCase(),
+                      "Hello $name 👋",
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -68,12 +84,10 @@ class _SideBarState extends State<SideBar> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 32, bottom: 16, right: 24),
-                      child: Text(
-                        'Logout',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(color: Colors.white70),
+                      child: Lottie.asset(
+                        'assets/icons/lf20_nlqdizzy.json',
+                        animate: true,
+                        width: 50,
                       ),
                     ),
                   ),
@@ -88,6 +102,8 @@ class _SideBarState extends State<SideBar> {
                           setState(() {
                             selectedSideMenu = menu;
                           });
+                          Future.delayed(const Duration(milliseconds: 300))
+                              .then((value) => navigate(menu));
                         },
                         riveOnInit: (artboard) {
                           menu.rive.status = RiveUtils.getRiveInput(artboard,
@@ -114,6 +130,8 @@ class _SideBarState extends State<SideBar> {
                           setState(() {
                             selectedSideMenu = menu;
                           });
+                          Future.delayed(const Duration(milliseconds: 300))
+                              .then((value) => navigate(menu));
                         },
                         riveOnInit: (artboard) {
                           menu.rive.status = RiveUtils.getRiveInput(artboard,
@@ -126,5 +144,13 @@ class _SideBarState extends State<SideBar> {
         ),
       ),
     );
+  }
+
+  void navigate(menu) {
+    if (menu.title == "Profile") {
+      Navigator.pushNamed(context, profile);
+    } else if (menu.title == "Chat") {
+      Navigator.pushNamed(context, chatScreen);
+    }
   }
 }

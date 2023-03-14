@@ -16,7 +16,9 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const ResusableBar(),
+      appBar: const ResusableBar(
+        title: 'Document Manager',
+      ),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(

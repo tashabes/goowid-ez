@@ -55,7 +55,9 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: const ResusableBar(),
+      appBar: const ResusableBar(
+        title: '',
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
