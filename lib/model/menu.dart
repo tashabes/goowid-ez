@@ -38,20 +38,27 @@ List<Menu> sidebarMenus = [
   ),
 ];
 List<Menu> sidebarMenus2 = [
+  // Menu(
+  //   title: "Notifications",
+  //   rive: RiveModel(
+  //       src: "assets/RiveAssets/icons.riv",
+  //       artboard: "BELL",
+  //       stateMachineName: "BELL_Interactivity"),
+  // ),
   Menu(
-    title: "History",
+    title: "Settings",
     rive: RiveModel(
         src: "assets/RiveAssets/icons.riv",
-        artboard: "TIMER",
-        stateMachineName: "TIMER_Interactivity"),
+        artboard: "SETTINGS",
+        stateMachineName: "SETTINGS_Interactivity"),
   ),
-  Menu(
-    title: "Notifications",
-    rive: RiveModel(
-        src: "assets/RiveAssets/icons.riv",
-        artboard: "BELL",
-        stateMachineName: "BELL_Interactivity"),
-  ),
+  // Menu(
+  //   title: "Logout",
+  //   rive: RiveModel(
+  //       src: "assets/RiveAssets/can_go_next.riv",
+  //       artboard: "arrow-right-solid.svg",
+  //       stateMachineName: "State Machine 1"),
+  // ),
 ];
 
 List<Menu> bottomNavItems = [
@@ -88,6 +95,45 @@ List<Menu> bottomNavItems = [
     title: "Profile",
     rive: RiveModel(
         src: "assets/RiveAssets/icons.riv",
+        artboard: "USER",
+        stateMachineName: "USER_Interactivity"),
+  ),
+];
+
+List<Menu> appBarItems = [
+  Menu(
+    title: "Chat",
+    rive: RiveModel(
+      src: "assets/RiveAssets/icons_black.riv",
+      artboard: "CHAT",
+      stateMachineName: "CHAT_Interactivity",
+    ),
+  ),
+  Menu(
+    title: "Search",
+    rive: RiveModel(
+        src: "assets/RiveAssets/icons_black.riv",
+        artboard: "SEARCH",
+        stateMachineName: "SEARCH_Interactivity"),
+  ),
+  Menu(
+    title: "Timer",
+    rive: RiveModel(
+        src: "assets/RiveAssets/icons_black.riv",
+        artboard: "TIMER",
+        stateMachineName: "TIMER_Interactivity"),
+  ),
+  Menu(
+    title: "Notification",
+    rive: RiveModel(
+        src: "assets/RiveAssets/icons_black.riv",
+        artboard: "BELL",
+        stateMachineName: "BELL_Interactivity"),
+  ),
+  Menu(
+    title: "Profile",
+    rive: RiveModel(
+        src: "assets/RiveAssets/icons_black.riv",
         artboard: "USER",
         stateMachineName: "USER_Interactivity"),
   ),

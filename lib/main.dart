@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/screens/chat/providers/chats_provider.dart';
 import 'package:goowid_auth/screens/chat/providers/models_provider.dart';
 import 'package:goowid_auth/screens/chat/screens/chat_screen.dart';
-import 'package:goowid_auth/screens/entryPoint/components/profile.dart';
+import 'package:goowid_auth/screens/profile/edit_profile.dart';
+import 'package:goowid_auth/screens/profile/profile.dart';
 import 'package:goowid_auth/screens/entryPoint/entry_point.dart';
 import 'package:goowid_auth/screens/passwordManager/add_account.dart';
 import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
           '/to_do_list': (BuildContext context) => const ToDoListPage(),
           '/chat_screen': (BuildContext context) => const ChatScreen(),
           '/user_profile': (BuildContext context) => const ProfilePage(),
+          '/edit_profile': (BuildContext context) => const EditProfile(),
         },
         home: const OnbodingScreen(),
       ),
