@@ -151,6 +151,8 @@ class _SideBarState extends State<SideBar> {
       Navigator.pushNamed(context, profile);
     } else if (menu.title == "Chat") {
       Navigator.pushNamed(context, chatScreen);
+    } else if (menu.title == "Logout") {
+      Navigator.pushNamed(context, signIn);
     }
   }
 }
