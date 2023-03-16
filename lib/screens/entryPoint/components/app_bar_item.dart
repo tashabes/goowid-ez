@@ -26,7 +26,7 @@ class AppBarItem extends StatelessWidget {
             height: 36,
             width: 36,
             child: Opacity(
-              opacity: selectedNav == navBar ? 1 : 0.5,
+              opacity: selectedNav == navBar ? 1 : 1,
               child: RiveAnimation.asset(
                 navBar.rive.src,
                 artboard: navBar.rive.artboard,

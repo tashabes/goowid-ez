@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:goowid_auth/constants.dart';
 import 'package:goowid_auth/model/menu.dart';
 import 'package:goowid_auth/screens/entryPoint/components/app_bar_item.dart';
-
 import 'package:goowid_auth/screens/profile/work_card.dart';
 import 'package:goowid_auth/utils/routes.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -21,25 +21,23 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  // final String _status = "Software Developer";
+class _ProfilePageState extends State<ProfilePage>
+    with TickerProviderStateMixin {
+  late AnimationController animationController;
 
   final String _bio =
       "\"Hi, I am a Freelance developer working for hourly basis. If you wants to contact me to build your product leave a message.\"";
 
   final String _linkedInImage = "assets/icons/linkedin_icon.png";
-
   final String _person = "assets/icons/user.png";
-
   final String _star = "assets/icons/star.png";
-
   final String _phone = "assets/icons/phone.png";
-
   final String _email = "assets/icons/email.png";
-
   final String _pay = "assets/icons/pay.png";
-
   late String? title;
+  late IconData icon;
+  late double rating;
+  late String? skill;
 
   Menu message = appBarItems[0];
   Menu notification = appBarItems[3];
@@ -55,6 +53,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
     super.initState();
     getName();
   }
@@ -256,9 +256,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Row(
-        children: [
-          const Icon(Icons.location_on_sharp),
-          const Text('London, UK'),
+        children: const [
+          Icon(Icons.location_on_sharp),
+          Text('London, UK'),
         ],
       ),
     );
@@ -273,9 +273,9 @@ class _ProfilePageState extends State<ProfilePage> {
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: const Text(
+        child: const Padding(
+          padding: EdgeInsets.only(left: 20.0),
+          child: Text(
             'Software Engineer',
             // style: TextStyle(
             //   fontFamily: 'Spectral',
@@ -380,15 +380,51 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Widget _buildAddButton() {
+    return GestureDetector(
+      onTap: () {
+        if (animationController.value == 1) {
+          animationController.reverse();
+        } else {
+          animationController.forward();
+        }
+      },
+      child: SizedBox(
+        height: 50,
+        child: Lottie.asset('assets/LottieAssets/add.json',
+            controller: animationController),
+      ),
+    );
+  }
+
+  Widget _buildTitle(String title) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        padding: const EdgeInsets.only(left: 15.0),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ),
+    );
+  }
+
   Widget _buildExperience(String title) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.only(left: 12.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.white,
+        ),
+        padding: const EdgeInsets.only(left: 15.0),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.headline3,
         ),
       ),
     );
@@ -515,6 +551,45 @@ class _ProfilePageState extends State<ProfilePage> {
         onPressed: () {});
   }
 
+  _buildSkill(
+      BuildContext context, IconData icon, double rating, String skill) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Icon(
+              icon,
+              color: brightCoral,
+            ),
+            RatingBar.builder(
+              initialRating: rating,
+              minRating: 1,
+              itemSize: 18,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+            Text(
+              skill,
+              style: Theme.of(context).textTheme.headline3,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -526,7 +601,7 @@ class _ProfilePageState extends State<ProfilePage> {
           'Profile',
           style: Theme.of(context).textTheme.headline3,
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),
           color: Colors.black,
@@ -590,37 +665,63 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 8,
                   ),
                   _buildStatContainer(),
-                  const SizedBox(
-                    height: 8,
-                  ),
 
-                  const SizedBox(height: 10.0),
-                  //_buildSeparator(screenSize),
-                  const SizedBox(height: 25.0),
-                  //_myExperience(),
-                  const SizedBox(height: 10.0),
-                  _buildExperience('Your Work'),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
+                  _buildTitle('Experience | Skills | Education'),
+                  const SizedBox(height: 20.0),
                   // ignore: prefer_const_constructors
-                  WorkCard(
-                    title: 'Develop mobile application',
-                    company: 'Etz Tech',
-                    time: '3 weeks',
-                    skill: 'Flutter/Dart',
-                    skill2: 'Mobile Applications',
-                    skill3: 'Firebase',
+                  Container(
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white,
+                    ),
+                    child: Column(children: [
+                      _buildExperience('Experience'),
+                      const WorkCard(
+                        title: 'Develop mobile application',
+                        company: 'Etz Tech',
+                        time: '3 weeks',
+                        skill: 'Flutter/Dart',
+                        skill2: 'Mobile Applications',
+                        skill3: 'Firebase',
+                      ),
+                      const SizedBox(height: 20.0),
+                      const WorkCard(
+                        title: 'Software Engineer',
+                        company: 'Google',
+                        time: '5 weeks',
+                        skill: 'Flutter/Dart',
+                        skill2: 'GCP',
+                        skill3: 'Firebase',
+                      ),
+                      const SizedBox(height: 20.0),
+                    ]),
                   ),
                   const SizedBox(height: 20.0),
-                  const WorkCard(
-                    title: 'Software Engineer',
-                    company: 'Google',
-                    time: '5 weeks',
-                    skill: 'Flutter/Dart',
-                    skill2: 'GCP',
-                    skill3: 'Firebase',
+
+                  Container(
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        _buildExperience('Skills'),
+                        _buildSkill(context, Icons.code, 4, 'HTML'),
+                        _buildSkill(context, Icons.design_services_rounded, 3,
+                            'Design'),
+                        _buildSkill(
+                            context, Icons.mobile_friendly, 3, 'Flutter'),
+                        _buildSkill(context, Icons.language, 2, 'Languages'),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 20.0),
-                  _buildExperience('Your Skills'),
                 ],
               ),
             ),

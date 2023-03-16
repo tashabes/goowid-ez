@@ -13,3 +13,4 @@ const docMgmt = '/document_mgmt';
 const toDo = '/to_do_list';
 const chatScreen = '/chat_screen';
 const editProfile = '/edit_profile';
+const settings = '/settings';
