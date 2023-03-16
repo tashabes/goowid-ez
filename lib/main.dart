@@ -9,6 +9,7 @@ import 'package:goowid_auth/screens/passwordManager/add_account.dart';
 import 'package:goowid_auth/screens/passwordManager/document_mgmt.dart';
 import 'package:goowid_auth/screens/register/register_screen.dart';
 import 'package:goowid_auth/screens/register/verify_mobile.dart';
+import 'package:goowid_auth/screens/settings/settings.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/confirm_password.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/otp_verify_phone.dart';
 import 'package:goowid_auth/screens/sign_in_screen.dart/signin.dart';
@@ -44,7 +45,10 @@ class MyApp extends StatelessWidget {
         title: 'Goowid',
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFEEF1F8),
-          primarySwatch: Colors.blue,
+          colorScheme: ThemeData().colorScheme.copyWith(
+                primary: Color(0xFFF77D8E),
+                secondary: Color(0xFF81B4FF),
+              ),
           fontFamily: "Intel",
           textTheme: TextTheme(
             headline1: const TextStyle(
@@ -56,7 +60,7 @@ class MyApp extends StatelessWidget {
             headline2: const TextStyle(
                 fontFamily: 'Poppins', fontSize: 30, color: Colors.black),
             headline3: const TextStyle(
-                fontFamily: 'Poppins', fontSize: 20, color: Colors.black),
+                fontFamily: 'Poppins', fontSize: 18, color: Colors.black),
             subtitle1: TextStyle(
               fontSize: 16,
               height: 1.5,
@@ -93,6 +97,7 @@ class MyApp extends StatelessWidget {
           '/chat_screen': (BuildContext context) => const ChatScreen(),
           '/user_profile': (BuildContext context) => const ProfilePage(),
           '/edit_profile': (BuildContext context) => const EditProfile(),
+          '/settings': (BuildContext context) => SettingsPage(),
         },
         home: const OnbodingScreen(),
       ),

@@ -12,7 +12,6 @@ class ResusableBar extends StatelessWidget implements PreferredSizeWidget {
           title,
           style: Theme.of(context).textTheme.headline3,
         ),
-        centerTitle: true,
         backgroundColor: Colors.white,
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),

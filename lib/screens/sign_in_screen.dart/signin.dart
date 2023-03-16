@@ -289,7 +289,7 @@ class _SignInState extends State<SignIn> {
       String givenName,
       String surname,
       String userPrincipalName,
-      String mobileNumber,
+      String mobilePhone,
       String email,
       String id) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -299,7 +299,7 @@ class _SignInState extends State<SignIn> {
     preferences.setString("givenName", json.encode(givenName));
     preferences.setString("surname", json.encode(surname));
     preferences.setString("userPrincipalName", json.encode(userPrincipalName));
-    preferences.setString("mobileNumber", json.encode(mobileNumber));
+    preferences.setString("mobilePhone", json.encode(mobilePhone));
     preferences.setString("email", json.encode(email));
     preferences.setString("id", id.toString());
   }

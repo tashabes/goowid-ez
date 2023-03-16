@@ -111,16 +111,16 @@ class _SideBarState extends State<SideBar> {
                         },
                       ))
                   .toList(),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, top: 40, bottom: 16),
-                child: Text(
-                  "History".toUpperCase(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white70),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 24, top: 40, bottom: 16),
+              //   child: Text(
+              //     "Other".toUpperCase(),
+              //     style: Theme.of(context)
+              //         .textTheme
+              //         .titleMedium!
+              //         .copyWith(color: Colors.white70),
+              //   ),
+              // ),
               ...sidebarMenus2
                   .map((menu) => SideMenu(
                         menu: menu,
@@ -153,6 +153,8 @@ class _SideBarState extends State<SideBar> {
       Navigator.pushNamed(context, chatScreen);
     } else if (menu.title == "Logout") {
       Navigator.pushNamed(context, signIn);
+    } else if (menu.title == "Settings") {
+      Navigator.pushNamed(context, settings);
     }
   }
 }
