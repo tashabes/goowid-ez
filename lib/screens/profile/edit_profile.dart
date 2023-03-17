@@ -127,14 +127,8 @@ class _EditProfileState extends State<EditProfile> {
                     //     "Enter your phone number.  We'll send you a verification code to reset your password.";
                     // showAlertDialog(context, title, message);
                   },
-                  child: const Text(
-                    "Reset your password",
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13,
-                        decoration: TextDecoration.underline,
-                        letterSpacing: 0.5),
-                  ),
+                  child: Text("Reset your password",
+                      style: Theme.of(context).textTheme.caption),
                 ),
               ),
               const SizedBox(
@@ -156,15 +150,9 @@ class _EditProfileState extends State<EditProfile> {
                         border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: const Text(
-                        "Cancel",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            letterSpacing: 1),
-                      ),
+                      child: Text("Cancel",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.button),
                     ),
                   ),
                   Container(
@@ -178,14 +166,10 @@ class _EditProfileState extends State<EditProfile> {
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Save",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: 'Poppins',
-                          letterSpacing: 1),
+                      style: Theme.of(context).textTheme.button,
                     ),
                   ),
                 ],
@@ -221,7 +205,7 @@ class _EditProfileState extends State<EditProfile> {
           labelText: labelText,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: placeholder,
-          hintStyle: const TextStyle(color: Colors.black54, fontSize: 15),
+          hintStyle: Theme.of(context).textTheme.labelMedium,
         ),
       ),
     );

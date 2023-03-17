@@ -106,23 +106,6 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  // Padding(
-  //     padding: const EdgeInsets.only(top: 60.0),
-  //     child: Positioned(
-  //       child: Container(
-  //         height: screenSize.height / 3,
-  //         decoration: const BoxDecoration(
-  //           color: Colors.white,
-  //           image: DecorationImage(
-  //             image: AssetImage('assets/Backgrounds/Spline.png'),
-  //             fit: BoxFit.contain,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget _buildProfileImage() {
     return Padding(
       padding: const EdgeInsets.only(left: 12.0),
@@ -201,21 +184,11 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   Widget _buildFullName() {
-    TextStyle _nameTextStyle = const TextStyle(
-      fontFamily: 'Poppins',
-      color: Colors.black,
-      fontSize: 28.0,
-      fontWeight: FontWeight.w700,
-    );
-
     return Row(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 12.0),
-          child: Text(
-            name ?? '',
-            style: _nameTextStyle,
-          ),
+          child: Text(name ?? '', style: Theme.of(context).textTheme.headline2),
         ),
         const SizedBox(
           width: 5,
@@ -273,17 +246,10 @@ class _ProfilePageState extends State<ProfilePage>
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(4.0),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Software Engineer',
-            // style: TextStyle(
-            //   fontFamily: 'Spectral',
-            //   color: Colors.black,
-            //   fontSize: 18.0,
-            //   fontWeight: FontWeight.w300,
-            // ),
-          ),
+          child: Text('Software Engineer',
+              style: Theme.of(context).textTheme.subtitle2),
         ),
       ),
     );
@@ -359,7 +325,6 @@ class _ProfilePageState extends State<ProfilePage>
 
   Widget _buildBio(BuildContext context) {
     TextStyle bioTextStyle = const TextStyle(
-      fontFamily: 'Spectral',
       fontWeight: FontWeight.w400,
       //fontStyle: FontStyle.italic,
       color: Color(0xFF799497),
@@ -373,26 +338,8 @@ class _ProfilePageState extends State<ProfilePage>
         padding: const EdgeInsets.all(8.0),
         child: Text(
           _bio,
-          //textAlign: TextAlign.center,
           style: bioTextStyle,
         ),
-      ),
-    );
-  }
-
-  Widget _buildAddButton() {
-    return GestureDetector(
-      onTap: () {
-        if (animationController.value == 1) {
-          animationController.reverse();
-        } else {
-          animationController.forward();
-        }
-      },
-      child: SizedBox(
-        height: 50,
-        child: Lottie.asset('assets/LottieAssets/add.json',
-            controller: animationController),
       ),
     );
   }
@@ -414,17 +361,36 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   Widget _buildExperience(String title) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Colors.white,
-        ),
-        padding: const EdgeInsets.only(left: 15.0),
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.headline3,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.grey,
+                  ),
+                ),
+                Icon(
+                  Icons.edit,
+                  color: Colors.grey,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -438,17 +404,6 @@ class _ProfilePageState extends State<ProfilePage>
       margin: const EdgeInsets.only(top: 4.0),
     );
   }
-
-  // Widget _buildGetInTouch(BuildContext context) {
-  //   return Container(
-  //     color: Theme.of(context).scaffoldBackgroundColor,
-  //     padding: const EdgeInsets.only(top: 8.0),
-  //     child: Text(
-  //       "Get in Touch with ${_name!.replaceAll(new RegExp(r'[^\w\s]+'), '')}",
-  //       style: const TextStyle(fontFamily: 'Roboto', fontSize: 16.0),
-  //     ),
-  //   );
-  // }
 
   Widget _buildButtons() {
     return Padding(
@@ -497,7 +452,7 @@ class _ProfilePageState extends State<ProfilePage>
                 String subject = Uri.encodeComponent("Job interest");
                 String body = Uri.encodeComponent(
                     "Hi! I'd love to speak with you about a job.");
-                print(subject); //output: Hello%20Flutter
+
                 Uri mail =
                     Uri.parse("mailto:$email?subject=$subject&body=$body");
                 if (await launchUrl(mail)) {
@@ -526,20 +481,6 @@ class _ProfilePageState extends State<ProfilePage>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _myExperience() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Text(
-          'More about $name',
-          style: Theme.of(context).textTheme.headline2,
-        ),
       ),
     );
   }
@@ -576,9 +517,7 @@ class _ProfilePageState extends State<ProfilePage>
                 Icons.star,
                 color: Colors.amber,
               ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
+              onRatingUpdate: (rating) {},
             ),
             Text(
               skill,
@@ -666,8 +605,6 @@ class _ProfilePageState extends State<ProfilePage>
                   ),
                   _buildStatContainer(),
 
-                  const SizedBox(height: 20.0),
-                  _buildTitle('Experience | Skills | Education'),
                   const SizedBox(height: 20.0),
                   // ignore: prefer_const_constructors
                   Container(

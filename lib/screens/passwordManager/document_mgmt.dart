@@ -12,12 +12,74 @@ class DocumentMgmt extends StatefulWidget {
 }
 
 class _DocumentMgmtState extends State<DocumentMgmt> {
+  List<Map<String, String>> category = [
+    {
+      "assets": "assets/icons/passport.png",
+      "name": "ID",
+    },
+    {
+      "assets": "assets/icons/budget.png",
+      "name": "Finances",
+    },
+    {
+      "assets": "assets/icons/patient.png",
+      "name": "Medical",
+    },
+    {
+      "assets": "assets/icons/insurance.png",
+      "name": "Insurance",
+    },
+    {
+      "assets": "assets/icons/image-gallery.png",
+      "name": "Photos",
+    },
+    {
+      "assets": "assets/icons/employed.png",
+      "name": "Employment",
+    },
+    {
+      "assets": "assets/icons/car-insurance.png",
+      "name": "Vehicle",
+    },
+  ];
+
+  List<Map<String, String>> recentFiles = [
+    {
+      "assets": "assets/images/holiday.jpeg",
+      "name": "Holiday 2022",
+    },
+    {
+      "assets": "assets/images/passport.png",
+      "name": "Passport",
+    },
+    {
+      "assets": "assets/images/1140-vaccination-card.jpg",
+      "name": "Vaccination card",
+    },
+    {
+      "assets": "assets/images/car_insurance.jpg",
+      "name": "Car Insurance",
+    },
+    {
+      "assets": "assets/images/christmas.jpg",
+      "name": "Christmas 2022",
+    },
+    {
+      "assets": "assets/images/employment.png",
+      "name": "Employment contract",
+    },
+    {
+      "assets": "assets/images/car_insurance.jpg",
+      "name": "Holiday Insurance",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const ResusableBar(
-        title: 'Document Manager',
+        title: 'My Documents',
       ),
       backgroundColor: Colors.white,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -80,7 +142,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: List.generate(10, (index) {
+              children: List.generate(7, (index) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: Container(
@@ -93,9 +155,26 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
+                        // Image.asset(
+                        //   'assets/icons/passport.png',
+                        //   width: 60,
+                        // ),
+                        // Icon(
+                        //   _iconTypes[index],
+                        // ),
+                        Image.asset(
+                          category[index]['assets']!,
+                          width: 40,
+                        ),
+
                         //Image.asset(categoryJson[index]['img'],width: 40,),
                         const SizedBox(
                           height: 10,
+                        ),
+                        Text(
+                          category[index]['name']!,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500),
                         ),
                         // Text(categoryJson[index]['text'],style: TextStyle(
                         //   fontSize:15,
@@ -136,7 +215,7 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
           SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: List.generate(10, (index) {
+                children: List.generate(7, (index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 15.0),
                     child: Container(
@@ -145,8 +224,9 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                       decoration: BoxDecoration(
                         color: const Color(0xFF80A4FF),
                         borderRadius: BorderRadius.circular(22),
-                        image: const DecorationImage(
-                            image: NetworkImage("url"), fit: BoxFit.cover),
+                        image: DecorationImage(
+                            image: AssetImage(recentFiles[index]['assets']!),
+                            fit: BoxFit.cover),
                       ),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -159,8 +239,13 @@ class _DocumentMgmtState extends State<DocumentMgmt> {
                                   width: size.width * 0.6,
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.5),
+                                    color: Colors.white.withOpacity(0.3),
                                   ),
+                                  child: Text(recentFiles[index]['name']!,
+                                      style: TextStyle(
+                                        color: Colors.grey[700],
+                                        fontSize: 18,
+                                      )),
                                 ),
                               ),
                             )

@@ -108,27 +108,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
               const SizedBox(
                 height: 30,
               ),
-              //otpField(),
               otpPinField(),
-              // SizedBox(
-              //   height: 30,
-              // ),
-              //otpPinField(),
-              // RichText(
-              //   text: TextSpan(
-              //     children: [
-              //       TextSpan(
-              //           text: "Send code again in ",
-              //           style: Theme.of(context).textTheme.subtitle1),
-              //       TextSpan(
-              //           text: "00:$start ",
-              //           style: Theme.of(context).textTheme.subtitle2),
-              //       TextSpan(
-              //           text: "sec",
-              //           style: Theme.of(context).textTheme.subtitle1),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(
                 height: 30,
               ),
@@ -163,13 +143,11 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
 
                         validateOtp(otp.toString(), _usernameController.text);
                       },
-                      child: const Text("Verify",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              letterSpacing: 1)),
+                      child: Text(
+                        "Verify",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.button,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -188,30 +166,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                   )
                 ],
               ),
-              // GestureDetector(
-              //   onTap: (() {
-              //     //Navigator.pushReplacementNamed(context, confirmPassword);
-              //     validateOtp(otp.toString(), _usernameController.text);
-              //   }),
-              //   child: Container(
-              //     height: 60,
-              //     width: MediaQuery.of(context).size.width - 60,
-              //     decoration: BoxDecoration(
-              //       color: Color(0xFFF77D8E),
-              //       borderRadius: BorderRadius.circular(50),
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         "Send",
-              //         style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 16,
-              //             fontFamily: 'Poppins',
-              //             letterSpacing: 1),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(
                 height: 150,
               ),
@@ -221,22 +175,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
       ),
     );
   }
-
-  // void startTimer() {
-  //   const onsec = Duration(seconds: 1);
-  //   Timer timer = Timer.periodic(onsec, (timer) {
-  //     if (start == 0) {
-  //       setState(() {
-  //         timer.cancel();
-  //         wait = false;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         start--;
-  //       });
-  //     }
-  //   });
-  // }
 
   Widget otpField() {
     return OTPTextField(
@@ -293,13 +231,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
             hintStyle: Theme.of(context).textTheme.subtitle1,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-            // prefixIcon: Padding(
-            //   padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
-            //   child: Text(
-            //     " (+44) ",
-            //     style: Theme.of(context).textTheme.subtitle1,
-            //   ),
-            // ),
             suffixIcon: InkWell(
               onTap: wait
                   ? null
@@ -308,12 +239,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
                       sendOtp(
                         _usernameController.text,
                       );
-
-                      // startTimer();
-                      // setState(() {
-                      //   wait = true;
-                      //   buttonName = "Resend";
-                      // });
                     },
               child: Padding(
                 padding:
@@ -352,10 +277,6 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
           "Content-Type": "application/json"
         },
       );
-
-      // Navigator.pushReplacementNamed(context, otpVerifyMobile);
-      // GoodWidFlushBar.showSuccess(
-      //     message: "Welcome ${resposne['displayName']}", context: context);
 
       AppLogger.log("This is the result: ======> ${res?.data}");
 
@@ -398,10 +319,7 @@ class _OTPVerifyPhoneState extends State<OTPVerifyPhone> {
         },
       );
 
-      //Map<String, dynamic> resposne = res?.data;
-
       AppLogger.log("This is the result: ======> ${res?.data}");
-      //AppLogger.log("This is the result: ======> ${resposne}");
 
       if (res!.statusCode == 200) {
         GoodWidFlushBar.showSuccess(message: "OTP validated", context: context);
