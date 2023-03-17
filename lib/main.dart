@@ -53,9 +53,9 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headline1: const TextStyle(
                 color: Colors.black,
-                letterSpacing: 1,
-                fontSize: 34,
-                fontWeight: FontWeight.w600,
+                height: 1.2,
+                fontSize: 40,
+                fontWeight: FontWeight.w700,
                 fontFamily: 'Poppins'),
             headline2: const TextStyle(
                 fontFamily: 'Poppins', fontSize: 30, color: Colors.black),
@@ -71,6 +71,21 @@ class MyApp extends StatelessWidget {
               height: 1.5,
               color: Colors.black,
             ),
+            // displayLarge: TextStyle(
+            //     fontSize: 18,
+            //     fontWeight: FontWeight.w500,
+            //     color: Colors.grey[600]),
+            button: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                letterSpacing: 1),
+            labelMedium: const TextStyle(color: Colors.black54, fontSize: 15),
+            caption: const TextStyle(
+                color: Colors.black54,
+                fontSize: 13,
+                decoration: TextDecoration.underline,
+                letterSpacing: 0.5),
           ),
           inputDecorationTheme: const InputDecorationTheme(
             filled: true,

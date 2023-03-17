@@ -92,15 +92,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 40,
                       ),
-                      const Text(
+                      Text(
                         "Sign Up",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Poppins',
-                          letterSpacing: 1,
-                          fontSize: 34,
-                        ),
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                       const SizedBox(
                         height: 30,
@@ -117,13 +112,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.black54,
                                 ),
                                 controller: _nameController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
                                   hintText: "Name",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
+                                  hintStyle:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                                 onSaved: (val) {
                                   name = val!;
@@ -137,13 +132,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.black54,
                                 ),
                                 controller: _phoneController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
                                   hintText: "Phone Number",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
+                                  hintStyle:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                                 onSaved: (val) {
                                   phone = val!;
@@ -159,13 +154,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _emailController,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
                                   hintText: "Username",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
+                                  hintStyle:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                                 onSaved: (val) {
                                   email = val!;
@@ -187,8 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         borderSide:
                                             BorderSide(color: Colors.black12)),
                                     hintText: "Password",
-                                    hintStyle: const TextStyle(
-                                        color: Colors.black54, fontSize: 15),
+                                    hintStyle:
+                                        Theme.of(context).textTheme.labelMedium,
                                     suffixIcon: IconButton(
                                         onPressed: () => setState(() {
                                               _obscureText = !_obscureText;
@@ -280,22 +275,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       "Please enter your user name")));
                                           return;
                                         }
-                                        // if (!reg
-                                        //     .hasMatch(_emailController.text)) {
-                                        //   scaffoldMessenger.showSnackBar(
-                                        //       const SnackBar(
-                                        //           content: Text(
-                                        //               "Enter Valid Email")));
-                                        //   return;
-                                        // }
-                                        // if (!(_emailController.text)
-                                        //     .contains(emailFormat)) {
-                                        //   scaffoldMessenger.showSnackBar(
-                                        //       const SnackBar(
-                                        //           content: Text(
-                                        //               "Enter a Goowid.com email")));
-                                        //   return;
-                                        // }
 
                                         if (_passwordController.text.isEmpty ||
                                             _passwordController.text.length <
@@ -322,13 +301,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             _emailController.text,
                                             _passwordController.text);
                                       },
-                                      child: const Text("Sign up",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Poppins',
-                                              fontSize: 16,
-                                              letterSpacing: 1)),
+                                      child: Text(
+                                        "Sign up",
+                                        textAlign: TextAlign.center,
+                                        style:
+                                            Theme.of(context).textTheme.button,
+                                      ),
                                     ),
                                   ),
                                   Positioned(
@@ -359,12 +337,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onTap: () {
                           Navigator.pushReplacementNamed(context, signIn);
                         },
-                        child: const Text("Already have an account?",
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 13,
-                                decoration: TextDecoration.underline,
-                                letterSpacing: 0.5)),
+                        child: Text("Already have an account?",
+                            style: Theme.of(context).textTheme.caption),
                       )
                     ],
                   ),
@@ -439,7 +413,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     } on Failure catch (e) {
       //scaffoldMessenger.showSnackBar(SnackBar(content: Text(e.errorMessage)));
-      GoodWidFlushBar.showError(message: e.errorMessage, context: context);
+      GoodWidFlushBar.showError(
+          message: "This username already exists", context: context);
       setState(() {
         isLoading = false;
       });

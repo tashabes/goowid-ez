@@ -75,13 +75,13 @@ class _SignInState extends State<SignIn> {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 keyboardType: TextInputType.emailAddress,
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                                decoration: InputDecoration(
+                                  enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black12)),
                                   hintText: "Username",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black54, fontSize: 15),
+                                  hintStyle:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                                 onSaved: (val) {
                                   email = val!;
@@ -103,8 +103,8 @@ class _SignInState extends State<SignIn> {
                                         borderSide:
                                             BorderSide(color: Colors.black12)),
                                     hintText: "Password",
-                                    hintStyle: const TextStyle(
-                                        color: Colors.black54, fontSize: 15),
+                                    hintStyle:
+                                        Theme.of(context).textTheme.labelMedium,
                                     suffixIcon: IconButton(
                                         onPressed: () => setState(() {
                                               _obscureText = !_obscureText;
@@ -148,8 +148,6 @@ class _SignInState extends State<SignIn> {
                                       setState(() {
                                         isLoading = true;
                                       });
-                                      //Navigator.pushReplacementNamed(
-                                      //context, "/entrypoint");
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -162,14 +160,11 @@ class _SignInState extends State<SignIn> {
                                         border: Border.all(color: Colors.white),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      child: const Text(
+                                      child: Text(
                                         "Log in",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontFamily: 'Poppins',
-                                            letterSpacing: 1),
+                                        style:
+                                            Theme.of(context).textTheme.button,
                                       ),
                                     ),
                                   ),
@@ -197,9 +192,9 @@ class _SignInState extends State<SignIn> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text(
+                      Text(
                         "OR",
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                        style: Theme.of(context).textTheme.subtitle1,
                       ),
                       const SizedBox(
                         height: 20,
@@ -208,13 +203,9 @@ class _SignInState extends State<SignIn> {
                         onTap: () {
                           Navigator.pushReplacementNamed(context, signUp);
                         },
-                        child: const Text(
+                        child: Text(
                           "Don't have an account?",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 13,
-                              decoration: TextDecoration.underline,
-                              letterSpacing: 0.5),
+                          style: Theme.of(context).textTheme.caption,
                         ),
                       ),
                       const SizedBox(
@@ -223,18 +214,10 @@ class _SignInState extends State<SignIn> {
                       GestureDetector(
                         onTap: () {
                           Navigator.pushNamed(context, otpVerifyPhone);
-                          // String title = "Forgot Password";
-                          // String message =
-                          //     "Enter your phone number.  We'll send you a verification code to reset your password.";
-                          // showAlertDialog(context, title, message);
                         },
-                        child: const Text(
+                        child: Text(
                           "Forgot password?",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 13,
-                              decoration: TextDecoration.underline,
-                              letterSpacing: 0.5),
+                          style: Theme.of(context).textTheme.caption,
                         ),
                       ),
                     ],

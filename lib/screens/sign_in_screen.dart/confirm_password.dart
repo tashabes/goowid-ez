@@ -94,12 +94,11 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                         controller: _userNameController,
                         enableSuggestions: false,
                         autocorrect: false,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black12)),
                           hintText: "Username",
-                          hintStyle:
-                              TextStyle(color: Colors.black54, fontSize: 15),
+                          hintStyle: Theme.of(context).textTheme.labelMedium,
                         ),
                         onSaved: (val) {
                           _username = val!;
@@ -121,8 +120,7 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black12)),
                             hintText: "Password",
-                            hintStyle: const TextStyle(
-                                color: Colors.black54, fontSize: 15),
+                            hintStyle: Theme.of(context).textTheme.labelMedium,
                             suffixIcon: IconButton(
                                 onPressed: () => setState(() {
                                       _obscureText = !_obscureText;
@@ -309,13 +307,11 @@ class _ConfirmNewPasswordState extends State<ConfirmNewPassword> {
                           resetPassword(_userNameController.text,
                               _passwordController.text);
                         },
-                        child: const Text("Confirm Password",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Poppins',
-                                fontSize: 16,
-                                letterSpacing: 1)),
+                        child: Text(
+                          "Confirm Password",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.button,
+                        ),
                       ),
                     ),
                     Positioned(

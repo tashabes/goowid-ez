@@ -110,15 +110,9 @@ class _SettingsPageState extends State<SettingsPage>
                   border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(50),
                 ),
-                child: const Text(
-                  "Sign out",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Poppins',
-                      letterSpacing: 1),
-                ),
+                child: Text("Sign out",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.button),
               ),
             ),
           ],
@@ -132,13 +126,7 @@ class _SettingsPageState extends State<SettingsPage>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[600]),
-        ),
+        Text(title, style: Theme.of(context).textTheme.subtitle1),
 
         GestureDetector(
           onTap: () {
@@ -198,14 +186,7 @@ class _SettingsPageState extends State<SettingsPage>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
-              ),
-            ),
+            Text(title, style: Theme.of(context).textTheme.subtitle1),
             const Icon(
               Icons.arrow_forward_ios,
               color: Colors.grey,

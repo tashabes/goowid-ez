@@ -73,14 +73,9 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                             height: 180,
                             child: Image.asset('assets/images/Goowid.png'),
                           ),
-                          const Text(
+                          Text(
                             "Your data. Your choice.",
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Poppins",
-                              height: 1.2,
-                            ),
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                           const SizedBox(height: 24),
                           const Text(
@@ -104,14 +99,10 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                           border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: const Text(
+                        child: Text(
                           "GET STARTED",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Poppins',
-                              letterSpacing: 1),
+                          style: Theme.of(context).textTheme.button,
                         ),
                       ),
                     ),
@@ -140,10 +131,12 @@ class _OnbodingScreenState extends State<OnbodingScreen> {
                         );
                       },
                     ),*/
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       child: Text(
-                          "We strongly believe that your personal data is your business. When and where you share it is up to you. Through trusted guardianship, we empower you."),
+                        "We strongly believe that your personal data is your business. When and where you share it is up to you. Through trusted guardianship, we empower you.",
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
                     )
                   ],
                 ),

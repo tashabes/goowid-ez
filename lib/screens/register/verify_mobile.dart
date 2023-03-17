@@ -128,26 +128,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
               const SizedBox(
                 height: 30,
               ),
-              //otpField(),
               otpPinField(),
-              // SizedBox(
-              //   height: 30,
-              // ),
-              // RichText(
-              //   text: TextSpan(
-              //     children: [
-              //       TextSpan(
-              //           text: "Send code again in ",
-              //           style: Theme.of(context).textTheme.subtitle1),
-              //       TextSpan(
-              //           text: "00:$start ",
-              //           style: Theme.of(context).textTheme.subtitle2),
-              //       TextSpan(
-              //           text: "sec",
-              //           style: Theme.of(context).textTheme.subtitle1),
-              //     ],
-              //   ),
-              // ),
               const SizedBox(
                 height: 30,
               ),
@@ -169,11 +150,7 @@ class _VerifyMobileState extends State<VerifyMobile> {
                         if (isLoading) {
                           return;
                         }
-                        // if (_usernameController.text.isEmpty) {
-                        //   scaffoldMessenger.showSnackBar(const SnackBar(
-                        //       content: Text("Please Enter User Name")));
-                        //   return;
-                        // }
+
                         if (otp.isEmpty) {
                           scaffoldMessenger.showSnackBar(const SnackBar(
                               content: Text("Please enter your 6 digit code")));
@@ -182,13 +159,9 @@ class _VerifyMobileState extends State<VerifyMobile> {
 
                         validateOtp(otp.toString(), _email);
                       },
-                      child: const Text("Verify",
+                      child: Text("Verify",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              letterSpacing: 1)),
+                          style: Theme.of(context).textTheme.button),
                     ),
                   ),
                   Positioned(
@@ -207,30 +180,6 @@ class _VerifyMobileState extends State<VerifyMobile> {
                   )
                 ],
               ),
-              // GestureDetector(
-              //   onTap: (() {
-              //     //Navigator.pushReplacementNamed(context, confirmPassword);
-              //     validateOtp(otp.toString(), _usernameController.text);
-              //   }),
-              //   child: Container(
-              //     height: 60,
-              //     width: MediaQuery.of(context).size.width - 60,
-              //     decoration: BoxDecoration(
-              //       color: Color(0xFFF77D8E),
-              //       borderRadius: BorderRadius.circular(50),
-              //     ),
-              //     child: Center(
-              //       child: Text(
-              //         "Send",
-              //         style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 16,
-              //             fontFamily: 'Poppins',
-              //             letterSpacing: 1),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(
                 height: 15,
               ),
@@ -249,22 +198,6 @@ class _VerifyMobileState extends State<VerifyMobile> {
       ),
     );
   }
-
-  // void startTimer() {
-  //   const onsec = Duration(seconds: 1);
-  //   _timer = Timer.periodic(onsec, (timer) {
-  //     if (start == 0) {
-  //       setState(() {
-  //         timer.cancel();
-  //         wait = false;
-  //       });
-  //     } else {
-  //       setState(() {
-  //         start--;
-  //       });
-  //     }
-  //   });
-  // }
 
   Widget otpField() {
     return OTPTextField(
