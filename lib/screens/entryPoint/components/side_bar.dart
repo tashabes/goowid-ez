@@ -63,35 +63,15 @@ class _SideBarState extends State<SideBar> {
               const InfoCard(
                 name: "",
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 24, top: 32, bottom: 16),
-                    child: Text(
-                      "Hello $name 👋",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.white70),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, signIn);
-                    },
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 32, bottom: 16, right: 24),
-                      child: Lottie.asset(
-                        'assets/icons/lf20_nlqdizzy.json',
-                        animate: true,
-                        width: 50,
-                      ),
-                    ),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 24, top: 32, bottom: 16),
+                child: Text(
+                  "Hello $name 👋",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white70),
+                ),
               ),
               ...sidebarMenus
                   .map((menu) => SideMenu(
@@ -111,16 +91,6 @@ class _SideBarState extends State<SideBar> {
                         },
                       ))
                   .toList(),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 24, top: 40, bottom: 16),
-              //   child: Text(
-              //     "Other".toUpperCase(),
-              //     style: Theme.of(context)
-              //         .textTheme
-              //         .titleMedium!
-              //         .copyWith(color: Colors.white70),
-              //   ),
-              // ),
               ...sidebarMenus2
                   .map((menu) => SideMenu(
                         menu: menu,
