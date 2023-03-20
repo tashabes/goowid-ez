@@ -52,13 +52,13 @@ List<Menu> sidebarMenus2 = [
         artboard: "SETTINGS",
         stateMachineName: "SETTINGS_Interactivity"),
   ),
-  // Menu(
-  //   title: "Logout",
-  //   rive: RiveModel(
-  //       src: "assets/RiveAssets/can_go_next.riv",
-  //       artboard: "arrow-right-solid.svg",
-  //       stateMachineName: "State Machine 1"),
-  // ),
+  Menu(
+    title: "Logout",
+    rive: RiveModel(
+        src: "assets/RiveAssets/icons.riv",
+        artboard: "REFRESH/RELOAD",
+        stateMachineName: "RELOAD_Interactivity"),
+  ),
 ];
 
 List<Menu> bottomNavItems = [

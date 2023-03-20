@@ -68,14 +68,14 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Services.showModalSheet(context: context);
-            },
-            icon: const Icon(Icons.more_vert_rounded, color: brightCoral),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () async {
+        //       await Services.showModalSheet(context: context);
+        //     },
+        //     icon: const Icon(Icons.more_vert_rounded, color: brightCoral),
+        //   ),
+        // ],
       ),
       body: SafeArea(
         child: Column(
